@@ -7,7 +7,7 @@ const orderSchema = new Schema(
     //   type: Schema.Types.ObjectId,
     //   ref: 'Pizza'
     // }],
-    items: [{ name: 'pizza' }],
+    items: [{ name: 'pizza', price: 1599, quantity: 1, options: {} }],
     total: {
       type: Number,
       default: 0,
