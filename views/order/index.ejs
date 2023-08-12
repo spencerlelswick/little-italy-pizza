@@ -1,0 +1,19 @@
+<%- include('../partials/header') %>
+  <h1>
+    <%= title %>
+  </h1>
+  <p>
+    <%= title %>
+  </p>
+
+  <%if (order){%>
+    <p>current total: <%- order.total %></p>
+    <% order.items.pizzas.forEach(p=>{ %>
+      <p>pizza: <%- p %></p>
+    <%} )}%>
+  <%- include('../partials/footer') %>
+
+<button>Create and Add Custom Pizza</button>
+</br>
+</br>
+<button>Add Default Pizza</button>
