@@ -3,17 +3,25 @@ const Schema = mongoose.Schema;
 
 const orderSchema = new Schema(
   {
-    // items: [{
-    //   type: Schema.Types.ObjectId,
-    //   ref: 'Pizza'
-    // }],
-    items: [{ name: 'pizza', price: 1599, quantity: 1, options: {} }],
+    items: {
+      pizzas: [
+        // {
+        //   type: Schema.Types.ObjectId,
+        //   ref: 'Pizza'
+        // }
+      ],
+      sides: []
+    },
     total: {
       type: Number,
       default: 0,
       min: 0,
     },
-    status: { type: String, enum: ["received", "confirmed", "prepare", "bake", "deliver", "complete"] },
+    status: {
+      type: String,
+      default: 'received',
+      enum: ["received", "confirmed", "prepare", "bake", "deliver", "complete"]
+    },
   },
   {
     timestamps: true,
