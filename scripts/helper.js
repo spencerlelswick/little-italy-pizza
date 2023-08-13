@@ -42,10 +42,10 @@ function pricePizza(pizza){
 function totalOrder(order){
     let total = 0
     order.items.pizzas.forEach(pizza => {
-        total += pizza.price
+        total += pizza.price*pizza.quantity
     });
     order.items.sides.forEach(side => {
-        total += side.price
+        total += side.price*pizza.quantity
     });
     return total
 }
