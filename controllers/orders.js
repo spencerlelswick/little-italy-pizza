@@ -31,20 +31,18 @@ async function createBuild(req, res, next) {
     const newPizza = {...req.body}
     newPizza.id = uuidv4()
     newPizza.name = Helper.namePizza(newPizza)
-    newPizza.price = Helper.calcPrice(newPizza)
+    newPizza.price = Helper.pricePizza(newPizza)
     console.log(newPizza)
     const orderId = req.cookies.orderId
     const currOrder = await Order.findById(orderId)
     const updateOrder = { ...currOrder._doc }
     const newPizzas = [...updateOrder.items.pizzas, newPizza]
     updateOrder.items.pizzas = newPizzas
-
+    const newTotal = Helper.totalOrder(currOrder)
     await Order.findOneAndUpdate(
         { _id: currOrder._id },
-        { $set: { items: { pizzas: newPizzas } } }
+        { $set: { items: { pizzas: newPizzas }, total : newTotal } }
     );
-    const testOrder = await Order.findById(orderId)
-    console.log(testOrder)
     res.redirect('/order')
 }
 

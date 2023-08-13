@@ -19,7 +19,7 @@ function namePizza(pizza){
     return name
 }
 
-function calcPrice(pizza){
+function pricePizza(pizza){
     let price = 10
     let toppingCost = 1
     if (pizza.meats){
@@ -39,8 +39,19 @@ function calcPrice(pizza){
     return price
 }
 
+function totalOrder(order){
+    let total = 0
+    order.items.pizzas.forEach(pizza => {
+        total += pizza.price
+    });
+    order.items.sides.forEach(side => {
+        total += side.price
+    });
+    return total
+}
 
 module.exports = {
     namePizza,
-    calcPrice,
+    pricePizza,
+    totalOrder,
 }

@@ -1,12 +1,12 @@
 <%- include('../partials/header') %>
 
 <%if (order){%>
-    <p>current total: <%- order.total %></p>
+    <h4>current total: <%- order.total %>$</h4>
     <hr/>
 
     <% order.items.pizzas.forEach(pizza=>{ %>
-        <p> ITEM: <%- pizza.name %> </p>
-        <p> PRICE /pc: <%- pizza.price %>$</p>
+        <h6> ITEM: <%- pizza.name %> </h6>
+        <h6> PRICE /pc: <%- pizza.price %>$</h6>
         <form method="GET" action="">
             <label>Quantity: </label>
             <input type="hidden" name="id" value=<%- pizza.id %> >
