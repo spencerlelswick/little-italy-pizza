@@ -9,11 +9,15 @@
   <%if (order){%>
     <p>current total: <%- order.total %></p>
     <% order.items.pizzas.forEach(p=>{ %>
-      <p>pizza: <%- p %></p>
-    <%} )}%>
-  <%- include('../partials/footer') %>
+      <%- console.log('trying to look at order') %>
 
-<button>Create and Add Custom Pizza</button>
-</br>
-</br>
-<button>Add Default Pizza</button>
+        <p>pizza: <%- p.size %></p>
+        <%}) %>
+          <%}%>
+
+            <a href=""></a>
+            </br>
+            </br>
+            <a href="/order/builder">Add & Customize</a>
+
+            <%- include('../partials/footer') %>
