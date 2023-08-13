@@ -1,33 +1,40 @@
-
+const builderForm = document.getElementById('form-builder')
 let zIndex = -100
 const builder = document.getElementById('builder')
 builder.style = `position: absolute`
-
-console.log(builder)
-
-// build base crust
 const base = document.createElement('img')
-base.style = `z-index:${zIndex};width: 500px; position: absolute;`
-base.src = '/crust/crust.png'
+base.style = `z-index:${zIndex};width: 500px; position: inherit;`
+base.src = '/crust/regular.png'
 
 document.getElementById('builder').appendChild(base);
-const builderForm = document.getElementById('form-builder')
 
 builderForm.addEventListener('click', (e => {
   // console.log(e.target)
-  const topping = e.target.value
-  const addTopping = e.target.checked
+  const ingredient = e.target.value
+  const addIngredient = e.target.checked
+  console.log(ingredient)
+  if (e.target.type === 'radio' && e.target.name === 'crust') {
+    console.log(e.target.type)
+
+    changeCrust(ingredient)
+  }
+
   if (e.target.type === 'checkbox') {
-    changeTopping(topping.replace(/\s/g, ''), addTopping)
+    changeTopping(ingredient.replace(/\s/g, ''), addIngredient)
   }
 }))
 
+function changeCrust(ingredient) {
+  document.getElementById('builder').removeChild(base);
+  base.src = `/crust/${ingredient.toLowerCase()}.png`
+  document.getElementById('builder').appendChild(base);
+}
+
 function changeTopping(topping, addTopping) {
   if (addTopping) {
-    console.log(`adding ${topping} to pizza ${addTopping}`)
     const newTopping = document.createElement('img')
     zIndex += 1
-    newTopping.style = `z-index:${zIndex}; width: 500px; right: -500px; bottom: -300px; position: absolute`
+    newTopping.style = `position: absolute;z-index:${zIndex}; width: 500px;`
     newTopping.src = `/idle-toppings/${topping.toLowerCase()}.png`
     newTopping.classList.add(`${topping}`)
     document.getElementById('builder').appendChild(newTopping);
