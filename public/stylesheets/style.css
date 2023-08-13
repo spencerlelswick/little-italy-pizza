@@ -11,14 +11,18 @@ a {
   color: #00B7FF;
 }
 
+.navbar{
+  background-color: white;
+  border: 5px solid red;
+}
+
 .nav-link{
-    font-size: 25px;
+    font-size: 30px;
     color: red;
     font-weight: bold;
-    
 }
 
 .nav-link:hover{
     color: red;
-    text-shadow: 1px 1px 1px black;
+    text-shadow: .5px .5px .5px black;
 }
