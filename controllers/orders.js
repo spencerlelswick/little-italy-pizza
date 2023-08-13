@@ -93,14 +93,18 @@ async function editQuantity(req,res){
         index = newItems.pizzas.findIndex(pizza => pizza.id === itemId)
         if (index !== -1){
             let oldQty = newItems.pizzas[index].quantity
-            if (!(parseInt(oldQty) <= 1 && newQty === -1)){
+            if (parseInt(oldQty) <= 0){
+                newItems.pizzas[index].quantity = 1
+            }else if (!(parseInt(oldQty) <= 1 && newQty === -1)){
                 newItems.pizzas[index].quantity = parseInt(oldQty) + newQty
             }
         }
     } else if(newItems.sides){
         index = newItems.sides.findIndex(side => side.id === itemId)
         let oldQty = newItems.sides[index].quantity
-        if (!(parseInt(oldQty) <= 1 && newQty === -1)){
+        if (parseInt(oldQty) <= 0){
+            newItems.sides[index].quantity = 1
+        }else if (!(parseInt(oldQty) <= 1 && newQty === -1)){
             newItems.sides[index].quantity = parseInt(oldQty) + newQty
         }
     }
