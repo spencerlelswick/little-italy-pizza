@@ -1,0 +1,16 @@
+<%- include('../partials/header') %>
+
+<%if (order){%>
+    <p>current total: <%- order.total %></p>
+    <hr/>
+
+    <% order.items.pizzas.forEach(pizza=>{ %>
+        <p> <%- pizza.name %> </p>
+        <label>Quantity: </label> <input type="Number" min=1 max=99 step=1 value=1>
+        <button>Edit Item Placeholder</button>
+        <button>Remove Placeholder</button>
+        <hr/>
+    <%})%>
+ <%} %>   
+
+<%- include('../partials/footer') %>
