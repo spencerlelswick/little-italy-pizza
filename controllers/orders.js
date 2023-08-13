@@ -1,5 +1,6 @@
 const Order = require('../models/order')
 const Helper = require('../scripts/helper')
+const { v4: uuidv4 } = require('uuid');
 
 module.exports = {
     index,
@@ -28,7 +29,10 @@ async function newBuild(req, res, next) {
 
 async function createBuild(req, res, next) {
     const newPizza = {...req.body}
+    newPizza.id = uuidv4()
     newPizza.name = Helper.namePizza(newPizza)
+    newPizza.price = Helper.calcPrice(newPizza)
+    console.log(newPizza)
     const orderId = req.cookies.orderId
     const currOrder = await Order.findById(orderId)
     const updateOrder = { ...currOrder._doc }

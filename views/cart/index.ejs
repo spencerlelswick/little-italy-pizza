@@ -5,10 +5,26 @@
     <hr/>
 
     <% order.items.pizzas.forEach(pizza=>{ %>
-        <p> <%- pizza.name %> </p>
-        <label>Quantity: </label> <input type="Number" min=1 max=99 step=1 value=1>
-        <button>Edit Item Placeholder</button>
-        <button>Remove Placeholder</button>
+        <p> ITEM: <%- pizza.name %> </p>
+        <p> PRICE /pc: <%- pizza.price %>$</p>
+        <form method="GET" action="">
+            <label>Quantity: </label>
+            <input type="hidden" name="id" value=<%- pizza.id %> >
+            <input type="Number" min=1 max=99 step=1 value=1>
+            <input type="submit" value="Edit Quantity">
+        </form>
+
+        <form method="POST" action="">
+            <input type="hidden" name="id" value=<%- pizza.id %> >
+            <input type="submit" value="Edit Pizza">
+        </form>
+
+        <form method="POST" action="/order">
+            <input type="hidden" name="id" value=<%- pizza.id %> >
+            <input type="submit" value="Remove Pizza">
+        </form>
+
+
         <hr/>
     <%})%>
  <%} %>   

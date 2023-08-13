@@ -19,6 +19,28 @@ function namePizza(pizza){
     return name
 }
 
+function calcPrice(pizza){
+    let price = 10
+    let toppingCost = 1
+    if (pizza.meats){
+        if(pizza.meats.constructor === String){
+        price += toppingCost
+        }else {
+        price += toppingCost * pizza.meats.length
+        }
+    }
+    if (pizza.veggies){
+        if(pizza.veggies.constructor === String){
+        price += toppingCost
+        }else {
+        price += toppingCost * pizza.veggies.length
+        }
+    }
+    return price
+}
+
+
 module.exports = {
     namePizza,
+    calcPrice,
 }
