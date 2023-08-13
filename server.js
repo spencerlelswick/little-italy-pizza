@@ -3,6 +3,7 @@ const express = require('express');
 const path = require('path');
 const cookieParser = require('cookie-parser');
 const logger = require('morgan');
+const methodOverride = require('method-override');
 
 require('dotenv').config();
 require('./config/database');
@@ -25,6 +26,7 @@ app.use("/css", express.static(path.join(__dirname, "node_modules/bootstrap/dist
 app.use("/js", express.static(path.join(__dirname, "node_modules/bootstrap/dist/js")))
 app.use("/js", express.static(path.join(__dirname, "node_modules/jquery/dist")))
 app.use("/", express.static("./node_modules/bootstrap/dist/"));
+app.use(methodOverride('_method'));
 app.use('/', indexRouter);
 app.use('/order', ordersRouter);
 

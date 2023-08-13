@@ -7,6 +7,7 @@ module.exports = {
     newBuild,
     createBuild,
     show,
+    deleteItem,
 }
 
 
@@ -50,4 +51,15 @@ async function show(req,res){
     const orderId = req.cookies.orderId
     const order = await Order.findById(orderId)
     res.render('cart/index', { title: "Cart", order: order })
+}
+
+async function deleteItem(req,res){
+    
+    // const orderId = req.cookies.orderId
+    // const itemId = req.body.id
+    // const order = await Order.findById(orderId)
+    // newItems = {...order.items}
+    // console.log(newItems)
+
+    // res.redirect('/order/cart/index')
 }

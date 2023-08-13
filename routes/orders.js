@@ -6,5 +6,6 @@ router.get('/builder', orderCtrl.newBuild);
 router.post('/builder', orderCtrl.createBuild);
 router.get('/cart', orderCtrl.show)
 router.get('/', orderCtrl.index);
+router.delete('/cart', orderCtrl.deleteItem);
 
 module.exports = router;

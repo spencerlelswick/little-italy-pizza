@@ -11,12 +11,12 @@
 
         <form method="POST" action="">
             <input type="hidden" name="id" value=<%- pizza.id %> >
-            <input type="submit" value="Edit Pizza">
+            <input type="submit" value="Edit Items">
         </form>
 
-        <form method="POST" action="/order">
+        <form method="POST" action="/order/cart?_method=DELETE">
             <input type="hidden" name="id" value=<%- pizza.id %> >
-            <input type="submit" value="Remove Pizza">
+            <input type="submit" value="Remove Items">
         </form>
 
 
