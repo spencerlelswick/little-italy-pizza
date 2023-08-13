@@ -2,6 +2,7 @@ const Order = require('../models/order')
 
 module.exports = {
     index,
+    newBuild
 }
 
 async function index(req, res) {
@@ -13,8 +14,8 @@ async function index(req, res) {
     }
 
     if (localStorage.getItem("orderID") === null) {
-        currOrder = await Order.create({}) 
-        localStorage.setItem("orderID",`${currOrder._id}`)
+        currOrder = await Order.create({})
+        localStorage.setItem("orderID", `${currOrder._id}`)
         console.log(currOrder)
     } else {
         currOrder = await Order.findById(localStorage.getItem("orderID"))
@@ -22,4 +23,8 @@ async function index(req, res) {
     }
 
     res.render('order/index', { title: "Order", order: currOrder })
+}
+
+function newBuild(req, res, next) {
+    res.render('builder/new', { title: "Deal Builder", })
 }
