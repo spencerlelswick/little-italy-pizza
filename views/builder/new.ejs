@@ -1,4 +1,170 @@
 <%- include('../partials/header') %>
 
-  add new pizza
+  <form action="/order/builder/" method="post">
+    <fieldset>
+      <legend>Size:</legend>
+        <input type="radio" id="large" name="size" value="Large" checked>
+        <label for="large">Large</label><br>
+        <input type="radio" id="medium" name="size" value="Medium">
+        <label for="medium">Medium</label><br>
+        <input type="radio" id="small" name="size" value="Small">
+        <label for="small">Small</label>
+    </fieldset>
+
+    <fieldset>
+      <legend>Crust:</legend>
+        <input type="radio" id="thin" name="crust" value="Thin">
+        <label for="thin">Thin</label><br>
+        <input type="radio" id="regular" name="crust" value="Regular" checked>
+        <label for="regular">Regular</label><br>
+        <input type="radio" id="deepdish" name="crust" value="Deepdish">
+        <label for="deepdish">Deep Dish</label>
+    </fieldset>
+
+    <fieldset>
+      <legend>Sauce:</legend>
+        <input type="radio" id="marinara" name="sauce" value="Marinara" checked>
+        <label for="marinara">Marinara</label><br>
+        <input type="radio" id="bbq" name="sauce" value="BBQ">
+        <label for="bbq">BBQ</label><br>
+        <input type="radio" id="buffalo" name="sauce" value="Buffalo">
+        <label for="buffalo">Buffalo</label>
+    </fieldset>
+
+    <fieldset>
+      <legend>Cut:</legend>
+        <input type="radio" id="normal" name="cut" value="Normal" checked>
+        <label for="normal">Normal</label><br>
+        <input type="radio" id="square" name="cut" value="Square">
+        <label for="square">Square</label>
+    </fieldset>
+    <fieldset>
+      <legend>Cheese:</legend>
+        <input type="radio" id="normal" name="cheese" value="Normal" checked>
+        <label for="normal">Normal</label><br>
+        <input type="radio" id="light" name="cheese" value="Light">
+        <label for="light">Light</label><br>
+        <input type="radio" id="extra" name="cheese" value="Extra">
+        <label for="extra">Extra</label>
+    </fieldset>
+
+    <fieldset>
+      <legend>Meats:</legend>
+      <div>
+        <input type="checkbox" id="scales" name="scales" />
+        <label for="scales">Anchovies</label>
+      </div>
+
+      <div>
+        <input type="checkbox" id="scales" name="scales" />
+        <label for="scales">Sausage</label>
+      </div>
+
+      <div>
+        <input type="checkbox" id="scales" name="scales" />
+        <label for="scales">Spicy Italian Sausage</label>
+      </div>
+
+
+      <div>
+        <input type="checkbox" id="scales" name="scales" />
+        <label for="scales">Bacon</label>
+      </div>
+
+      <div>
+        <input type="checkbox" id="scales" name="scales" />
+        <label for="scales">Pepperoni</label>
+      </div>
+
+      <div>
+        <input type="checkbox" id="scales" name="scales" />
+        <label for="scales">Grilled Chicken</label>
+      </div>
+
+
+      <div>
+        <input type="checkbox" id="scales" name="scales" />
+        <label for="scales">Salami</label>
+      </div>
+
+      <div>
+        <input type="checkbox" id="scales" name="scales" />
+        <label for="scales">Philly Steak</label>
+      </div>
+
+      <div>
+        <input type="checkbox" id="scales" name="scales" />
+        <label for="scales">Canadian Bacon</label>
+      </div>
+
+      <div>
+        <input type="checkbox" id="scales" name="scales" />
+        <label for="scales">Beef</label>
+      </div>
+
+      <div>
+        <input type="checkbox" id="scales" name="scales" />
+        <label for="scales">Meatball</label>
+      </div>
+    </fieldset>
+
+    <fieldset>
+      <legend>Veggies:</legend>
+      <div>
+        <input type="checkbox" id="scales" name="scales" />
+        <label for="scales">Roma Tomatoes</label>
+      </div>
+
+      <div>
+        <input type="checkbox" id="scales" name="scales" />
+        <label for="scales">Green Olive</label>
+      </div>
+
+      <div>
+        <input type="checkbox" id="scales" name="scales" />
+        <label for="scales">Onion</label>
+      </div>
+
+
+      <div>
+        <input type="checkbox" id="scales" name="scales" />
+        <label for="scales">Black olive</label>
+      </div>
+
+      <div>
+        <input type="checkbox" id="scales" name="scales" />
+        <label for="scales">Green Pepper</label>
+      </div>
+
+      <div>
+        <input type="checkbox" id="scales" name="scales" />
+        <label for="scales">Pineapple</label>
+      </div>
+
+
+      <div>
+        <input type="checkbox" id="scales" name="scales" />
+        <label for="scales">Banana Peppers</label>
+      </div>
+
+      <div>
+        <input type="checkbox" id="scales" name="scales" />
+        <label for="scales">Spinach</label>
+      </div>
+
+      <div>
+        <input type="checkbox" id="scales" name="scales" />
+        <label for="scales">Jalapeno Peppers</label>
+      </div>
+
+      <div>
+        <input type="checkbox" id="scales" name="scales" />
+        <label for="scales">Mushroom</label>
+      </div>
+
+    </fieldset>
+
+    <button type="submit">Add to Deal</button>
+    <a href="/order">Cancel</a>
+  </form>
   <%- include('../partials/footer') %>
