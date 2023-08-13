@@ -2,8 +2,8 @@ const express = require('express');
 const router = express.Router();
 
 /* GET home page. */
-router.get('/', function(req, res, next) {
-  res.render('index', { title: 'Little Italy - Pizza Delivery' });
+router.get('/', function (req, res, next) {
+  res.render('index', { title: 'Little Italy - Pizza Delivery', order: currOrder });
 });
 
 module.exports = router;
