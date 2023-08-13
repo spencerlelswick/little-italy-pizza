@@ -32,9 +32,6 @@ function newBuild(req, res, next) {
 
 async function createBuild(req, res, next) {
     const newPizza = req.body;
-
-    console.log(`NEW PIZZA: ${newPizza.size}`)
-
     let currOrder = {}
     if (typeof localStorage === "undefined" || localStorage === null) {
         res.redirect('/')
@@ -49,6 +46,5 @@ async function createBuild(req, res, next) {
         );
         currOrder = await Order.findById(orderId)
     }
-
-    res.render('order/index', { title: "Order", order: currOrder })
+    res.redirect('/order')
 }
