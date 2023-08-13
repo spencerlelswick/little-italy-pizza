@@ -6,11 +6,17 @@
 
     <% order.items.pizzas.forEach(pizza=>{ %>
         <h6> ITEM: <%- pizza.name %> </h6>
-        <h6> QUANTITY: <%- pizza.quantity %></h6>
+
+        <form method="POST" action="/order/cart/<%- pizza.id %>" >
+            <h6> QUANTITY: <%- pizza.quantity %></h6>
+            <input type="submit" name="increase" value="+1">
+            <input type="submit" name="decrease" value="-1">
+        </form>
+        
         <h6> PRICE: $<%- pizza.price*pizza.quantity %></h6>
 
         <form method="POST" action="">
-            <input type="hidden" name="id" value=<%- pizza.id %> >
+            <input type="hidden" name="id" value="<%- pizza.id %>" >
             <input type="submit" value="Edit Items">
         </form>
 
