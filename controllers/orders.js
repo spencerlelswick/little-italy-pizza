@@ -1,4 +1,5 @@
 const Order = require('../models/order')
+const Helper = require('../scripts/helper')
 
 module.exports = {
     index,
@@ -27,6 +28,7 @@ async function newBuild(req, res, next) {
 
 async function createBuild(req, res, next) {
     const newPizza = {...req.body}
+    newPizza.name = Helper.namePizza(newPizza)
     const orderId = req.cookies.orderId
     const currOrder = await Order.findById(orderId)
     const updateOrder = { ...currOrder._doc }
@@ -45,5 +47,6 @@ async function createBuild(req, res, next) {
 async function show(req,res){
     const orderId = req.cookies.orderId
     const order = await Order.findById(orderId)
+    console.log(order.items.pizzas)
     res.render('cart/index', { title: "Cart", order: order })
 }

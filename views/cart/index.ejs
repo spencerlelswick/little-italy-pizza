@@ -2,12 +2,17 @@
 
 <%if (order){%>
     <p>current total: <%- order.total %></p>
-    <% order.items.pizzas.forEach(p=>{ %>
-      <%- console.log('trying to look at order') %>
-
-        <p>pizza: <%- p.size %></p>
-        <%}) %>
-          <%}%>
+    <hr/>
+    <% order.items.pizzas.forEach(pizza=>{ %>
+        
+        <% for (const property in pizza) { %>
+            
+            <p> <%- property %>: <%- pizza[property] %> </p>
+            
+        <%} %>
+        <hr/>
+    <%})%>
+ <%} %>   
 
 
 
