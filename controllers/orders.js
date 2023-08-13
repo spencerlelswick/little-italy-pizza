@@ -39,7 +39,7 @@ async function createBuild(req, res, next) {
     const updateOrder = { ...currOrder._doc }
     const newPizzas = [...updateOrder.items.pizzas, newPizza]
     updateOrder.items.pizzas = newPizzas
-    const newTotal = Helper.totalOrder(currOrder)
+    const newTotal = Helper.totalOrder(currOrder.items)
     await Order.findOneAndUpdate(
         { _id: currOrder._id },
         { $set: { items: { pizzas: newPizzas }, total : newTotal } }
@@ -54,12 +54,25 @@ async function show(req,res){
 }
 
 async function deleteItem(req,res){
-    
-    // const orderId = req.cookies.orderId
-    // const itemId = req.body.id
-    // const order = await Order.findById(orderId)
-    // newItems = {...order.items}
-    // console.log(newItems)
-
-    // res.redirect('/order/cart/index')
+  
+    const orderId = req.cookies.orderId
+    const itemId = req.params.id
+    const order = await Order.findById(orderId)
+    newItems = {...order.items}
+    let index = 0
+    if (newItems.pizzas){
+        index = newItems.pizzas.findIndex(pizza => pizza.id == itemId)
+        if (index !== -1){
+            newItems.pizzas.splice(index,1)
+        }else if(newItems.sides){
+            index = newItems.sides.findIndex(side => side.id === itemId)
+            newItems.sides.splice(index,1)
+        }
+    }
+    let newTotal = Helper.totalOrder(newItems)
+    await Order.findOneAndUpdate(
+        { _id: orderId },
+        { $set: { items: newItems, total: newTotal } }
+    );
+    res.redirect('/order/cart')
 }

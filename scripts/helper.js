@@ -5,13 +5,13 @@ function namePizza(pizza){
         name += `, The Works`
     }else if (pizza.meats && pizza.meats.constructor === String){
         name += `, ${pizza.meats}`
-    } else if (pizza.meats && pizza.meats.constructor !== String){
+    }else if (pizza.meats && pizza.meats.constructor !== String){
         name += `, Meat Lover`
-    } else if (pizza.veggies && pizza.veggies.constructor === String){
+    }else if (pizza.veggies && pizza.veggies.constructor === String){
         name += `, ${pizza.veggies}`
-    } else if (pizza.meats && pizza.meats.constructor !== String){
+    }else if (pizza.meats && pizza.meats.constructor !== String){
         name += `, Veggie Lover`
-    } else {
+    }else {
         name += `, ${pizza.cheese} Cheese`
     }
     name += ` Pizza`
@@ -39,12 +39,12 @@ function pricePizza(pizza){
     return price
 }
 
-function totalOrder(order){
+function totalOrder(items){
     let total = 0
-    order.items.pizzas.forEach(pizza => {
+    items.pizzas.forEach(pizza => {
         total += pizza.price*pizza.quantity
     });
-    order.items.sides.forEach(side => {
+    items.sides.forEach(side => {
         total += side.price*pizza.quantity
     });
     return total
