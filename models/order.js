@@ -4,12 +4,7 @@ const Schema = mongoose.Schema;
 const orderSchema = new Schema(
   {
     items: {
-      pizzas: [
-        // {
-        //   type: Schema.Types.ObjectId,
-        //   ref: 'Pizza'
-        // }
-      ],
+      pizzas:[],
       sides: []
     },
     total: {
