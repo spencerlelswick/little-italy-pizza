@@ -2,7 +2,8 @@ const Order = require('../models/order')
 
 module.exports = {
     index,
-    newBuild
+    newBuild,
+    createBuild
 }
 
 async function index(req, res) {
@@ -27,4 +28,8 @@ async function index(req, res) {
 
 function newBuild(req, res, next) {
     res.render('builder/new', { title: "Deal Builder", })
+}
+
+function createBuild(req, res, next) {
+    console.log(req.body)
 }
