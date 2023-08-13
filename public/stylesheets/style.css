@@ -10,3 +10,15 @@ body {
 a {
   color: #00B7FF;
 }
+
+.nav-link{
+    font-size: 25px;
+    color: red;
+    font-weight: bold;
+    
+}
+
+.nav-link:hover{
+    color: red;
+    text-shadow: 1px 1px 1px black;
+}
