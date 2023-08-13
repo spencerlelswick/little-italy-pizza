@@ -30,6 +30,25 @@ function newBuild(req, res, next) {
     res.render('builder/new', { title: "Deal Builder", })
 }
 
-function createBuild(req, res, next) {
-    console.log(req.body)
+async function createBuild(req, res, next) {
+    const newPizza = req.body;
+
+    console.log(`NEW PIZZA: ${newPizza.size}`)
+
+    let currOrder = {}
+    if (typeof localStorage === "undefined" || localStorage === null) {
+        res.redirect('/')
+    } else {
+        const orderId = localStorage.getItem("orderID")
+        currOrder = await Order.findById(orderId)
+        const updateOrder = { ...currOrder._doc }
+        const newPizzas = [...updateOrder.items.pizzas, newPizza]
+        await Order.updateOne(
+            { _id: currOrder._id },
+            { items: { pizzas: newPizzas } }
+        );
+        currOrder = await Order.findById(orderId)
+    }
+
+    res.render('order/index', { title: "Order", order: currOrder })
 }
