@@ -47,6 +47,5 @@ async function createBuild(req, res, next) {
 async function show(req,res){
     const orderId = req.cookies.orderId
     const order = await Order.findById(orderId)
-    console.log(order.items.pizzas)
     res.render('cart/index', { title: "Cart", order: order })
 }

@@ -3,19 +3,14 @@
 <%if (order){%>
     <p>current total: <%- order.total %></p>
     <hr/>
+
     <% order.items.pizzas.forEach(pizza=>{ %>
-        
-        <% for (const property in pizza) { %>
-            
-            <p> <%- property %>: <%- pizza[property] %> </p>
-            
-        <%} %>
+        <p> <%- pizza.name %> </p>
+        <label>Quantity: </label> <input type="Number" min=1 max=99 step=1 value=1>
+        <button>Edit Item Placeholder</button>
+        <button>Remove Placeholder</button>
         <hr/>
     <%})%>
  <%} %>   
-
-
-
-
 
 <%- include('../partials/footer') %>
