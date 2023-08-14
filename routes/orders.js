@@ -8,4 +8,8 @@ router.get('/cart', orderCtrl.show)
 router.get('/', orderCtrl.index);
 router.delete('/cart/:id', orderCtrl.deleteItem);
 router.post('/cart/:id', orderCtrl.editQuantity);
+
+router.post('/builder/edit/:id', orderCtrl.editBuild);
+router.post('/builder/:id', orderCtrl.saveBuild);
+
 module.exports = router;

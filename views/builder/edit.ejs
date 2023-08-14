@@ -3,7 +3,7 @@
   <%= title %>
 </h1>
 
-  <form action="/order/builder/" method="post">
+  <form action="/order/builder/<%- pizza.id %>" method="POST">
     <fieldset>
       <legend>Size:</legend>
       <input type="radio" id="large" name="size" value="Large" checked>
@@ -171,8 +171,8 @@
     <input type="Number" name="quantity" min="1" max="99" step="1" value="1">
     </label>
 
-    <button type="submit">Add to Deal</button>
-    <a href="/order">Cancel</a>
+    <button type="submit">Save</button>
+    <a href="/order/cart">Cancel</a>
   </form>
 
   <%- include('../partials/footer') %>

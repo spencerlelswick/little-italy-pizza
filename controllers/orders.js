@@ -6,6 +6,8 @@ module.exports = {
     index,
     newBuild,
     createBuild,
+    editBuild,
+    saveBuild,
     show,
     deleteItem,
     editQuantity,
@@ -47,6 +49,29 @@ async function createBuild(req, res, next) {
     res.redirect('/order')
 }
 
+async function editBuild(req,res){
+    const orderId = req.cookies.orderId
+    const order = await Order.findById(orderId)
+    newItems = {...order.items}
+    let index = 0
+    if (newItems.pizzas){ //
+        index = newItems.pizzas.findIndex(pizza => pizza.id === itemId)
+        if (index !== -1){
+            let newPizza = newItems.pizza[index]
+            res.render('builder/edit', { title: "Edit Deal", order: order, pizza: pizza })
+        }
+    }   
+
+    res.render('builder/edit', { title: "Edit Deal", order: order, pizza: pizza })
+}
+
+async function saveBuild(req,res){
+    const orderId = req.cookies.orderId
+    const order = await Order.findById(orderId)
+
+    res.render('cart/index', { title: "Cart", order: order })
+}
+
 async function show(req,res){
     const orderId = req.cookies.orderId
     const order = await Order.findById(orderId)
@@ -59,16 +84,19 @@ async function deleteItem(req,res){
     const order = await Order.findById(orderId)
     newItems = {...order.items}
     let index = 0
+
     if (newItems.pizzas){
         index = newItems.pizzas.findIndex(pizza => pizza.id === itemId)
         if (index !== -1){
             newItems.pizzas.splice(index,1)
         }
-    }else if(newItems.sides){
+    }
+
+    if(newItems.sides && (index===0 || index === -1)){
         index = newItems.sides.findIndex(side => side.id === itemId)
         newItems.sides.splice(index,1)
     }
-    
+
     let newTotal = Helper.totalOrder(newItems)
     await Order.findOneAndUpdate(
         { _id: orderId },
@@ -81,14 +109,17 @@ async function editQuantity(req,res){
     const orderId = req.cookies.orderId
     const itemId = req.params.id
     let newQty = 0
+
     if(req.body.increase){
         newQty = 1
     } else {
         newQty = -1
     }
+
     const order = await Order.findById(orderId)
     newItems = {...order.items}
     let index = 0
+
     if (newItems.pizzas){
         index = newItems.pizzas.findIndex(pizza => pizza.id === itemId)
         if (index !== -1){
@@ -99,7 +130,9 @@ async function editQuantity(req,res){
                 newItems.pizzas[index].quantity = parseInt(oldQty) + newQty
             }
         }
-    } else if(newItems.sides){
+    }
+
+    if(newItems.sides && (index===0 || index === -1)){
         index = newItems.sides.findIndex(side => side.id === itemId)
         let oldQty = newItems.sides[index].quantity
         if (parseInt(oldQty) <= 0){
@@ -108,6 +141,7 @@ async function editQuantity(req,res){
             newItems.sides[index].quantity = parseInt(oldQty) + newQty
         }
     }
+
     let newTotal = Helper.totalOrder(newItems)
     await Order.findOneAndUpdate(
         { _id: orderId },
