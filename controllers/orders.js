@@ -11,7 +11,8 @@ module.exports = {
     show,
     deleteItem,
     editQuantity,
-    checkout
+    checkout,
+    goToStatus,
 }
 
 async function index(req, res) {
@@ -175,4 +176,10 @@ async function checkout(req, res, next) {
     const order = await Order.findById(req.cookies.orderId)
     // }
     res.render('checkout/index', { title: "checkout", order: order })
+}
+
+async function goToStatus(req, res) {
+    const orderId = req.cookies.orderId
+    const order = await Order.findById(orderId)
+    res.render('order/status', {title: "Order Status", order: order})
 }
