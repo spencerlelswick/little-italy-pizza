@@ -6,18 +6,7 @@
     <%= title %>
   </p>
 
-  <%if (order){%>
-    <p>current total: <%- order.total %></p>
-    <% order.items.pizzas.forEach(p=>{ %>
-      <%- console.log('trying to look at order') %>
+  </br>
+  <a href="/order/builder">Add & Customize</a>
 
-        <p>pizza: <%- p.size %></p>
-        <%}) %>
-          <%}%>
-
-            <a href=""></a>
-            </br>
-            </br>
-            <a href="/order/builder">Add & Customize</a>
-
-            <%- include('../partials/footer') %>
+ <%- include('../partials/footer') %>
