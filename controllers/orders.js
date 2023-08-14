@@ -36,7 +36,6 @@ async function createBuild(req, res, next) {
     newPizza.id = uuidv4()
     newPizza.name = Helper.namePizza(newPizza)
     newPizza.price = Helper.pricePizza(newPizza)
-    console.log(newPizza)
     const orderId = req.cookies.orderId
     const currOrder = await Order.findById(orderId)
     const updateOrder = { ...currOrder._doc }
@@ -55,22 +54,37 @@ async function editBuild(req, res) {
     const itemId = req.params.id
     const order = await Order.findById(orderId)
     newItems = { ...order.items }
-    let index = 0
-    if (newItems.pizzas) { //
+    let index = -1
+    if (newItems.pizzas.length) { 
         index = newItems.pizzas.findIndex(pizza => pizza.id === itemId)
         if (index !== -1) {
-            let newPizza = newItems.pizza[index]
-            res.render('builder/edit', { title: "Edit Deal", order: order, pizza: pizza })
+            let newPizza = newItems.pizzas[index]
+            res.render('builder/edit', { title: "Edit Deal", order: order, pizza: newPizza })
         }
     }
-
-    res.render('builder/edit', { title: "Edit Deal", order: order, pizza: pizza })
+    // TODO: if(newItems.side.length)
 }
 
 async function saveBuild(req, res) {
     const orderId = req.cookies.orderId
+    const itemId = req.params.id
     const order = await Order.findById(orderId)
-
+    newItems = { ...order.items }
+    let index = -1
+    if (newItems.pizzas) {
+        index = newItems.pizzas.findIndex(pizza => pizza.id === itemId)
+    }
+    const newPizza = { ...req.body }
+    newPizza.id = newItems.pizzas[index].id
+    newPizza.quantity = newItems.pizzas[index].quantity
+    newPizza.name = Helper.namePizza(newPizza)
+    newPizza.price = Helper.pricePizza(newPizza)
+    newItems.pizzas[index] = newPizza
+    const newTotal = Helper.totalOrder(newItems)
+    await Order.findOneAndUpdate(
+        { _id: orderId },
+        { $set: { items: newItems, total : newTotal } }
+    );
     res.render('cart/index', { title: "Cart", order: order })
 }
 
