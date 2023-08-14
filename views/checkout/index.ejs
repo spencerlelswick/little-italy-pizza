@@ -122,13 +122,15 @@
       <form method="GET" action="/order/status">
         <button type="submit" class="btn btn-primary btn-lg">PLACE ORDER</button>
       </form>
+
     </div>
   </div>
 
 
   </div>
-
-
+  <form method="GET" action="/order/status/<%- order.id %>">
+    <button type="submit" class="btn btn-primary btn-sm">Order Status</button>
+  </form>
 
 
 

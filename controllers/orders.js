@@ -91,8 +91,14 @@ async function saveBuild(req, res) {
 }
 
 async function show(req, res) {
-    const orderId = req.cookies.orderId
-    const order = await Order.findById(orderId)
+    let order = {}
+    if (req.cookies.orderId === undefined) {
+        order = await Order.create({})
+        res.cookie(`orderId`, `${order._id}`);
+    } else {
+        order = await Order.findById(req.cookies.orderId)
+    }
+    console.log(order.items)
     res.render('cart/index', { title: "Cart", order: order })
 }
 
@@ -135,9 +141,9 @@ async function editQuantity(req, res) {
         if (index !== -1) {
             let oldQty = newItems.pizzas[index].quantity
             if (parseInt(oldQty) <= 0) {
-                newItems.pizzas[index].quantity = 1
+                newItems.pizzas[index].quantity = 1+""
             } else if (!(parseInt(oldQty) <= 1 && newQty === -1)) {
-                newItems.pizzas[index].quantity = parseInt(oldQty) + newQty
+                newItems.pizzas[index].quantity = parseInt(oldQty) + newQty+""
             }
         }
     }
@@ -146,9 +152,9 @@ async function editQuantity(req, res) {
         index = newItems.sides.findIndex(side => side.id === itemId)
         let oldQty = newItems.sides[index].quantity
         if (parseInt(oldQty) <= 0) {
-            newItems.sides[index].quantity = 1
+            newItems.sides[index].quantity = 1+""
         } else if (!(parseInt(oldQty) <= 1 && newQty === -1)) {
-            newItems.sides[index].quantity = parseInt(oldQty) + newQty
+            newItems.sides[index].quantity = parseInt(oldQty) + newQty+""
         }
     }
 
@@ -172,10 +178,11 @@ async function checkout(req, res, next) {
 }
 
 async function goToStatus(req, res) {
-    const orderId = req.cookies.orderId
+    const orderId = req.params.id
     await Order.findOneAndUpdate(
         { _id: orderId},
         { $set: { status: "confirmed" } })
     const order = await Order.findById(orderId)
+    res.clearCookie('orderId')
     res.render('order/status', {title: "Order Status", order: order})
 }
