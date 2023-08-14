@@ -24,13 +24,15 @@
             </form>
             <hr />
 
-            <form method="GET" action="/order/checkout/<%- order.id %>">
-                <input type="submit" value="Checkout">
-            </form>
             <%})%>
                 <%} %>
 
-    <br /> <br /> <br />
-    <a href="/order"> --> BACK TO SHOPPING<-- </a>
+                    <br /> <br />
 
-                    <%- include('../partials/footer') %>
+                    <form method="GET" action="/order/checkout/<%- order.id %>">
+                        <input type="submit" value="Checkout">
+                    </form>
+                    <br />
+                    <a href="/order"> --> BACK TO SHOPPING<-- </a>
+
+                            <%- include('../partials/footer') %>
