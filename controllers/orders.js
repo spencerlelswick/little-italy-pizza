@@ -91,8 +91,13 @@ async function saveBuild(req, res) {
 }
 
 async function show(req, res) {
-    const orderId = req.cookies.orderId
-    const order = await Order.findById(orderId)
+    let order = {}
+    if (req.cookies.orderId === undefined) {
+        order = await Order.create({})
+        res.cookie(`orderId`, `${order._id}`);
+    } else {
+        order = await Order.findById(req.cookies.orderId)
+    }
     res.render('cart/index', { title: "Cart", order: order })
 }
 
@@ -172,10 +177,11 @@ async function checkout(req, res, next) {
 }
 
 async function goToStatus(req, res) {
-    const orderId = req.cookies.orderId
+    const orderId = req.params.id
     await Order.findOneAndUpdate(
         { _id: orderId},
         { $set: { status: "confirmed" } })
     const order = await Order.findById(orderId)
+    res.clearCookie('orderId')
     res.render('order/status', {title: "Order Status", order: order})
 }
