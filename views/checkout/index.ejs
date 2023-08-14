@@ -1,104 +1,134 @@
 <%- include('../partials/header') %>
-  <p>Pick up details:</p>
-  <p>STORE LOCATION HERE</p>
-  <p>PICK UP TIME HERE</p>
 
-  <br>
-  <form action="">
 
-    <% if(false){ %>
-      <fieldset>
-        <legend>IF PICKUP:</legend>
-        <input type="radio" id="large" name="size" value="Large" checked>
-        <label for="large">Drive-thru</label><br>
-        <input type="radio" id="large" name="size" value="Large" checked>
-        <label for="large">In-Store</label><br>
+
+
+  <div class="container card m-2">
+    <form action="">
+
+      <% if(false){ %>
         <fieldset>
-          <% } else { %>
-            <fieldset>
-              <legend>Delivery Details:</legend>
-              <input type="radio" id="large" name="size" value="Large" checked>
-              <label for="large">Drive-thru</label><br>
-              <input type="radio" id="large" name="size" value="Large" checked>
-              <label for="large">In-Store</label><br>
-              <fieldset>
-                <% } %>
+          <legend>IF PICKUP:</legend>
+          <input type="radio" id="large" name="size" value="Large" checked>
+          <label for="large">Drive-thru</label><br>
+          <input type="radio" id="large" name="size" value="Large" checked>
+          <label for="large">In-Store</label><br>
+          <fieldset>
+            <h2>Store NAME</h2>
+
+            <% const pickUpDate=new Date() %>
+              <h2>Pick up time: <%- pickUpDate.getHours() %>:<%- pickUpDate.getMinutes() + 20 %></h2>
+              <h2>Pick up date: <%- pickUpDate.getMonth()+1 %>/<%- pickUpDate.getDate() %>
+              </h2>
+              <% } else { %>
+                <fieldset>
+                  <legend>Delivery Details:</legend>
+                  <div class="mb-3">
+                    <label for="exampleFormControlInput1" class="form-label">Zipcode:</label>
+                    <input type="text" class="form-control" id="exampleFormControlInput1" placeholder="first name">
+                  </div>
+                  <div class="mb-3">
+                    <label for="exampleFormControlInput1" class="form-label">Address:</label>
+                    <input type="text" class="form-control" id="exampleFormControlInput1" placeholder="first name">
+                  </div>
+                  <div class="mb-3">
+                    <label for="exampleFormControlInput1" class="form-label">City:</label>
+                    <input type="text" class="form-control" id="exampleFormControlInput1" placeholder="first name">
+                  </div>
+                  <div class="mb-3">
+                    <label for="exampleFormControlInput1" class="form-label">State:</label>
+                    <input type="text" class="form-control" id="exampleFormControlInput1" placeholder="first name">
+                  </div>
+                  <% } %>
 
 
-                  <fieldset>
-                    <legend>Your info:</legend>
-                    <div class="mb-3">
-                      <label for="exampleFormControlInput1" class="form-label">First name</label>
-                      <input type="text" class="form-control" id="exampleFormControlInput1" placeholder="first name">
-                    </div>
-                    <div class="mb-3">
-                      <label for="exampleFormControlInput1" class="form-label">Last name</label>
-                      <input type="text" class="form-control" id="exampleFormControlInput1" placeholder="last name">
-                    </div>
-                    <div class="mb-3">
-                      <label for="exampleFormControlInput1" class="form-label">Email address</label>
-                      <input type="email" class="form-control" id="exampleFormControlInput1"
-                        placeholder="name@example.com">
-                    </div>
-                    <div class="mb-3">
-                      <label for="exampleFormControlInput1" class="form-label">Phone number</label>
-                      <input type="email" class="form-control" id="exampleFormControlInput1"
-                        placeholder="name@example.com">
-                    </div>
+                    <fieldset>
+                      <legend>Your info:</legend>
+                      <div class="mb-3">
+                        <label for="exampleFormControlInput1" class="form-label">First name</label>
+                        <input type="text" class="form-control" id="exampleFormControlInput1" placeholder="first name">
+                      </div>
+                      <div class="mb-3">
+                        <label for="exampleFormControlInput1" class="form-label">Last name</label>
+                        <input type="text" class="form-control" id="exampleFormControlInput1" placeholder="last name">
+                      </div>
+                      <div class="mb-3">
+                        <label for="exampleFormControlInput1" class="form-label">Email address</label>
+                        <input type="email" class="form-control" id="exampleFormControlInput1"
+                          placeholder="name@example.com">
+                      </div>
+                      <div class="mb-3">
+                        <label for="exampleFormControlInput1" class="form-label">Phone number</label>
+                        <input type="email" class="form-control" id="exampleFormControlInput1"
+                          placeholder="name@example.com">
+                      </div>
 
-                  </fieldset>
-                  <fieldset>
-                    <legend>Payment info:</legend>
-                    <label for="large">Cardholder Name</label>
-                    <input type="input" id="firstname" name="firstname"><br>
-                    <label for="large">Card Number</label>
-                    <input type="input" id="firstname" name="firstname"><br>
-                    <label for="large">CVV</label>
-                    <input type="input" id="firstname" name="firstname"><br>
-                    <label for="large">Expiration Date (MM/YY)</label>
-                    <input type="input" id="firstname" name="firstname">
-                    <label for="large">Zip Code</label>
-                    <input type="input" id="firstname" name="firstname">
-                  </fieldset>
+                    </fieldset>
+                    <fieldset>
+                      <legend>Payment info:</legend>
+                      <div class="mb-3">
+                        <label for="exampleFormControlInput1" class="form-label">Cardholder Name</label>
+                        <input type="text" class="form-control" id="exampleFormControlInput1" placeholder="first name">
+                      </div>
+                      <div class="mb-3">
+                        <label for="exampleFormControlInput1" class="form-label">Card Number</label>
+                        <input type="text" class="form-control" id="exampleFormControlInput1" placeholder="first name">
+                      </div>
+                      <div class="mb-3">
+                        <label for="exampleFormControlInput1" class="form-label">CVV</label>
+                        <input type="text" class="form-control" id="exampleFormControlInput1" placeholder="first name">
+                      </div>
+                      <div class="mb-3">
+                        <label for="exampleFormControlInput1" class="form-label">Expiration Date (MM/YY)</label>
+                        <input type="text" class="form-control" id="exampleFormControlInput1" placeholder="first name">
+                      </div>
+                      <div class="mb-3">
+                        <label for="exampleFormControlInput1" class="form-label">Zip Code</label>
+                        <input type="text" class="form-control" id="exampleFormControlInput1" placeholder="first name">
+                      </div>
 
-  </form>
+                    </fieldset>
 
+    </form>
 
+    <div class="container">
+      <table class="table">
+        <thead>
+
+        </thead>
+        <tbody>
+          <tr>
+            <th scope="row">Subtotal:</th>
+            <td>$17.99</td>
+          </tr>
+          <tr>
+            <th scope="row">Tax:</th>
+            <td>$0.85</td>
+          </tr>
+          <tr>
+            <th scope="row">Tip:</th>
+            <td>$5.00</td>
+          </tr>
+          <tr>
+            <th scope="row" class="table-primary">TOTAL:</th>
+            <td class="table-primary ">$25.99</td>
+          </tr>
+        </tbody>
+      </table>
+
+    </div>
+
+    <div class="container">
+      <form method="GET" action="/order/status">
+        <button type="submit" class="btn btn-primary btn-lg">PLACE ORDER</button>
+      </form>
+    </div>
+  </div>
 
 
   </div>
 
 
-  <table class="table">
-    <thead>
-
-    </thead>
-    <tbody>
-      <tr>
-        <th scope="row">Subtotal:</th>
-        <td>$17.99</td>
-      </tr>
-      <tr>
-        <th scope="row">Tax:</th>
-        <td>$0.85</td>
-      </tr>
-      <tr>
-        <th scope="row">Tip:</th>
-        <td>$5.00</td>
-      </tr>
-      <tr>
-        <th scope="row" class="table-primary">TOTAL:</th>
-        <td class="table-primary ">$25.99</td>
-      </tr>
-    </tbody>
-  </table>
-
-  <br/>
-  <form method="GET" action="/order/status">
-    <button type="submit" class="btn btn-primary btn-sm">Order Status</button>
-  </form>
-  <br/>
-  <br/>
 
 
 
