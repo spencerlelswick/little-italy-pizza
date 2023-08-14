@@ -28,3 +28,16 @@ a {
   color: red;
   text-shadow: 1.5px 1.5px 1.5px black;
 }
+
+.navbar-toggler {
+  border: 5px solid red;
+  box-shadow: 0.1em 0.1em 0.5em rgb(0, 0, 0);
+}
+
+.navbar-toggler:enabled{
+ box-shadow: 0.1em 0.1em 0.5em rgb(0, 0, 0);
+}
+
+.navbar-toggler:hover{
+  border: 6px solid red;
+}
