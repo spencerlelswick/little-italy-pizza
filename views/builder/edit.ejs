@@ -4,7 +4,6 @@
 </h1>
 
   <form action="/order/builder/<%- pizza.id %>" method="POST">
-    <%- console.log(pizza.size) %>
     <fieldset>
       <legend>Size:</legend>
       <input type="radio" id="large" name="size" value="Large" <% if (pizza.size === "Large"){%> checked <%}%>>
