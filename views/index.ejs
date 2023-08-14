@@ -1,17 +1,38 @@
 <%- include('partials/header') %>
-  <h1>
-    <%= title %>
-  </h1>
-  <p>Welcome to <%= title %>
-  </p>
 
+  <main>
+    <div class="ad-container">
+      <div class="jumbotron p-4 p-md-5 text-white text-bold rounded ad-main">
+        <div class="col-md-6 px-0">
+          <h1 class="display-4 font-italic">Pepperoni pizza speical</h1>
+          <p class="lead my-3">$17.99</p>
+        </div>
+      </div>
+    </div>
 
-  <br>
-  <form method="GET" action="/order">
-    <button type="submit" class="btn btn-primary btn-sm">Order Now</button>
-  </form>
+    <div class="ad-container">
+      <div class="row mb-2">
+        <div class="col-md-6">
+          <div class="card bg-dark text-white">
+            <img class="card-img" src="/images/landing/temp-ad-image.jpg" alt="Card image">
+            <div class="card-img-overlay">
+              <h5 class="card-title">Pepperoni Pizza Deal</h5>
+              <p class="card-text">Cheese pizza topped with pepperoni</p>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-6">
+          <div class="card bg-dark text-white">
+            <img class="card-img" src="/images/landing/temp-ad-image.jpg" alt="Card image">
+            <div class="card-img-overlay">
+              <h5 class="card-title">Pepperoni Pizza Deal</h5>
+              <p class="card-text">Cheese pizza topped with pepperoni</p>
+            </div>
+          </div>
+        </div>
 
-  <br>
-  <img src="https://img.pizza/600/300" alt="mmm pizza" >
+      </div>
+    </div>
+  </main>
 
   <%- include('partials/footer') %>
