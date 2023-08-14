@@ -126,18 +126,10 @@ async function deleteItem(req, res) {
 async function editQuantity(req, res) {
     const orderId = req.cookies.orderId
     const itemId = req.params.id
-
-    let newQty = 0
-    if(req.body.increase){
-        newQty = 1
-    } else {
-        newQty = -1
-    }
-
+    let newQty = parseInt(req.body.qty)
     const order = await Order.findById(orderId)
     newItems = {...order.items}
     let index = -1
-
     if (newItems.pizzas.length){
         index = newItems.pizzas.findIndex(pizza => pizza.id === itemId)
         if (index !== -1) {

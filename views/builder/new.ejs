@@ -173,8 +173,10 @@
           <label>Quantity:
             <input type="Number" name="quantity" min="1" max="99" step="1" value="1">
             </label>
-          <button type="submit">Add to Deal</button>
-          <a href="/order">Cancel</a>
+          <button type="submit" class="btn btn-primary btn-sm">Add to Deal</button>
+        </form>
+        <form action="/order" method="GET">
+          <button type="submit" class="btn btn-secondary btn-sm">Cancel</button>
         </form>
       </div>
     </div>

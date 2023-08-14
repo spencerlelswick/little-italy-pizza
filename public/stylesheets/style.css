@@ -41,3 +41,7 @@ a {
 .navbar-toggler:hover{
   border: 6px solid red;
 }
+
+.btn {
+  box-shadow: 0.1em 0.1em 0.5em rgb(0, 0, 0);
+}

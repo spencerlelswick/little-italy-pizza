@@ -188,9 +188,12 @@
       </div>
 
     </fieldset>
+    
+    <button type="submit" class="btn btn-primary btn-sm">Save</button>
+  </form>
 
-    <button type="submit">Save</button>
-    <a href="/order/cart">Cancel</a>
+  <form action="/order/cart" method="GET">
+    <button type="submit" class="btn btn-secondary btn-sm">Cancel</button>
   </form>
 
   <%- include('../partials/footer') %>
