@@ -98,6 +98,7 @@ async function show(req, res) {
     } else {
         order = await Order.findById(req.cookies.orderId)
     }
+    console.log(order.items)
     res.render('cart/index', { title: "Cart", order: order })
 }
 
@@ -140,9 +141,9 @@ async function editQuantity(req, res) {
         if (index !== -1) {
             let oldQty = newItems.pizzas[index].quantity
             if (parseInt(oldQty) <= 0) {
-                newItems.pizzas[index].quantity = 1
+                newItems.pizzas[index].quantity = 1+""
             } else if (!(parseInt(oldQty) <= 1 && newQty === -1)) {
-                newItems.pizzas[index].quantity = parseInt(oldQty) + newQty
+                newItems.pizzas[index].quantity = parseInt(oldQty) + newQty+""
             }
         }
     }
@@ -151,9 +152,9 @@ async function editQuantity(req, res) {
         index = newItems.sides.findIndex(side => side.id === itemId)
         let oldQty = newItems.sides[index].quantity
         if (parseInt(oldQty) <= 0) {
-            newItems.sides[index].quantity = 1
+            newItems.sides[index].quantity = 1+""
         } else if (!(parseInt(oldQty) <= 1 && newQty === -1)) {
-            newItems.sides[index].quantity = parseInt(oldQty) + newQty
+            newItems.sides[index].quantity = parseInt(oldQty) + newQty+""
         }
     }
 

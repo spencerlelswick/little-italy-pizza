@@ -12,7 +12,8 @@
                 <button type="submit" name="qty" value="+1" class="btn btn-secondary btn-sm">+1</button>
                 <br/>
 
-                <button type="submit" name="qty" value="-1" class="btn btn-secondary btn-sm">-1</button>
+                <button type="submit" name="qty" value="-1" class="btn btn-secondary btn-sm"
+                <% if(pizza.quantity === "1"){ %> disabled <%} %>>-1</button>
             </form>
 
 
@@ -33,11 +34,12 @@
                     <br /> <br />
 
                     <form method="GET" action="/order/checkout/<%- order.id %>">
-                        <button type="submit" class="btn btn-primary btn-sm">Checkout</button>
+                        <button type="submit" class="btn btn-primary btn-sm"
+                        <% if(!order.items.pizzas.length && !order.items.sides.length){ %> disabled <%} %>>Checkout</button>
                     </form>
                     <br />
                     <form method="GET" action="/order">
-                        <button type="submit" class="btn btn-secondary btn-sm">Hungry For More?</button>
+                        <button type="submit" class="btn btn-secondary btn-sm" >Hungry For More?</button>
                     </form>
 
                             <%- include('../partials/footer') %>
