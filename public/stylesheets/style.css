@@ -11,18 +11,20 @@ a {
   color: #00B7FF;
 }
 
-.navbar{
+.navbar {
   background-color: white;
   border: 5px solid red;
+  box-shadow: 0.1em 0.1em 0.5em rgb(0, 0, 0);
 }
 
-.nav-link{
-    font-size: 30px;
-    color: red;
-    font-weight: bold;
+.nav-link {
+  font-size: 30px;
+  color: red;
+  font-weight: bold;
+  text-shadow: 1px 1px 1px black;
 }
 
-.nav-link:hover{
-    color: red;
-    text-shadow: .5px .5px .5px black;
+.nav-link:hover {
+  color: red;
+  text-shadow: 1.5px 1.5px 1.5px black;
 }
