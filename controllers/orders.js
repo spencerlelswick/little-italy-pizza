@@ -45,13 +45,14 @@ async function createBuild(req, res, next) {
     const newTotal = Helper.totalOrder(currOrder.items)
     await Order.findOneAndUpdate(
         { _id: currOrder._id },
-        { $set: { items: { pizzas: newPizzas }, total: newTotal } }
+        { $set: { items: { pizzas: newPizzas, sides: [...currOrder.items.sides] }, total : newTotal } }
     );
     res.redirect('/order')
 }
 
 async function editBuild(req, res) {
     const orderId = req.cookies.orderId
+    const itemId = req.params.id
     const order = await Order.findById(orderId)
     newItems = { ...order.items }
     let index = 0
@@ -83,17 +84,17 @@ async function deleteItem(req, res) {
     const orderId = req.cookies.orderId
     const itemId = req.params.id
     const order = await Order.findById(orderId)
-    newItems = { ...order.items }
-    let index = 0
-
-    if (newItems.pizzas) {
+    newItems = {...order.items}
+    let index = -1
+    
+    if (newItems.pizzas.length){
         index = newItems.pizzas.findIndex(pizza => pizza.id === itemId)
         if (index !== -1) {
             newItems.pizzas.splice(index, 1)
         }
     }
-
-    if (newItems.sides && (index === 0 || index === -1)) {
+    
+    if(newItems.sides.length && index === -1){
         index = newItems.sides.findIndex(side => side.id === itemId)
         newItems.sides.splice(index, 1)
     }
@@ -109,19 +110,19 @@ async function deleteItem(req, res) {
 async function editQuantity(req, res) {
     const orderId = req.cookies.orderId
     const itemId = req.params.id
-    let newQty = 0
 
-    if (req.body.increase) {
+    let newQty = 0
+    if(req.body.increase){
         newQty = 1
     } else {
         newQty = -1
     }
 
     const order = await Order.findById(orderId)
-    newItems = { ...order.items }
-    let index = 0
+    newItems = {...order.items}
+    let index = -1
 
-    if (newItems.pizzas) {
+    if (newItems.pizzas.length){
         index = newItems.pizzas.findIndex(pizza => pizza.id === itemId)
         if (index !== -1) {
             let oldQty = newItems.pizzas[index].quantity
@@ -132,8 +133,8 @@ async function editQuantity(req, res) {
             }
         }
     }
-
-    if (newItems.sides && (index === 0 || index === -1)) {
+    
+    if(newItems.sides.length &&  index === -1){
         index = newItems.sides.findIndex(side => side.id === itemId)
         let oldQty = newItems.sides[index].quantity
         if (parseInt(oldQty) <= 0) {
