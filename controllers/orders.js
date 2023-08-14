@@ -11,6 +11,7 @@ module.exports = {
     show,
     deleteItem,
     editQuantity,
+    checkout
 }
 
 async function index(req, res) {
@@ -31,7 +32,7 @@ async function newBuild(req, res, next) {
 }
 
 async function createBuild(req, res, next) {
-    const newPizza = {...req.body}
+    const newPizza = { ...req.body }
     newPizza.id = uuidv4()
     newPizza.name = Helper.namePizza(newPizza)
     newPizza.price = Helper.pricePizza(newPizza)
@@ -49,37 +50,37 @@ async function createBuild(req, res, next) {
     res.redirect('/order')
 }
 
-async function editBuild(req,res){
+async function editBuild(req, res) {
     const orderId = req.cookies.orderId
     const itemId = req.params.id
     const order = await Order.findById(orderId)
-    newItems = {...order.items}
+    newItems = { ...order.items }
     let index = 0
-    if (newItems.pizzas){ //
+    if (newItems.pizzas) { //
         index = newItems.pizzas.findIndex(pizza => pizza.id === itemId)
-        if (index !== -1){
+        if (index !== -1) {
             let newPizza = newItems.pizza[index]
             res.render('builder/edit', { title: "Edit Deal", order: order, pizza: pizza })
         }
-    }   
+    }
 
     res.render('builder/edit', { title: "Edit Deal", order: order, pizza: pizza })
 }
 
-async function saveBuild(req,res){
+async function saveBuild(req, res) {
     const orderId = req.cookies.orderId
     const order = await Order.findById(orderId)
 
     res.render('cart/index', { title: "Cart", order: order })
 }
 
-async function show(req,res){
+async function show(req, res) {
     const orderId = req.cookies.orderId
     const order = await Order.findById(orderId)
     res.render('cart/index', { title: "Cart", order: order })
 }
 
-async function deleteItem(req,res){
+async function deleteItem(req, res) {
     const orderId = req.cookies.orderId
     const itemId = req.params.id
     const order = await Order.findById(orderId)
@@ -88,14 +89,14 @@ async function deleteItem(req,res){
     
     if (newItems.pizzas.length){
         index = newItems.pizzas.findIndex(pizza => pizza.id === itemId)
-        if (index !== -1){
-            newItems.pizzas.splice(index,1)
+        if (index !== -1) {
+            newItems.pizzas.splice(index, 1)
         }
     }
     
     if(newItems.sides.length && index === -1){
         index = newItems.sides.findIndex(side => side.id === itemId)
-        newItems.sides.splice(index,1)
+        newItems.sides.splice(index, 1)
     }
 
     let newTotal = Helper.totalOrder(newItems)
@@ -106,7 +107,7 @@ async function deleteItem(req,res){
     res.redirect('/order/cart')
 }
 
-async function editQuantity(req,res){
+async function editQuantity(req, res) {
     const orderId = req.cookies.orderId
     const itemId = req.params.id
 
@@ -123,11 +124,11 @@ async function editQuantity(req,res){
 
     if (newItems.pizzas.length){
         index = newItems.pizzas.findIndex(pizza => pizza.id === itemId)
-        if (index !== -1){
+        if (index !== -1) {
             let oldQty = newItems.pizzas[index].quantity
-            if (parseInt(oldQty) <= 0){
+            if (parseInt(oldQty) <= 0) {
                 newItems.pizzas[index].quantity = 1
-            }else if (!(parseInt(oldQty) <= 1 && newQty === -1)){
+            } else if (!(parseInt(oldQty) <= 1 && newQty === -1)) {
                 newItems.pizzas[index].quantity = parseInt(oldQty) + newQty
             }
         }
@@ -136,9 +137,9 @@ async function editQuantity(req,res){
     if(newItems.sides.length &&  index === -1){
         index = newItems.sides.findIndex(side => side.id === itemId)
         let oldQty = newItems.sides[index].quantity
-        if (parseInt(oldQty) <= 0){
+        if (parseInt(oldQty) <= 0) {
             newItems.sides[index].quantity = 1
-        }else if (!(parseInt(oldQty) <= 1 && newQty === -1)){
+        } else if (!(parseInt(oldQty) <= 1 && newQty === -1)) {
             newItems.sides[index].quantity = parseInt(oldQty) + newQty
         }
     }
@@ -149,4 +150,15 @@ async function editQuantity(req,res){
         { $set: { items: newItems, total: newTotal } }
     );
     res.redirect('/order/cart')
+}
+
+async function checkout(req, res, next) {
+    let orderId = req.params.id
+    // if (req.cookies.orderId === undefined) {
+    //     order = await Order.create({})
+    //     res.cookie(`orderId`, `${order._id}`);
+    // } else {
+    const order = await Order.findById(req.cookies.orderId)
+    // }
+    res.render('checkout/index', { title: "checkout", order: order })
 }
