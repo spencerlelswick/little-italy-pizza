@@ -98,7 +98,6 @@ async function show(req, res) {
     } else {
         order = await Order.findById(req.cookies.orderId)
     }
-    console.log(order.items)
     res.render('cart/index', { title: "Cart", order: order })
 }
 
