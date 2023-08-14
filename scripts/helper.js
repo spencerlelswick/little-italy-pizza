@@ -45,7 +45,7 @@ function totalOrder(items){
         total += pizza.price*pizza.quantity
     });
     items.sides.forEach(side => {
-        total += side.price*pizza.quantity
+        total += side.price*side.quantity
     });
     return total
 }
