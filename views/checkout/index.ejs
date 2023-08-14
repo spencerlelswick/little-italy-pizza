@@ -8,47 +8,61 @@
 
   <br>
   <form action="">
-    <fieldset>
-      <legend>IF PICKUP:</legend>
-      <input type="radio" id="large" name="size" value="Large" checked>
-      <label for="large">Drive-thru</label><br>
-      <input type="radio" id="large" name="size" value="Large" checked>
-      <label for="large">In-Store</label><br>
+
+    <% if(false){ %>
       <fieldset>
-
+        <legend>IF PICKUP:</legend>
+        <input type="radio" id="large" name="size" value="Large" checked>
+        <label for="large">Drive-thru</label><br>
+        <input type="radio" id="large" name="size" value="Large" checked>
+        <label for="large">In-Store</label><br>
         <fieldset>
-          <legend>Your info:</legend>
-          <div class="mb-3">
-            <label for="exampleFormControlInput1" class="form-label">First name</label>
-            <input type="text" class="form-control" id="exampleFormControlInput1" placeholder="first name">
-          </div>
-          <div class="mb-3">
-            <label for="exampleFormControlInput1" class="form-label">Last name</label>
-            <input type="text" class="form-control" id="exampleFormControlInput1" placeholder="last name">
-          </div>
-          <div class="mb-3">
-            <label for="exampleFormControlInput1" class="form-label">Email address</label>
-            <input type="email" class="form-control" id="exampleFormControlInput1" placeholder="name@example.com">
-          </div>
-          <div class="mb-3">
-            <label for="exampleFormControlInput1" class="form-label">Phone number</label>
-            <input type="email" class="form-control" id="exampleFormControlInput1" placeholder="name@example.com">
-          </div>
+          <% } else { %>
+            <fieldset>
+              <legend>Delivery Details:</legend>
+              <input type="radio" id="large" name="size" value="Large" checked>
+              <label for="large">Drive-thru</label><br>
+              <input type="radio" id="large" name="size" value="Large" checked>
+              <label for="large">In-Store</label><br>
+              <fieldset>
+                <% } %>
 
-        </fieldset>
-        <fieldset>
-          <legend>Payment info:</legend>
-          <label for="large">Cardholder Name</label>
-          <input type="input" id="firstname" name="firstname"><br>
-          <label for="large">Card Number</label>
-          <input type="input" id="firstname" name="firstname"><br>
-          <label for="large">CVV</label>
-          <input type="input" id="firstname" name="firstname"><br>
-          <label for="large">Expiration Date (MM/YY)</label>
-          <input type="input" id="firstname" name="firstname">
-          <label for="large">Zip Code</label>
-          <input type="input" id="firstname" name="firstname">
-        </fieldset>
+
+                  <fieldset>
+                    <legend>Your info:</legend>
+                    <div class="mb-3">
+                      <label for="exampleFormControlInput1" class="form-label">First name</label>
+                      <input type="text" class="form-control" id="exampleFormControlInput1" placeholder="first name">
+                    </div>
+                    <div class="mb-3">
+                      <label for="exampleFormControlInput1" class="form-label">Last name</label>
+                      <input type="text" class="form-control" id="exampleFormControlInput1" placeholder="last name">
+                    </div>
+                    <div class="mb-3">
+                      <label for="exampleFormControlInput1" class="form-label">Email address</label>
+                      <input type="email" class="form-control" id="exampleFormControlInput1"
+                        placeholder="name@example.com">
+                    </div>
+                    <div class="mb-3">
+                      <label for="exampleFormControlInput1" class="form-label">Phone number</label>
+                      <input type="email" class="form-control" id="exampleFormControlInput1"
+                        placeholder="name@example.com">
+                    </div>
+
+                  </fieldset>
+                  <fieldset>
+                    <legend>Payment info:</legend>
+                    <label for="large">Cardholder Name</label>
+                    <input type="input" id="firstname" name="firstname"><br>
+                    <label for="large">Card Number</label>
+                    <input type="input" id="firstname" name="firstname"><br>
+                    <label for="large">CVV</label>
+                    <input type="input" id="firstname" name="firstname"><br>
+                    <label for="large">Expiration Date (MM/YY)</label>
+                    <input type="input" id="firstname" name="firstname">
+                    <label for="large">Zip Code</label>
+                    <input type="input" id="firstname" name="firstname">
+                  </fieldset>
 
   </form>
 
