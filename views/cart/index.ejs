@@ -1,14 +1,27 @@
 <%- include('../partials/header') %>
 
 <%if (order){%>
-    <p>current total: <%- order.total %></p>
+    <h4>current total: $<%- order.total %></h4>
     <hr/>
 
     <% order.items.pizzas.forEach(pizza=>{ %>
-        <p> <%- pizza.name %> </p>
-        <label>Quantity: </label> <input type="Number" min=1 max=99 step=1 value=1>
-        <button>Edit Item Placeholder</button>
-        <button>Remove Placeholder</button>
+        <h6> ITEM: <%- pizza.name %> </h6>
+
+        <form method="POST" action="/order/cart/<%- pizza.id %>" >
+            <h6> QUANTITY: <%- pizza.quantity %></h6>
+            <input type="submit" name="increase" value="+1">
+            <input type="submit" name="decrease" value="-1">
+        </form>
+        
+        <h6> PRICE: $<%- pizza.price*pizza.quantity %></h6>
+
+        <form method="POST" action="/order/builder/edit/<%- pizza.id %>">
+            <input type="submit" value="Edit Items">
+        </form>
+
+        <form method="POST" action="/order/cart/<%- pizza.id %>?_method=DELETE">
+            <input type="submit" value="Remove Items">
+        </form>
         <hr/>
     <%})%>
  <%} %>   
