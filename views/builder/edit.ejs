@@ -1,6 +1,6 @@
 <%- include('../partials/header') %>
 <h1>
-  <%= title %>
+  <%= title %> - <%- pizza.name %>
 </h1>
 
   <form action="/order/builder/<%- pizza.id %>" method="POST">
@@ -166,10 +166,6 @@
       </div>
 
     </fieldset>
-
-    <label>Quantity:
-    <input type="Number" name="quantity" min="1" max="99" step="1" value="1">
-    </label>
 
     <button type="submit">Save</button>
     <a href="/order/cart">Cancel</a>
