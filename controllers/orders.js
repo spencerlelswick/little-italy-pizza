@@ -11,7 +11,8 @@ module.exports = {
     show,
     deleteItem,
     editQuantity,
-    checkout
+    checkout,
+    goToStatus,
 }
 
 async function index(req, res) {
@@ -53,7 +54,7 @@ async function editBuild(req, res) {
     const orderId = req.cookies.orderId
     const itemId = req.params.id
     const order = await Order.findById(orderId)
-    newItems = { ...order.items }
+    let newItems = { ...order.items }
     let index = -1
     if (newItems.pizzas.length) { 
         index = newItems.pizzas.findIndex(pizza => pizza.id === itemId)
@@ -69,7 +70,7 @@ async function saveBuild(req, res) {
     const orderId = req.cookies.orderId
     const itemId = req.params.id
     const order = await Order.findById(orderId)
-    newItems = { ...order.items }
+    let newItems = { ...order.items }
     let index = -1
     if (newItems.pizzas) {
         index = newItems.pizzas.findIndex(pizza => pizza.id === itemId)
@@ -85,7 +86,8 @@ async function saveBuild(req, res) {
         { _id: orderId },
         { $set: { items: newItems, total : newTotal } }
     );
-    res.render('cart/index', { title: "Cart", order: order })
+    const newOrder = await Order.findById(orderId)
+    res.render('cart/index', { title: "Cart", order: newOrder })
 }
 
 async function show(req, res) {
@@ -124,18 +126,10 @@ async function deleteItem(req, res) {
 async function editQuantity(req, res) {
     const orderId = req.cookies.orderId
     const itemId = req.params.id
-
-    let newQty = 0
-    if(req.body.increase){
-        newQty = 1
-    } else {
-        newQty = -1
-    }
-
+    let newQty = parseInt(req.body.qty)
     const order = await Order.findById(orderId)
     newItems = {...order.items}
     let index = -1
-
     if (newItems.pizzas.length){
         index = newItems.pizzas.findIndex(pizza => pizza.id === itemId)
         if (index !== -1) {
@@ -175,4 +169,13 @@ async function checkout(req, res, next) {
     const order = await Order.findById(req.cookies.orderId)
     // }
     res.render('checkout/index', { title: "checkout", order: order })
+}
+
+async function goToStatus(req, res) {
+    const orderId = req.cookies.orderId
+    await Order.findOneAndUpdate(
+        { _id: orderId},
+        { $set: { status: "confirmed" } })
+    const order = await Order.findById(orderId)
+    res.render('order/status', {title: "Order Status", order: order})
 }
