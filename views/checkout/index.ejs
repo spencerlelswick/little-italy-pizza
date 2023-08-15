@@ -1,91 +1,168 @@
 <%- include('../partials/header') %>
-  <p>Pick up details:</p>
-  <p>STORE LOCATION HERE</p>
-  <p>PICK UP TIME HERE</p>
 
-  <br>
-  <form action="">
-    <fieldset>
-      <legend>IF PICKUP:</legend>
-      <input type="radio" id="large" name="size" value="Large" checked>
-      <label for="large">Drive-thru</label><br>
-      <input type="radio" id="large" name="size" value="Large" checked>
-      <label for="large">In-Store</label><br>
-      <fieldset>
+  <div class="container">
 
-        <fieldset>
-          <legend>Your info:</legend>
-          <div class="mb-3">
-            <label for="exampleFormControlInput1" class="form-label">First name</label>
-            <input type="text" class="form-control" id="exampleFormControlInput1" placeholder="first name">
+    <div class="py-5 text-center">
+      <h2 class="text-primary">Checkout</h2>
+    </div>
+
+    <div class="row g-5">
+      <div class="col-md-5 col-lg-4 order-md-last">
+        <h4 class="d-flex justify-content-between align-items-center mb-3">
+          <span class="text-primary">CART</span>
+          <span class="badge bg-primary rounded-pill"></span>
+        </h4>
+        <ul class="list-group mb-3">
+
+          <% for( let i=0; i < order.items.pizzas.length; i++ ) { %>
+            <li class="list-group-item d-flex justify-content-between lh-sm">
+              <div>
+                <span class="text-muted"><%- order.items.pizzas[i].name %></span>
+              </div>
+              <h6 class="my-0">$<%- order.items.pizzas[i].price %></h6>
+            </li>
+            <% } %>
+              <% for( let i=0; i < order.items.sides.length; i++ ) { %>
+                <li class="list-group-item d-flex justify-content-between lh-sm">
+                  <div>
+                    <h6 class="my-0">Product name</h6>
+                  </div>
+                  <span class="text-muted">$12</span>
+                </li>
+                <% } %>
+
+
+                  <li class="list-group-item d-flex justify-content-between">
+                    <span>Total (USD)</span>
+                    <strong>$<%- order.total %></strong>
+                  </li>
+        </ul>
+
+        <img class="d-block mx-auto mb-4" src="/images/checkout/thank-you.png" alt="" width="300">
+
+      </div>
+      <div class="col-md-7 col-lg-8">
+        <h4 class="mb-3 text-primary">Your Info</h4>
+        <form class="needs-validation" method="POST" action="/order/checkout/<%- order.id %>">
+          <div class="row g-3">
+            <div class="col-sm-6">
+              <label for="firstName" class="form-label">First name</label>
+              <input type="text" class="form-control" id="firstName" placeholder="" required>
+              <div class="invalid-feedback">
+                Valid first name is required.
+              </div>
+            </div>
+
+            <div class="col-sm-6">
+              <label for="lastName" class="form-label">Last name</label>
+              <input type="text" class="form-control" id="lastName" placeholder="" required>
+              <div class="invalid-feedback">
+                Valid last name is required.
+              </div>
+            </div>
+
+
+            <div class="col-12">
+              <label for="email" class="form-label">Email</label>
+              <input type="email" class="form-control" id="email" placeholder="your@email.com">
+              <div class="invalid-feedback">
+                Please enter a valid email address for shipping updates.
+              </div>
+            </div>
+
+            <div class="col-12">
+              <label for="address" class="form-label">Address</label>
+              <input type="text" class="form-control" id="address" placeholder="1234 Main St" required>
+              <div class="invalid-feedback">
+                Please enter your address.
+              </div>
+            </div>
+
+            <div class="col-md-6">
+              <label for="city" class="form-label">City</label>
+              <input type="text" class="form-control" id="city" placeholder="" required>
+              <div class="invalid-feedback">
+                City is required.
+              </div>
+            </div>
+
+            <div class="col-md-3">
+              <label for="state" class="form-label">State</label>
+              <input type="text" class="form-control" id="state" placeholder="" required>
+              <div class="invalid-feedback">
+                State is required.
+              </div>
+            </div>
+
+
+
+            <div class="col-md-3">
+              <label for="zip" class="form-label">Zip</label>
+              <input type="text" class="form-control" id="zip" placeholder="" required>
+              <div class="invalid-feedback">
+                Zip code required.
+              </div>
+            </div>
           </div>
-          <div class="mb-3">
-            <label for="exampleFormControlInput1" class="form-label">Last name</label>
-            <input type="text" class="form-control" id="exampleFormControlInput1" placeholder="last name">
+
+
+          <hr class="my-4">
+
+          <h4 class="mb-3 text-primary">Payment</h4>
+
+          <div class="my-3">
+            <div class="form-check">
+              <input id="credit" name="paymentMethod" type="radio" class="form-check-input" checked required>
+              <label class="form-check-label" for="credit">Card</label>
+            </div>
+            <div class="form-check">
+              <input id="debit" name="paymentMethod" type="radio" class="form-check-input" required>
+              <label class="form-check-label" for="debit">Cash</label>
+            </div>
           </div>
-          <div class="mb-3">
-            <label for="exampleFormControlInput1" class="form-label">Email address</label>
-            <input type="email" class="form-control" id="exampleFormControlInput1" placeholder="name@example.com">
+
+          <div class="row gy-3">
+            <div class="col-md-6">
+              <label for="cc-name" class="form-label">Name On Card</label>
+              <input type="text" class="form-control" id="cc-name" placeholder="" required>
+              <small class="text-muted">Full name as displayed on card</small>
+              <div class="invalid-feedback">
+                Name on card is required
+              </div>
+            </div>
+
+            <div class="col-md-6">
+              <label for="cc-number" class="form-label">Card number</label>
+              <input type="text" class="form-control" id="cc-number" placeholder="" required>
+              <div class="invalid-feedback">
+                Credit card number is required
+              </div>
+            </div>
+
+            <div class="col-md-3">
+              <label for="cc-expiration" class="form-label">MM/YY</label>
+              <input type="text" class="form-control" id="cc-expiration" placeholder="" required>
+              <div class="invalid-feedback">
+                Expiration date required
+              </div>
+            </div>
+
+            <div class="col-md-3">
+              <label for="cc-cvv" class="form-label">CVV</label>
+              <input type="text" class="form-control" id="cc-cvv" placeholder="" required>
+              <div class="invalid-feedback">
+                Security code required
+              </div>
+            </div>
           </div>
-          <div class="mb-3">
-            <label for="exampleFormControlInput1" class="form-label">Phone number</label>
-            <input type="email" class="form-control" id="exampleFormControlInput1" placeholder="name@example.com">
-          </div>
 
-        </fieldset>
-        <fieldset>
-          <legend>Payment info:</legend>
-          <label for="large">Cardholder Name</label>
-          <input type="input" id="firstname" name="firstname"><br>
-          <label for="large">Card Number</label>
-          <input type="input" id="firstname" name="firstname"><br>
-          <label for="large">CVV</label>
-          <input type="input" id="firstname" name="firstname"><br>
-          <label for="large">Expiration Date (MM/YY)</label>
-          <input type="input" id="firstname" name="firstname">
-          <label for="large">Zip Code</label>
-          <input type="input" id="firstname" name="firstname">
-        </fieldset>
+          <hr class="my-4">
 
-  </form>
-
-
-
-
+          <button class="w-100 btn btn-primary btn-lg" type="submit">Continue For Delivery</button>
+        </form>
+      </div>
+    </div>
   </div>
-
-
-  <table class="table">
-    <thead>
-
-    </thead>
-    <tbody>
-      <tr>
-        <th scope="row">Subtotal:</th>
-        <td>$17.99</td>
-      </tr>
-      <tr>
-        <th scope="row">Tax:</th>
-        <td>$0.85</td>
-      </tr>
-      <tr>
-        <th scope="row">Tip:</th>
-        <td>$5.00</td>
-      </tr>
-      <tr>
-        <th scope="row" class="table-primary">TOTAL:</th>
-        <td class="table-primary ">$25.99</td>
-      </tr>
-    </tbody>
-  </table>
-
-  <br/>
-  <form method="GET" action="/order/status/<%- order.id %>">
-    <button type="submit" class="btn btn-primary btn-sm">Order Status</button>
-  </form>
-  <br/>
-  <br/>
-
 
 
   <%- include('../partials/footer') %>

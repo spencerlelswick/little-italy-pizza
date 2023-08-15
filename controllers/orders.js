@@ -12,7 +12,7 @@ module.exports = {
     deleteItem,
     editQuantity,
     checkout,
-    goToStatus,
+    handlePayment
 }
 
 async function index(req, res) {
@@ -121,20 +121,17 @@ async function editQuantity(req, res) {
 }
 
 async function checkout(req, res, next) {
-    let orderId = req.params.id
-    // if (req.cookies.orderId === undefined) {
-    //     order = await Order.create({})
-    //     res.cookie(`orderId`, `${order._id}`);
-    // } else {
-    const order = await Order.findById(req.cookies.orderId)
-    // }
+    let orderId = req.cookies.orderId
+    const order = await Order.findById(orderId)
+    console.log(order)
     res.render('checkout/index', { title: "checkout", order: order })
 }
 
-async function goToStatus(req, res) {
+async function handlePayment(req, res) {
+    console.log(req.body)
     const orderId = req.params.id
     await Order.findOneAndUpdate(
-        { _id: orderId},
+        { _id: orderId },
         { $set: { status: "confirmed" } })
     const order = await Order.findById(orderId)
     res.clearCookie('orderId')
