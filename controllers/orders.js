@@ -12,7 +12,8 @@ module.exports = {
     deleteItem,
     editQuantity,
     checkout,
-    handlePayment
+    handlePayment,
+    addToCart,
 }
 
 async function index(req, res) {
@@ -26,13 +27,13 @@ async function index(req, res) {
 
     prebuiltPizzas = await Pizza.find({type: "Prebuilt"})
     
-    res.render('order/index', { title: "Order", order: order, prebuiltPizzas })
+    res.render('order/index', { title: "Order",order, prebuiltPizzas })
 }
 
 async function newBuild(req, res, next) {
     const orderId = req.cookies.orderId
     const order = await Order.findById(orderId)
-    res.render('builder/new', { title: "Deal Builder", order: order })
+    res.render('builder/new', { title: "Deal Builder", order })
 }
 
 async function createBuild(req, res, next) {
@@ -53,7 +54,7 @@ async function editBuild(req, res) {
     const itemId = req.params.id
     const order = await Order.findById(orderId)
     const pizza = await Pizza.findById(itemId)
-    res.render('builder/edit', { title: "Edit Deal", order: order, pizza: pizza })
+    res.render('builder/edit', { title: "Edit Deal", order,pizza })
     // TODO: check if side
 }
 
@@ -84,8 +85,20 @@ async function saveBuild(req, res) {
     order.total = calcTotal(order.items)
     order.save() 
 
-    res.render('cart/index', { title: "Cart", order: order })
+    res.render('cart/index', { title: "Cart", order })
 }
+
+// async function addToCart(req, res){
+//     const itemId = req.params.id
+//     const pizzaData = { ...req.body }
+//     pizzaData.type = "Custom"
+//     delete pizzaData._id
+//     console.log(pizzaData)
+//     pizza = await Pizza.create({pizzaData})
+
+
+
+// }
 
 async function show(req, res) {
     let order = {}
@@ -95,7 +108,8 @@ async function show(req, res) {
     } else {
         order = await Order.findById(req.cookies.orderId).populate('items.pizzas')
     }
-    res.render('cart/index', { title: "Cart", order: order })
+    prebuiltPizzas = await Pizza.find({type: "Prebuilt"})
+    res.render('cart/index', { title: "Cart", order, prebuiltPizzas })
 }
 
 async function deleteItem(req, res) {
@@ -105,7 +119,7 @@ async function deleteItem(req, res) {
     const order = await Order.findById(orderId).populate('items.pizzas')
     order.total = calcTotal(order.items)
     order.save()
-    res.render('cart/index', { title: "Cart", order: order })
+    res.render('cart/index', { title: "Cart", order })
 }
 
 async function editQuantity(req, res) {
@@ -121,13 +135,13 @@ async function editQuantity(req, res) {
     const order = await Order.findById(orderId).populate('items.pizzas')
     order.total = calcTotal(order.items)
     order.save()
-    res.render('cart/index', { title: "Cart", order: order })
+    res.render('cart/index', { title: "Cart", order })
 }
 
 async function checkout(req, res, next) {
     let orderId = req.cookies.orderId
     const order = await Order.findById(orderId).populate('items.pizzas')
-    res.render('checkout/index', { title: "checkout", order: order })
+    res.render('checkout/index', { title: "checkout", order })
 }
 
 async function handlePayment(req, res) {
@@ -138,7 +152,7 @@ async function handlePayment(req, res) {
         { $set: { status: "confirmed" } })
     const order = await Order.findById(orderId)
     res.clearCookie('orderId')
-    res.render('order/status', {title: "Order Status", order: order})
+    res.render('order/status', {title: "Order Status", order})
 }
 
 function calcTotal(items){

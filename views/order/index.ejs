@@ -18,13 +18,31 @@
   <form method="GET" action="/order/cart">
     <button type="submit" class="btn btn-secondary btn-sm">Cart</button>
   </form>
+
+</br>
+</br>
+</br>
+
+  <div id="prebuiltPizzas">
+  <% prebuiltPizzas.forEach(pizza=>{ %>
+    <div>
+       <h6><%- pizza.name %></h6>
+       <p>Size: <%- pizza.large %></p>
+       <p>Crust: <%- pizza.crust %></p>
+       <p>Sauce: <%- pizza.sauce %></p>
+       <p>Cut: <%- pizza.cut %></p>
+       <p>Cheese: <%- pizza.cheese %></p>
+       <p>Meats: <%- pizza.meats %></p>
+       <p>Veggie: <%- pizza.veggies %></p>
+       <p>Price: $ <%- pizza.price%></p>
+       
+        <form method="POST" action="order/cart/<%- pizza._id %>"" >
+          <button type="submit" class="btn btn-primary btn-sm">Add to Cart</button>
+        </form>
+    </div>
   
-</br>
-</br>
-</br>
-
-  <%- include('../partials/prebuiltPizzas') %>
-
-
+  
+<%}) %>
+</div>
 
   <%- include('../partials/footer') %>
