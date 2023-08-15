@@ -88,7 +88,7 @@ async function saveBuild(req, res) {
     res.render('cart/index', { title: "Cart", order })
 }
 
-// async function addToCart(req, res){
+async function addToCart(req, res){
 //     const itemId = req.params.id
 //     const pizzaData = { ...req.body }
 //     pizzaData.type = "Custom"
@@ -98,7 +98,7 @@ async function saveBuild(req, res) {
 
 
 
-// }
+}
 
 async function show(req, res) {
     let order = {}
