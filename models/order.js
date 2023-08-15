@@ -1,5 +1,6 @@
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
+const Pizza = require('../models/pizza')
 
 // const orderSchema = new Schema(  //old working
 //   {
@@ -47,6 +48,5 @@ const orderSchema = new Schema(
     timestamps: true,
   }
 );
-
 
 module.exports = mongoose.model('Order', orderSchema);

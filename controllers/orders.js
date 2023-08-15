@@ -54,29 +54,28 @@ async function newBuild(req, res, next) {
 //     res.redirect('/order')
 // }
 
+//ok
 async function createBuild(req, res, next) {
     const pizzaData = { ...req.body }
-   
-    console.log(pizzaData)
 
     let newPizza = await Pizza.create(pizzaData)
-    console.log(newPizza)
 
-    // newPizza.name = Helper.namePizza(newPizza)
-    // newPizza.price = Helper.pricePizza(newPizza)
-    // const orderId = req.cookies.orderId
-    // const currOrder = await Order.findById(orderId)
-    // const updateOrder = { ...currOrder._doc }
-    // const newPizzas = [...updateOrder.items.pizzas, newPizza]
-    // updateOrder.items.pizzas = newPizzas
-    // const newTotal = Helper.totalOrder(currOrder.items)
-    // await Order.findOneAndUpdate(
-    //     { _id: currOrder._id },
-    //     { $set: { items: { pizzas: newPizzas, sides: [...currOrder.items.sides] }, total : newTotal } }
-    // );
+    const orderId = req.cookies.orderId
+    let order = await Order.findById(orderId)
+
+    order.items.pizzas.push(newPizza._id)
+
+    newTotal= await calcTotal(order)
+
+    await Order.findOneAndUpdate(
+        { _id: orderId },
+        { $set: { items: order.items, total: newTotal }}
+    );
+
+    console.log(await Order.findById(orderId))
+
     res.redirect('/order')
 }
-
 
 async function editBuild(req, res) {
     const orderId = req.cookies.orderId
@@ -212,4 +211,13 @@ async function goToStatus(req, res) {
     const order = await Order.findById(orderId)
     res.clearCookie('orderId')
     res.render('order/status', {title: "Order Status", order: order})
+}
+
+async function calcTotal(order){
+    let tot = 0
+    for (pizzaId of order.items.pizzas){
+        let pizza = await Pizza.findById(pizzaId)
+        tot += pizza.price * pizza.quantity
+    }
+    return tot
 }
