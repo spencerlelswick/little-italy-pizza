@@ -1,12 +1,16 @@
 <%- include('../partials/header') %>
+
   <link rel="stylesheet" href="/stylesheets/builder.css">
   <script src="/javascripts/builder.js" defer></script>
   <div class="container lh-base ">
     <form id="form-builder" action=" /order/builder/" method="post">
-
       <div class="row mt-5">
         <div class="col-lg-6">
           <div class="row g-3 ">
+            <div class="col-sm-6">
+              <legend class="form-check-label">Quantity:</legend>
+              <input class="form-number-input" type="Number" name="quantity" min="1" max="99" step="1" value="1">
+            </div>
             <div class="col-sm-6">
               <fieldset>
                 <legend>Size:</legend>
@@ -64,6 +68,7 @@
                 <label class="form-check-label" for="noCheese">No Cheese</label>
               </fieldset>
             </div>
+
           </div>
           <div class="row g-3">
             <div class="col-sm-6">
@@ -234,26 +239,20 @@
             </div>
           </div>
         </div>
-        <div class="col-lg-6 d-flex">
-          <div class="row">
-            <div id="builder"></div>
+        <div class="col-lg-6">
+          <div class="row h-75 d-inline-block">
+            <div class="col-12">
+              <div id="builder"></div>
+            </div>
           </div>
           <div class="row">
-            <div class="row"> <label class="form-check-label ">Quantity:
-                <input class="form-number-input" type="Number" name="quantity" min="1" max="99" step="1" value="1">
-              </label>
-            </div>
-            <div class="row">
+            <div>
               <button type="submit" class="w-100 btn btn-primary btn-lg">Add to Deal</button>
             </div>
           </div>
         </div>
       </div>
-
-
-
     </form>
   </div>
-
 
   <%- include('../partials/footer') %>
