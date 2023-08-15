@@ -5,7 +5,7 @@ const pizzaSchema = new Schema(
     {
         name: {
             type: String,
-            default: namePizza
+            default: "Pizza"
         },
         type: {
             type: String,
@@ -55,7 +55,7 @@ const pizzaSchema = new Schema(
         price: {
             type: Number,
             min: 1,
-            default: pricePizza
+            default: 10
         },
     },
     {
@@ -63,62 +63,63 @@ const pizzaSchema = new Schema(
     }
 )
 
-function namePizza(){
-    let name = `${this.size}, ${this.crust} Crust, `
-    if(this.meats.includes("Ham") && this.veggies === ["Pineapple"]){
-        name += `Hawaiian`
-    }else if(this.meats.includes("Ham") && this.veggies.length > 1 && this.veggies.includes("Pineapple")){
-        name += `Hawaiian Specialty`
-    }else if (this.meats === ["Pepperoni"] && this.veggies.length > 1){
-        name += `Pepperoni Specialty`
-    }else if(this.meats === ["Chicken"] && this.sauce === "BBQ" && !this.veggies.length){
-        name += `BBQ Chicken`
-    }else if(this.meats === ["Chicken"] && this.sauce === "Buffalo" && !this.veggies.length){
-        name += `Buffalo Chicken`
-    }else if(this.meats === ["Chicken"] && this.sauce === "BBQ"){
-        name += `BBQ Chicken Specialty`
-    }else if(this.meats === ["Chicken"] && this.sauce === "Buffalo"){
-        name += `Buffalo Chicken Specialty`
-    }else if (this.meats.length > 1 && this.veggies.length <= 1){
-        name += `Meat Lover`    
-    }else if (this.meats.length >= 3 && this.veggies.length >= 3){
-        name += `The Works`
-    }else if(this.meats.length >= 2 && this.veggies.length >= 2){
-        name += `The Supreme`
-    }else if (this.meats.length === 1){
-        name += `${this.meats}`
-    }else if (this.veggies.length === 1){
-        name += `${this.veggies}`
-    }else if (this.veggies.length > 1){
-        name += `Veggie Lover`
-    }else if (this.sauce === "Marinara" && this.cheese !== "No" && !this.meats.length && !this.veggies.length){
-        name += `${this.cheese} Cheese Margherita`
-    }else {
-        name += `${this.cheese} Cheese`
-    }
-    name += ` Pizza`
-    return name
-}
+// NOT USING THIS BUT DIDNT FEEL LIKE DELETING THEM RIGHT NOW
+// function namePizza(){
+//     let name = `${this.size}, ${this.crust} Crust, `
+//     if(this.meats.includes("Ham") && this.veggies === ["Pineapple"]){
+//         name += `Hawaiian`
+//     }else if(this.meats.includes("Ham") && this.veggies.length > 1 && this.veggies.includes("Pineapple")){
+//         name += `Hawaiian Specialty`
+//     }else if (this.meats === ["Pepperoni"] && this.veggies.length > 1){
+//         name += `Pepperoni Specialty`
+//     }else if(this.meats === ["Chicken"] && this.sauce === "BBQ" && !this.veggies.length){
+//         name += `BBQ Chicken`
+//     }else if(this.meats === ["Chicken"] && this.sauce === "Buffalo" && !this.veggies.length){
+//         name += `Buffalo Chicken`
+//     }else if(this.meats === ["Chicken"] && this.sauce === "BBQ"){
+//         name += `BBQ Chicken Specialty`
+//     }else if(this.meats === ["Chicken"] && this.sauce === "Buffalo"){
+//         name += `Buffalo Chicken Specialty`
+//     }else if (this.meats.length > 1 && this.veggies.length <= 1){
+//         name += `Meat Lover`    
+//     }else if (this.meats.length >= 3 && this.veggies.length >= 3){
+//         name += `The Works`
+//     }else if(this.meats.length >= 2 && this.veggies.length >= 2){
+//         name += `The Supreme`
+//     }else if (this.meats.length === 1){
+//         name += `${this.meats}`
+//     }else if (this.veggies.length === 1){
+//         name += `${this.veggies}`
+//     }else if (this.veggies.length > 1){
+//         name += `Veggie Lover`
+//     }else if (this.sauce === "Marinara" && this.cheese !== "No" && !this.meats.length && !this.veggies.length){
+//         name += `${this.cheese} Cheese Margherita`
+//     }else {
+//         name += `${this.cheese} Cheese`
+//     }
+//     name += ` Pizza`
+//     return name
+// }
 
-function pricePizza(){
-    let price = 10
-    let toppingCost = 1
+// function pricePizza(){
+//     let price = 10
+//     let toppingCost = 1
 
-    if (this.cheese === "Extra"){
-        price += toppingCost
-    }else if (this.cheese === "No"){
-        price -= toppingCost
-    }
+//     if (this.cheese === "Extra"){
+//         price += toppingCost
+//     }else if (this.cheese === "No"){
+//         price -= toppingCost
+//     }
 
-    if (this.size === "Large"){
-        price += toppingCost
-    }else if (this.size === "Small"){
-        price -=  toppingCost
-    }
+//     if (this.size === "Large"){
+//         price += toppingCost
+//     }else if (this.size === "Small"){
+//         price -=  toppingCost
+//     }
 
-    price += toppingCost * (this.meats.length + this.veggies.length)
+//     price += toppingCost * (this.meats.length + this.veggies.length)
 
-    return price
-}
+//     return price
+// }
 
 module.exports = mongoose.model('Pizza', pizzaSchema);
