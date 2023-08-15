@@ -123,8 +123,7 @@ async function editQuantity(req, res) {
 
 async function checkout(req, res, next) {
     let orderId = req.cookies.orderId
-    const order = await Order.findById(orderId)
-    console.log(order)
+    const order = await Order.findById(orderId).populate('items.pizzas')
     res.render('checkout/index', { title: "checkout", order: order })
 }
 
