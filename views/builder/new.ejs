@@ -1,184 +1,258 @@
 <%- include('../partials/header') %>
+
+  <link rel="stylesheet" href="/stylesheets/builder.css">
   <script src="/javascripts/builder.js" defer></script>
-  <div class="container">
-    <div class="row">
-      <div class="col-lg">
-        <div id="builder"></div>
+  <div class="container lh-base ">
+    <form id="form-builder" action=" /order/builder/" method="post">
+      <div class="row mt-5">
+        <div class="col-lg-6">
+          <div class="row g-3 ">
+            <div class="col-sm-6">
+              <legend class="form-check-label">Quantity:</legend>
+              <input class="form-number-input" type="Number" name="quantity" min="1" max="99" step="1" value="1">
+            </div>
+            <div class="col-sm-6">
+              <fieldset>
+                <legend>Size:</legend>
+                <input class="form-check-input" type="radio" id="large" name="size" value="Large" checked>
+                <label class="form-check-label lh-base" for="large">Large</label><br>
+                <input class="form-check-input" type="radio" id="medium" name="size" value="Medium">
+                <label class="form-check-label lh-base" for="medium">Medium</label><br>
+                <input class="form-check-input" type="radio" id="small" name="size" value="Small">
+                <label class="form-check-label lh-base" for="small">Small</label>
+              </fieldset>
+
+            </div>
+            <div class="col-sm-6">
+              <fieldset>
+                <legend>Crust:</legend>
+                <input class="form-check-input" type="radio" id="thin" name="crust" value="Thin">
+                <label class="form-check-label" for="thin">Thin</label><br>
+                <input class="form-check-input" type="radio" id="regular" name="crust" value="Regular" checked>
+                <label class="form-check-label" for="regular">Regular</label><br>
+                <input class="form-check-input" type="radio" id="deepdish" name="crust" value="Deepdish">
+                <label class="form-check-label" for="deepdish">Deep Dish</label>
+              </fieldset>
+            </div>
+            <div class="col-sm-6">
+              <fieldset>
+                <legend>Sauce:</legend>
+                <input class="form-check-input" type="radio" id="marinara" name="sauce" value="Marinara" checked>
+                <label class="form-check-label" for="marinara">Marinara</label><br>
+                <input class="form-check-input" type="radio" id="bbq" name="sauce" value="BBQ">
+                <label class="form-check-label" for="bbq">BBQ</label><br>
+                <input class="form-check-input" type="radio" id="buffalo" name="sauce" value="Buffalo">
+                <label class="form-check-label" for="buffalo">Buffalo</label>
+              </fieldset>
+            </div>
+            <div class="col-sm-6">
+              <fieldset>
+                <legend>Cut:</legend>
+                <input class="form-check-input" class="form-check-label" type="radio" id="normal" name="cut"
+                  value="Normal" checked>
+                <label class="form-check-label" for="normal">Normal</label><br>
+                <input class="form-check-input" type="radio" id="square" name="cut" value="Square">
+                <label class="form-check-label" for="square">Square</label>
+              </fieldset>
+            </div>
+            <div class="col-sm-6">
+              <fieldset>
+                <legend>Cheese:</legend>
+                <input class="form-check-input" type="radio" id="normalCheese" name="cheese" value="Normal" checked>
+                <label class="form-check-label" for="normalCheese">Normal</label><br>
+                <input class="form-check-input" type="radio" id="light" name="cheese" value="Light">
+                <label class="form-check-label" for="light">Light</label><br>
+                <input class="form-check-input" type="radio" id="extra" name="cheese" value="Extra">
+                <label class="form-check-label" for="extra">Extra</label><br>
+                <input class="form-check-input" type="radio" id="noCheese" name="cheese" value="No">
+                <label class="form-check-label" for="noCheese">No Cheese</label>
+              </fieldset>
+            </div>
+
+          </div>
+          <div class="row g-3">
+            <div class="col-sm-6">
+              <fieldset>
+                <legend>Meats:</legend>
+
+                <div class="form-check">
+                  <input class="form-check-input" type="checkbox" value="Anchovies" id="anchovies" name="meats">
+                  <label class="form-check-label" for="anchovies">
+                    Anchovies
+                  </label>
+                </div>
+
+                <div class="form-check">
+                  <input class="form-check-input" type="checkbox" value="Sausage" id="sausage" name="sausage">
+                  <label class="form-check-label" for="sausage">
+                    Sausage
+                  </label>
+                </div>
+
+                <div class="form-check">
+                  <input class="form-check-input" type="checkbox" value="Italian Sausage" id="italianSausage"
+                    name="meats">
+                  <label class="form-check-label" for="italianSausage">
+                    Spicy Italian Sausage
+                  </label>
+                </div>
+
+                <div class="form-check">
+                  <input class="form-check-input" type="checkbox" value="Bacon" id="bacon" name="meats">
+                  <label class="form-check-label" for="bacon">
+                    Bacon
+                  </label>
+                </div>
+
+                <div class="form-check">
+                  <input class="form-check-input" type="checkbox" value="Pepperoni" id="pepperoni" name="meats">
+                  <label class="form-check-label" for="pepperoni">
+                    Pepperoni
+                  </label>
+                </div>
+
+                <div class="form-check">
+                  <input class="form-check-input" type="checkbox" value="Chicken" id="chicken" name="meats">
+                  <label class="form-check-label" for="chicken">
+                    Grilled Chicken
+                  </label>
+                </div>
+
+                <div class="form-check">
+                  <input class="form-check-input" type="checkbox" value="Salami" id="salami" name="meats">
+                  <label class="form-check-label" for="salami">
+                    Salami
+                  </label>
+                </div>
+
+                <div class="form-check">
+                  <input class="form-check-input" type="checkbox" value="Philly Steak" id="steak" name="meats">
+                  <label class="form-check-label" for="steak">
+                    Philly Steak
+                  </label>
+                </div>
+
+                <div class="form-check">
+                  <input class="form-check-input" type="checkbox" value="Ham" id="ham" name="meats">
+                  <label class="form-check-label" for="ham">
+                    Canadian Bacon
+                  </label>
+                </div>
+
+                <div class="form-check">
+                  <input class="form-check-input" type="checkbox" value="Beef" id="beef" name="meats">
+                  <label class="form-check-label" for="beef">
+                    Beef
+                  </label>
+                </div>
+
+                <div class="form-check">
+                  <input class="form-check-input" type="checkbox" value="Meatballs" id="meatball" name="meats">
+                  <label class="form-check-label" for="meatball">
+                    Meatball
+                  </label>
+                </div>
+
+              </fieldset>
+            </div>
+            <div class="col-sm-6">
+              <fieldset>
+                <legend>Veggies:</legend>
+
+                <div class="form-check">
+                  <input class="form-check-input" type="checkbox" value="Roma Tomatoes" id="roma" name="veggies">
+                  <label class="form-check-label" for="roma">
+                    Roma Tomatoes
+                  </label>
+                </div>
+
+                <div class="form-check">
+                  <input class="form-check-input" type="checkbox" value="Green Olives" id="greenOlive" name="veggies">
+                  <label class="form-check-label" for="greenOlive">
+                    Green Olive
+                  </label>
+                </div>
+
+                <div class="form-check">
+                  <input class="form-check-input" type="checkbox" value="Onions" id="onion" name="veggies">
+                  <label class="form-check-label" for="onion">
+                    Onion
+                  </label>
+                </div>
+
+
+                <div class="form-check">
+                  <input class="form-check-input" type="checkbox" value="Black Olives" id="blackOlive" name="veggies">
+                  <label class="form-check-label" for="blackOlive">
+                    Black Olive
+                  </label>
+                </div>
+
+
+                <div class="form-check">
+                  <input class="form-check-input" type="checkbox" value="Green Peppers" id="greenPeppers"
+                    name="veggies">
+                  <label class="form-check-label" for="greenPeppers">
+                    Green Peppers
+                  </label>
+                </div>
+
+                <div class="form-check">
+                  <input class="form-check-input" type="checkbox" value="Pineapple" id="pineapple" name="veggies">
+                  <label class="form-check-label" for="pineapple">
+                    Pineapple
+                  </label>
+                </div>
+
+                <div class="form-check">
+                  <input class="form-check-input" type="checkbox" value="Banana Peppers" id="bananaPeppers"
+                    name="veggies">
+                  <label class="form-check-label" for="bananaPeppers">
+                    Banana Peppers
+                  </label>
+                </div>
+
+
+                <div class="form-check">
+                  <input class="form-check-input" type="checkbox" value="Spinach" id="spinach" name="veggies">
+                  <label class="form-check-label" for="spinach">
+                    Spinach
+                  </label>
+                </div>
+
+                <div class="form-check">
+                  <input class="form-check-input" type="checkbox" value="Jalapeno Peppers" id="jalapenoPeppers"
+                    name="veggies">
+                  <label class="form-check-label" for="jalapenoPeppers">
+                    Jalapeno Peppers
+                  </label>
+                </div>
+
+                <div class="form-check">
+                  <input class="form-check-input" type="checkbox" value="Mushrooms" id="mushroom" name="veggies">
+                  <label class="form-check-label" for="mushroom">
+                    Mushroom
+                  </label>
+                </div>
+              </fieldset>
+
+            </div>
+          </div>
+        </div>
+        <div class="col-lg-6">
+          <div class="row h-75 d-inline-block">
+            <div class="col-12">
+              <div id="builder"></div>
+            </div>
+          </div>
+          <div class="row">
+            <div>
+              <button type="submit" class="w-100 btn btn-primary btn-lg">Add to Deal</button>
+            </div>
+          </div>
+        </div>
       </div>
-
-      <div class="col-md">
-        <form id="form-builder" action=" /order/builder/" method="post">
-          <fieldset>
-            <legend>Size:</legend>
-            <input type="radio" id="large" name="size" value="Large" checked>
-            <label for="large">Large</label><br>
-            <input type="radio" id="medium" name="size" value="Medium">
-            <label for="medium">Medium</label><br>
-            <input type="radio" id="small" name="size" value="Small">
-            <label for="small">Small</label>
-          </fieldset>
-
-          <fieldset>
-            <legend>Crust:</legend>
-            <input type="radio" id="thin" name="crust" value="Thin">
-            <label for="thin">Thin</label><br>
-            <input type="radio" id="regular" name="crust" value="Regular" checked>
-            <label for="regular">Regular</label><br>
-            <input type="radio" id="deepdish" name="crust" value="Deepdish">
-            <label for="deepdish">Deep Dish</label>
-          </fieldset>
-
-          <fieldset>
-            <legend>Sauce:</legend>
-            <input type="radio" id="marinara" name="sauce" value="Marinara" checked>
-            <label for="marinara">Marinara</label><br>
-            <input type="radio" id="bbq" name="sauce" value="BBQ">
-            <label for="bbq">BBQ</label><br>
-            <input type="radio" id="buffalo" name="sauce" value="Buffalo">
-            <label for="buffalo">Buffalo</label>
-          </fieldset>
-
-          <fieldset>
-            <legend>Cut:</legend>
-            <input type="radio" id="normal" name="cut" value="Normal" checked>
-            <label for="normal">Normal</label><br>
-            <input type="radio" id="square" name="cut" value="Square">
-            <label for="square">Square</label>
-          </fieldset>
-          <fieldset>
-            <legend>Cheese:</legend>
-            <input type="radio" id="normal" name="cheese" value="Normal" checked>
-            <label for="normal">Normal</label><br>
-            <input type="radio" id="light" name="cheese" value="Light">
-            <label for="light">Light</label><br>
-            <input type="radio" id="extra" name="cheese" value="Extra">
-            <label for="extra">Extra</label><br>
-            <input type="radio" id="extra" name="cheese" value="No">
-            <label for="extra">No Cheese</label>
-          </fieldset>
-
-          <fieldset>
-            <legend>Meats:</legend>
-            <div>
-              <input type="checkbox" id="anchovies" name="meats" value="Anchovies" />
-              <label for="anchovies">Anchovies</label>
-            </div>
-
-            <div>
-              <input type="checkbox" id="sausage" name="meats" value="Sausage" />
-              <label for="sausage">Sausage</label>
-            </div>
-
-            <div>
-              <input type="checkbox" id="italianSausage" name="meats" value="Italian Sausage" />
-              <label for="italianSausage">Spicy Italian Sausage</label>
-            </div>
-
-            <div>
-              <input type="checkbox" id="bacon" name="meats" value="Bacon" />
-              <label for="bacon">Bacon</label>
-            </div>
-
-            <div>
-              <input type="checkbox" id="pepperoni" name="meats" value="Pepperoni" />
-              <label for="pepperoni">Pepperoni</label>
-            </div>
-
-            <div>
-              <input type="checkbox" id="chicken" name="meats" value="Chicken" />
-              <label for="chicken">Grilled Chicken</label>
-            </div>
-
-            <div>
-              <input type="checkbox" id="salami" name="meats" value="Salami" />
-              <label for="salami">Salami</label>
-            </div>
-
-            <div>
-              <input type="checkbox" id="steak" name="meats" value="Philly Steak" />
-              <label for="steak">Philly Steak</label>
-            </div>
-
-            <div>
-              <input type="checkbox" id="ham" name="meats" value="Ham" />
-              <label for="ham">Canadian Bacon</label>
-            </div>
-
-            <div>
-              <input type="checkbox" id="beef" name="meats" value="Beef" />
-              <label for="beef">Beef</label>
-            </div>
-
-            <div>
-              <input type="checkbox" id="meatball" name="meats" value="Meatballs" />
-              <label for="meatball">Meatball</label>
-            </div>
-          </fieldset>
-
-          <fieldset>
-            <legend>Veggies:</legend>
-            <div>
-              <input type="checkbox" id="roma" name="veggies" value="Roma Tomatoes" />
-              <label for="roma">Roma Tomatoes</label>
-            </div>
-
-            <div>
-              <input type="checkbox" id="greenOlive" name="veggies" value="Green Olives" />
-              <label for="greenOlive">Green Olive</label>
-            </div>
-
-            <div>
-              <input type="checkbox" id="onion" name="veggies" value="Onions" />
-              <label for="onion">Onion</label>
-            </div>
-
-
-            <div>
-              <input type="checkbox" id="blackOlive" name="veggies" value="Black Olives" />
-              <label for="blackOlive">Black olive</label>
-            </div>
-
-            <div>
-              <input type="checkbox" id="greenPeppers" name="veggies" value="Green Peppers" />
-              <label for="greenPeppers">Green Peppers</label>
-            </div>
-
-            <div>
-              <input type="checkbox" id="pineapple" name="veggies" value="Pineapple" />
-              <label for="pineapple">Pineapple</label>
-            </div>
-
-
-            <div>
-              <input type="checkbox" id="bananaPeppers" name="veggies" value="Banana Peppers" />
-              <label for="bananaPeppers">Banana Peppers</label>
-            </div>
-
-            <div>
-              <input type="checkbox" id="spinach" name="veggies" value="Spinach" />
-              <label for="spinach">Spinach</label>
-            </div>
-
-            <div>
-              <input type="checkbox" id="jalapenoPeppers" name="veggies" value="Jalapeno Peppers" />
-              <label for="jalapenoPeppers">Jalapeno Peppers</label>
-            </div>
-
-            <div>
-              <input type="checkbox" id="mushroom" name="veggies" value="Mushrooms" />
-              <label for="mushroom">Mushroom</label>
-            </div>
-
-          </fieldset>
-          <label>Quantity:
-            <input type="Number" name="quantity" min="1" max="99" step="1" value="1">
-            </label>
-          <button type="submit" class="btn btn-primary btn-sm">Add to Deal</button>
-        </form>
-        <form action="/order" method="GET">
-          <button type="submit" class="btn btn-secondary btn-sm">Cancel</button>
-        </form>
-      </div>
-    </div>
+    </form>
   </div>
+
   <%- include('../partials/footer') %>

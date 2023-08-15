@@ -1,0 +1,9 @@
+.crust-area {
+  position: relative;
+  width: 100%;
+}
+
+.topping-area {
+  position: absolute;
+  width: 100%;
+}

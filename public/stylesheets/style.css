@@ -4,14 +4,15 @@
 }
 
 html {
-  position: relative;
-  min-height: 100%;
+  /* position: relative;
+  min-height: 100%; */
+  /* height: 100vh; */
 }
 
 
 body {
   font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
-  margin-bottom: 60px;
+  margin-bottom: 40px;
 }
 
 a {
@@ -67,7 +68,8 @@ a {
 }
 
 
-.text-primary {
+.text-primary,
+legend {
   color: red !important;
 }
 
@@ -92,7 +94,7 @@ section {
 footer {
   box-shadow: -0.1em -0.1em 0.5em rgb(0, 0, 0);
   border-top: solid 5px red;
-  position: absolute;
+  position: fixed;
   bottom: 0;
   width: 100%;
   height: 40px;
@@ -142,6 +144,15 @@ footer {
 
 div {
   margin: 0;
+}
+
+
+#builder {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  box-sizing: border-box;
+  position: relative;
 }
 
 @media only screen and (min-width: 992px) {
