@@ -1,4 +1,5 @@
-const Order = require('../models/order')
+const Order = require('../models/order');
+const pizza = require('../models/pizza');
 const Pizza = require('../models/pizza')
 const { v4: uuidv4 } = require('uuid');
 
@@ -89,15 +90,24 @@ async function saveBuild(req, res) {
 }
 
 async function addToCart(req, res){
-//     const itemId = req.params.id
-//     const pizzaData = { ...req.body }
-//     pizzaData.type = "Custom"
-//     delete pizzaData._id
-//     console.log(pizzaData)
-//     pizza = await Pizza.create({pizzaData})
+    const itemId = req.params.id
+    const pizza = await Pizza.findById(itemId)
+    const pizzaData = {...pizza._doc}
+    pizzaData.type = "Custom"
+    delete pizzaData._id
+    delete pizzaData.createdAt
+    delete pizzaData.updatedAt 
+    delete pizzaData.__v
+    newPizza = await Pizza.create(pizzaData)
 
+    order = await Order.findById(req.cookies.orderId).populate('items.pizzas')
+    order.items.pizzas.push(newPizza)
+    order.total = calcTotal(order.items)
+    order.save()
 
-
+    prebuiltPizzas = await Pizza.find({type: "Prebuilt"})
+    
+    res.render('order/index', { title: "Order",order, prebuiltPizzas })
 }
 
 async function show(req, res) {
@@ -157,7 +167,7 @@ async function handlePayment(req, res) {
 
 function calcTotal(items){
     let tot = 0
-    for (pizza of items.pizzas){
+    for (let pizza of items.pizzas){
         tot += pizza.price * pizza.quantity
     }
     return tot
