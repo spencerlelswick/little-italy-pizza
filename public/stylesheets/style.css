@@ -18,6 +18,18 @@ a {
   color: #00B7FF;
 }
 
+#prebuiltPizzas {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: space-around;
+  
+}
+#prebuiltPizzas > div {
+  border: 1px solid black;
+}
+
+
 .navbar {
   background-color: white;
   border-bottom: 5px solid red;

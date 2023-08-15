@@ -23,7 +23,10 @@ async function index(req, res) {
     } else {
         order = await Order.findById(req.cookies.orderId)
     }
-    res.render('order/index', { title: "Order", order: order })
+
+    prebuiltPizzas = await Pizza.find({type: "Prebuilt"})
+    
+    res.render('order/index', { title: "Order", order: order, prebuiltPizzas })
 }
 
 async function newBuild(req, res, next) {
