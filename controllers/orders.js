@@ -1,6 +1,5 @@
 const Order = require('../models/order')
 const Pizza = require('../models/pizza')
-const Helper = require('../scripts/helper')
 const { v4: uuidv4 } = require('uuid');
 
 module.exports = {
@@ -16,7 +15,6 @@ module.exports = {
     goToStatus,
 }
 
-//ok
 async function index(req, res) {
     let order = {}
     if (req.cookies.orderId === undefined) {
@@ -28,14 +26,12 @@ async function index(req, res) {
     res.render('order/index', { title: "Order", order: order })
 }
 
-//ok
 async function newBuild(req, res, next) {
     const orderId = req.cookies.orderId
     const order = await Order.findById(orderId)
     res.render('builder/new', { title: "Deal Builder", order: order })
 }
 
-//perfect
 async function createBuild(req, res, next) {
     const pizzaData = { ...req.body }
     pizzaData.name = namePizza(pizzaData)
@@ -49,7 +45,6 @@ async function createBuild(req, res, next) {
     res.redirect('/order')
 }
 
-//perfect
 async function editBuild(req, res) {
     const orderId = req.cookies.orderId
     const itemId = req.params.id
@@ -59,7 +54,6 @@ async function editBuild(req, res) {
     // TODO: check if side
 }
 
-//perfect
 async function saveBuild(req, res) {
     const orderId = req.cookies.orderId
     const itemId = req.params.id
@@ -90,7 +84,6 @@ async function saveBuild(req, res) {
     res.render('cart/index', { title: "Cart", order: order })
 }
 
-// ok
 async function show(req, res) {
     let order = {}
     if (req.cookies.orderId === undefined) {
@@ -102,7 +95,6 @@ async function show(req, res) {
     res.render('cart/index', { title: "Cart", order: order })
 }
 
-//perfect
 async function deleteItem(req, res) {
     const orderId = req.cookies.orderId
     const itemId = req.params.id
