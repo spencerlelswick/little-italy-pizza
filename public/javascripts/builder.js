@@ -3,7 +3,8 @@ let zIndex = -100
 const builder = document.getElementById('builder')
 builder.style = `position: absolute`
 const base = document.createElement('img')
-base.style = `z-index:${zIndex};width: 500px; position: inherit;`
+base.style = `z-index:${zIndex};`
+base.classList.add(`build-area`)
 base.src = '/crust/regular.png'
 
 document.getElementById('builder').appendChild(base);
@@ -34,9 +35,9 @@ function changeTopping(topping, addTopping) {
   if (addTopping) {
     const newTopping = document.createElement('img')
     zIndex += 1
-    newTopping.style = `position: absolute;z-index:${zIndex}; width: 500px;`
+    newTopping.style = `z-index:${zIndex};`
     newTopping.src = `/idle-toppings/${topping.toLowerCase()}.png`
-    newTopping.classList.add(`${topping}`)
+    newTopping.classList.add(`${topping}`, `build-area`)
     document.getElementById('builder').appendChild(newTopping);
     console.log(newTopping)
   } else {
