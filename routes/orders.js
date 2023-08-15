@@ -6,11 +6,11 @@ router.get('/builder', orderCtrl.newBuild);
 router.post('/builder', orderCtrl.createBuild);
 router.get('/cart', orderCtrl.show)
 router.get('/checkout/:id', orderCtrl.checkout)
+router.post('/checkout/:id', orderCtrl.handlePayment)
 router.get('/', orderCtrl.index);
 router.delete('/cart/:id', orderCtrl.deleteItem);
 router.post('/cart/:id', orderCtrl.editQuantity);
 router.post('/builder/edit/:id', orderCtrl.editBuild);
 router.post('/builder/:id', orderCtrl.saveBuild);
-router.get('/status/:id', orderCtrl.goToStatus); //placeholder
 
 module.exports = router;

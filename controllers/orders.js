@@ -12,7 +12,7 @@ module.exports = {
     deleteItem,
     editQuantity,
     checkout,
-    goToStatus,
+    handlePayment
 }
 
 async function index(req, res) {
@@ -45,7 +45,7 @@ async function createBuild(req, res, next) {
     const newTotal = Helper.totalOrder(currOrder.items)
     await Order.findOneAndUpdate(
         { _id: currOrder._id },
-        { $set: { items: { pizzas: newPizzas, sides: [...currOrder.items.sides] }, total : newTotal } }
+        { $set: { items: { pizzas: newPizzas, sides: [...currOrder.items.sides] }, total: newTotal } }
     );
     res.redirect('/order')
 }
@@ -56,7 +56,7 @@ async function editBuild(req, res) {
     const order = await Order.findById(orderId)
     let newItems = { ...order.items }
     let index = -1
-    if (newItems.pizzas.length) { 
+    if (newItems.pizzas.length) {
         index = newItems.pizzas.findIndex(pizza => pizza.id === itemId)
         if (index !== -1) {
             let newPizza = newItems.pizzas[index]
@@ -84,7 +84,7 @@ async function saveBuild(req, res) {
     const newTotal = Helper.totalOrder(newItems)
     await Order.findOneAndUpdate(
         { _id: orderId },
-        { $set: { items: newItems, total : newTotal } }
+        { $set: { items: newItems, total: newTotal } }
     );
     const newOrder = await Order.findById(orderId)
     res.render('cart/index', { title: "Cart", order: newOrder })
@@ -105,17 +105,17 @@ async function deleteItem(req, res) {
     const orderId = req.cookies.orderId
     const itemId = req.params.id
     const order = await Order.findById(orderId)
-    newItems = {...order.items}
+    newItems = { ...order.items }
     let index = -1
-    
-    if (newItems.pizzas.length){
+
+    if (newItems.pizzas.length) {
         index = newItems.pizzas.findIndex(pizza => pizza.id === itemId)
         if (index !== -1) {
             newItems.pizzas.splice(index, 1)
         }
     }
-    
-    if(newItems.sides.length && index === -1){
+
+    if (newItems.sides.length && index === -1) {
         index = newItems.sides.findIndex(side => side.id === itemId)
         newItems.sides.splice(index, 1)
     }
@@ -133,27 +133,27 @@ async function editQuantity(req, res) {
     const itemId = req.params.id
     let newQty = parseInt(req.body.qty)
     const order = await Order.findById(orderId)
-    newItems = {...order.items}
+    newItems = { ...order.items }
     let index = -1
-    if (newItems.pizzas.length){
+    if (newItems.pizzas.length) {
         index = newItems.pizzas.findIndex(pizza => pizza.id === itemId)
         if (index !== -1) {
             let oldQty = newItems.pizzas[index].quantity
             if (parseInt(oldQty) <= 0) {
-                newItems.pizzas[index].quantity = 1+""
+                newItems.pizzas[index].quantity = 1 + ""
             } else if (!(parseInt(oldQty) <= 1 && newQty === -1)) {
-                newItems.pizzas[index].quantity = parseInt(oldQty) + newQty+""
+                newItems.pizzas[index].quantity = parseInt(oldQty) + newQty + ""
             }
         }
     }
-    
-    if(newItems.sides.length &&  index === -1){
+
+    if (newItems.sides.length && index === -1) {
         index = newItems.sides.findIndex(side => side.id === itemId)
         let oldQty = newItems.sides[index].quantity
         if (parseInt(oldQty) <= 0) {
-            newItems.sides[index].quantity = 1+""
+            newItems.sides[index].quantity = 1 + ""
         } else if (!(parseInt(oldQty) <= 1 && newQty === -1)) {
-            newItems.sides[index].quantity = parseInt(oldQty) + newQty+""
+            newItems.sides[index].quantity = parseInt(oldQty) + newQty + ""
         }
     }
 
@@ -166,22 +166,19 @@ async function editQuantity(req, res) {
 }
 
 async function checkout(req, res, next) {
-    let orderId = req.params.id
-    // if (req.cookies.orderId === undefined) {
-    //     order = await Order.create({})
-    //     res.cookie(`orderId`, `${order._id}`);
-    // } else {
-    const order = await Order.findById(req.cookies.orderId)
-    // }
+    let orderId = req.cookies.orderId
+    const order = await Order.findById(orderId)
+    console.log(order)
     res.render('checkout/index', { title: "checkout", order: order })
 }
 
-async function goToStatus(req, res) {
+async function handlePayment(req, res) {
+    console.log(req.body)
     const orderId = req.params.id
     await Order.findOneAndUpdate(
-        { _id: orderId},
+        { _id: orderId },
         { $set: { status: "confirmed" } })
     const order = await Order.findById(orderId)
     res.clearCookie('orderId')
-    res.render('order/status', {title: "Order Status", order: order})
+    res.render('order/status', { title: "Order Status", order: order })
 }
