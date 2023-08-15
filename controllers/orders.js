@@ -102,13 +102,14 @@ async function deleteItem(req, res) {
     const order = await Order.findById(orderId).populate('items.pizzas')
     order.total = calcTotal(order.items)
     order.save()
-    res.redirect('/order/cart')
+    res.render('cart/index', { title: "Cart", order: order })
 }
 
 async function editQuantity(req, res) {
     const orderId = req.cookies.orderId
     const itemId = req.params.id
     const newQty = parseInt(req.body.qty)
+    
     const pizza = await Pizza.findById(itemId)
     if (!(pizza.quantity === 1 && newQty === -1)){
         pizza.quantity += newQty
@@ -117,7 +118,7 @@ async function editQuantity(req, res) {
     const order = await Order.findById(orderId).populate('items.pizzas')
     order.total = calcTotal(order.items)
     order.save()
-    res.redirect('/order/cart')
+    res.render('cart/index', { title: "Cart", order: order })
 }
 
 async function checkout(req, res, next) {
