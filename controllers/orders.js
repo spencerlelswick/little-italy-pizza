@@ -1,4 +1,5 @@
 const Order = require('../models/order')
+const Pizza = require('../models/pizza')
 const Helper = require('../scripts/helper')
 const { v4: uuidv4 } = require('uuid');
 
@@ -15,6 +16,7 @@ module.exports = {
     goToStatus,
 }
 
+//ok
 async function index(req, res) {
     let order = {}
     if (req.cookies.orderId === undefined) {
@@ -26,29 +28,55 @@ async function index(req, res) {
     res.render('order/index', { title: "Order", order: order })
 }
 
+//ok
 async function newBuild(req, res, next) {
     const orderId = req.cookies.orderId
     const order = await Order.findById(orderId)
     res.render('builder/new', { title: "Deal Builder", order: order })
 }
 
+//untouched
+// async function createBuild(req, res, next) {
+//     const newPizza = { ...req.body }
+//     newPizza.id = uuidv4()
+//     newPizza.name = Helper.namePizza(newPizza)
+//     newPizza.price = Helper.pricePizza(newPizza)
+//     const orderId = req.cookies.orderId
+//     const currOrder = await Order.findById(orderId)
+//     const updateOrder = { ...currOrder._doc }
+//     const newPizzas = [...updateOrder.items.pizzas, newPizza]
+//     updateOrder.items.pizzas = newPizzas
+//     const newTotal = Helper.totalOrder(currOrder.items)
+//     await Order.findOneAndUpdate(
+//         { _id: currOrder._id },
+//         { $set: { items: { pizzas: newPizzas, sides: [...currOrder.items.sides] }, total : newTotal } }
+//     );
+//     res.redirect('/order')
+// }
+
 async function createBuild(req, res, next) {
-    const newPizza = { ...req.body }
-    newPizza.id = uuidv4()
-    newPizza.name = Helper.namePizza(newPizza)
-    newPizza.price = Helper.pricePizza(newPizza)
-    const orderId = req.cookies.orderId
-    const currOrder = await Order.findById(orderId)
-    const updateOrder = { ...currOrder._doc }
-    const newPizzas = [...updateOrder.items.pizzas, newPizza]
-    updateOrder.items.pizzas = newPizzas
-    const newTotal = Helper.totalOrder(currOrder.items)
-    await Order.findOneAndUpdate(
-        { _id: currOrder._id },
-        { $set: { items: { pizzas: newPizzas, sides: [...currOrder.items.sides] }, total : newTotal } }
-    );
+    const pizzaData = { ...req.body }
+   
+    console.log(pizzaData)
+
+    let newPizza = await Pizza.create(pizzaData)
+    console.log(newPizza)
+
+    // newPizza.name = Helper.namePizza(newPizza)
+    // newPizza.price = Helper.pricePizza(newPizza)
+    // const orderId = req.cookies.orderId
+    // const currOrder = await Order.findById(orderId)
+    // const updateOrder = { ...currOrder._doc }
+    // const newPizzas = [...updateOrder.items.pizzas, newPizza]
+    // updateOrder.items.pizzas = newPizzas
+    // const newTotal = Helper.totalOrder(currOrder.items)
+    // await Order.findOneAndUpdate(
+    //     { _id: currOrder._id },
+    //     { $set: { items: { pizzas: newPizzas, sides: [...currOrder.items.sides] }, total : newTotal } }
+    // );
     res.redirect('/order')
 }
+
 
 async function editBuild(req, res) {
     const orderId = req.cookies.orderId
