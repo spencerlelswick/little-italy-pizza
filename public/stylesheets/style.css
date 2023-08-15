@@ -3,6 +3,15 @@
   margin: 0;
 }
 
+:root {
+  --primary: #C1D9C1;
+  --secondary: #F5EFDD;
+  --on-primary: #DE4946;
+  --on-secondary: #EDB491;
+  --black: #000;
+  --white: #fff;
+}
+
 html {
   /* position: relative;
   min-height: 100%; */
@@ -12,11 +21,34 @@ html {
 
 body {
   font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
-  margin-bottom: 40px;
 }
 
+
+main {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  background-color: var(--secondary);
+  height: 90vh;
+}
+
+section {}
+
+footer {
+  box-shadow: -0.1em -0.1em 0.5em var(--black);
+  border-top: solid 5px var(--on-primary);
+  position: fixed;
+  bottom: 0;
+  width: 100%;
+  height: 40px;
+  line-height: 30px;
+  background-color: var(--on-secondary);
+}
+
+
 a {
-  color: #00B7FF;
+  color: #ff0000;
 }
 
 #prebuiltPizzas {
@@ -24,35 +56,36 @@ a {
   flex-direction: row;
   flex-wrap: wrap;
   justify-content: space-around;
-  
+
 }
-#prebuiltPizzas > div {
+
+#prebuiltPizzas>div {
   border: 1px solid black;
 }
 
 
 .navbar {
-  background-color: white;
-  border-bottom: 5px solid red;
+  background-color: var(--primary);
+  border-bottom: 5px solid var(--on-primary);
   box-shadow: 0.1em 0.1em 0.5em rgb(0, 0, 0);
 }
 
 .nav-link {
   font-size: 30px;
-  color: red;
+  color: var(--on-primary);
   font-weight: bold;
-  text-shadow: 1px 1px 1px black;
+  text-shadow: 1px 1px 1px var(--black);
 }
 
 .nav-link:hover {
-  color: red;
-  text-shadow: 1.5px 1.5px 1.5px black;
-  box-shadow: 0em 0em 0em rgb(0, 0, 0);
+  color: var(--on-primary);
+  text-shadow: 1.5px 1.5px 1.5px var(--black);
+  box-shadow: 0em 0em 0em var(--black);
 }
 
 .navbar-toggler {
-  border-bottom: 5px solid red;
-  box-shadow: 0em 0em 0.1em rgb(0, 0, 0);
+  border-bottom: 5px solid var(--on-primary);
+  box-shadow: 0em 0em 0.1em var(--black);
 }
 
 .navbar-toggler:enabled {}
@@ -64,43 +97,22 @@ a {
 }
 
 .btn {
-  box-shadow: 0.1em 0.1em 0.1em rgb(0, 0, 0);
+  box-shadow: 0.1em 0.1em 0.1em var(--black);
 }
 
 
 .text-primary,
 legend {
-  color: red !important;
+  color: var(--on-primary) !important;
 }
 
 .btn-primary,
 .form-check-input:checked {
-  background-color: red !important;
-  border-color: #000000 !important;
-}
-
-main {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
+  background-color: var(--on-primary) !important;
+  border-color: var(--black) !important;
 }
 
 
-section {
-  padding: 50px 0;
-}
-
-footer {
-  box-shadow: -0.1em -0.1em 0.5em rgb(0, 0, 0);
-  border-top: solid 5px red;
-  position: fixed;
-  bottom: 0;
-  width: 100%;
-  height: 40px;
-  line-height: 30px;
-  background-color: #f5f5f5;
-}
 
 .container {
   margin: auto;
