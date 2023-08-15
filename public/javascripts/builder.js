@@ -1,10 +1,9 @@
 const builderForm = document.getElementById('form-builder')
 let zIndex = -100
 const builder = document.getElementById('builder')
-builder.style = `position: absolute`
 const base = document.createElement('img')
 base.style = `z-index:${zIndex};`
-base.classList.add(`build-area`)
+base.classList.add(`crust-area`)
 base.src = '/crust/regular.png'
 
 document.getElementById('builder').appendChild(base);
@@ -37,7 +36,7 @@ function changeTopping(topping, addTopping) {
     zIndex += 1
     newTopping.style = `z-index:${zIndex};`
     newTopping.src = `/idle-toppings/${topping.toLowerCase()}.png`
-    newTopping.classList.add(`${topping}`, `build-area`)
+    newTopping.classList.add(`${topping}`, `topping-area`)
     document.getElementById('builder').appendChild(newTopping);
     console.log(newTopping)
   } else {

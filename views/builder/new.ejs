@@ -1,24 +1,25 @@
 <%- include('../partials/header') %>
   <link rel="stylesheet" href="/stylesheets/builder.css">
   <script src="/javascripts/builder.js" defer></script>
-  <div class="container mt-10">
-    <div class="row">
-      <div class="col">
-        <form id="form-builder" action=" /order/builder/" method="post">
+  <div class="container lh-base ">
+    <form id="form-builder" action=" /order/builder/" method="post">
+
+      <div class="row mt-5">
+        <div class="col-lg-6">
           <div class="row g-3 ">
-            <div class="col-sm-6  mt-5">
+            <div class="col-sm-6">
               <fieldset>
                 <legend>Size:</legend>
                 <input class="form-check-input" type="radio" id="large" name="size" value="Large" checked>
-                <label class="form-check-label" for="large">Large</label><br>
+                <label class="form-check-label lh-base" for="large">Large</label><br>
                 <input class="form-check-input" type="radio" id="medium" name="size" value="Medium">
-                <label class="form-check-label" for="medium">Medium</label><br>
+                <label class="form-check-label lh-base" for="medium">Medium</label><br>
                 <input class="form-check-input" type="radio" id="small" name="size" value="Small">
-                <label class="form-check-label" for="small">Small</label>
+                <label class="form-check-label lh-base" for="small">Small</label>
               </fieldset>
 
             </div>
-            <div class="col-sm-6  mt-5">
+            <div class="col-sm-6">
               <fieldset>
                 <legend>Crust:</legend>
                 <input class="form-check-input" type="radio" id="thin" name="crust" value="Thin">
@@ -65,7 +66,7 @@
             </div>
           </div>
           <div class="row g-3">
-            <div class="col-sm-6 mt-5">
+            <div class="col-sm-6">
               <fieldset>
                 <legend>Meats:</legend>
 
@@ -149,7 +150,7 @@
 
               </fieldset>
             </div>
-            <div class="col-sm-6  mt-5">
+            <div class="col-sm-6">
               <fieldset>
                 <legend>Veggies:</legend>
 
@@ -231,26 +232,28 @@
               </fieldset>
 
             </div>
-            <label class="form-check-label ">Quantity:
-              <input class="form-number-input" type="Number" name="quantity" min="1" max="99" step="1" value="1">
-            </label>
-
           </div>
-
-          <div class="container  mt-5">
-            <button type="submit" class="btn btn-primary btn-sm">Add to Deal</button>
-            <form action="/order" method="GET">
-              <button type="submit" class="btn btn-secondary btn-sm">Cancel</button>
-            </form>
+        </div>
+        <div class="col-lg-6 d-flex">
+          <div class="row">
+            <div id="builder"></div>
           </div>
-
-        </form>
-
+          <div class="row">
+            <div class="row"> <label class="form-check-label ">Quantity:
+                <input class="form-number-input" type="Number" name="quantity" min="1" max="99" step="1" value="1">
+              </label>
+            </div>
+            <div class="row">
+              <button type="submit" class="w-100 btn btn-primary btn-lg">Add to Deal</button>
+            </div>
+          </div>
+        </div>
       </div>
-      <div class="col">
-        <div id="builder"></div>
-      </div>
-    </div>
+
+
+
+    </form>
   </div>
-  </div>
+
+
   <%- include('../partials/footer') %>

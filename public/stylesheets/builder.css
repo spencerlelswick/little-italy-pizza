@@ -1,5 +1,9 @@
-.build-area {
+.crust-area {
+  position: relative;
+  width: 100%;
+}
+
+.topping-area {
   position: absolute;
-  top: 30vh;
-  width: 40vw;
+  width: 100%;
 }
