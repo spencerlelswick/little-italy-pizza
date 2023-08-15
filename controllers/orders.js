@@ -61,11 +61,11 @@ async function createBuild(req, res, next) {
     let newPizza = await Pizza.create(pizzaData)
 
     const orderId = req.cookies.orderId
-    let order = await Order.findById(orderId)
+    let order = await Order.findById(orderId).populate('items.pizzas')
 
-    order.items.pizzas.push(newPizza._id)
+    order.items.pizzas.push(newPizza)
 
-    newTotal= await calcTotal(order)
+    newTotal= calcTotal(order)
 
     await Order.findOneAndUpdate(
         { _id: orderId },
@@ -253,10 +253,9 @@ async function goToStatus(req, res) {
     res.render('order/status', {title: "Order Status", order: order})
 }
 
-async function calcTotal(order){
+function calcTotal(order){
     let tot = 0
-    for (pizzaId of order.items.pizzas){
-        let pizza = await Pizza.findById(pizzaId)
+    for (pizza of order.items.pizzas){
         tot += pizza.price * pizza.quantity
     }
     return tot
