@@ -1,14 +1,12 @@
 <%- include('../partials/header') %>
-
     <%if (order){%>
         <h4>current total: $<%- order.total %></h4>
         <hr />
-
         <% order.items.pizzas.forEach(pizza=>{ %>
             <h6> ITEM: <%- pizza.name %> </h6>
             <h6> QUANTITY: <%- pizza.quantity %></h6>
-            <form method="POST" action="/order/cart/<%- pizza.id %>">
-  
+            <form method="POST" action="/order/cart/<%- pizza.id %>?_method=PUT">
+    
                 <button type="submit" name="qty" value="+1" class="btn btn-secondary btn-sm">+1</button>
                 <br/>
 
@@ -16,10 +14,9 @@
                 <% if(pizza.quantity === 1){ %> disabled <%} %>>-1</button>
             </form>
 
-
             <h6> PRICE: $<%- pizza.price*pizza.quantity %></h6>
 
-            <form method="POST" action="/order/builder/edit/<%- pizza.id %>">
+            <form method="POST" action="/order/builder/edit/<%- pizza.id %>?_method=PUT">
                 <button type="submit" class="btn btn-primary btn-sm">Edit Items</button>
             </form>
 
@@ -29,17 +26,19 @@
             <hr />
 
             <%})%>
-                <%} %>
+    <%} %>
 
-                    <br /> <br />
+    <br /> <br />
 
-                    <form method="GET" action="/order/checkout/<%- order.id %>">
-                        <button type="submit" class="btn btn-primary btn-sm"
-                        <% if(!order.items.pizzas.length && !order.items.sides.length){ %> disabled <%} %>>Checkout</button>
-                    </form>
-                    <br />
-                    <form method="GET" action="/order">
-                        <button type="submit" class="btn btn-secondary btn-sm" >Hungry For More?</button>
-                    </form>
+    <form method="GET" action="/order/checkout/<%- order.id %>">
+        <button type="submit" class="btn btn-primary btn-sm"
+        <% if(!order.items.pizzas.length && !order.items.sides.length){ %> disabled <%} %>>Checkout</button>
+    </form>
+    <br />
+    <form method="GET" action="/order">
+        <button type="submit" class="btn btn-secondary btn-sm" >Hungry For More?</button>
+    </form>
 
-                            <%- include('../partials/footer') %>
+
+
+ <%- include('../partials/footer') %>
