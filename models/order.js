@@ -1,10 +1,14 @@
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
+const Pizza = require('../models/pizza')
 
 const orderSchema = new Schema(
   {
     items: {
-      pizzas:[],
+      pizzas: {type: [Schema.Types.ObjectId],
+        ref: 'Pizza',
+        default:[]
+    },
       sides: []
     },
     total: {

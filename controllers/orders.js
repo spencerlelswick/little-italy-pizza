@@ -1,5 +1,5 @@
 const Order = require('../models/order')
-const Helper = require('../scripts/helper')
+const Pizza = require('../models/pizza')
 const { v4: uuidv4 } = require('uuid');
 
 module.exports = {
@@ -33,20 +33,15 @@ async function newBuild(req, res, next) {
 }
 
 async function createBuild(req, res, next) {
-    const newPizza = { ...req.body }
-    newPizza.id = uuidv4()
-    newPizza.name = Helper.namePizza(newPizza)
-    newPizza.price = Helper.pricePizza(newPizza)
+    const pizzaData = { ...req.body }
+    pizzaData.name = namePizza(pizzaData)
+    pizzaData.price = pricePizza(pizzaData)
+    const newPizza = await Pizza.create(pizzaData)
     const orderId = req.cookies.orderId
-    const currOrder = await Order.findById(orderId)
-    const updateOrder = { ...currOrder._doc }
-    const newPizzas = [...updateOrder.items.pizzas, newPizza]
-    updateOrder.items.pizzas = newPizzas
-    const newTotal = Helper.totalOrder(currOrder.items)
-    await Order.findOneAndUpdate(
-        { _id: currOrder._id },
-        { $set: { items: { pizzas: newPizzas, sides: [...currOrder.items.sides] }, total: newTotal } }
-    );
+    const order = await Order.findById(orderId).populate('items.pizzas')
+    order.items.pizzas.push(newPizza)
+    order.total = calcTotal(order.items)
+    order.save()
     res.redirect('/order')
 }
 
@@ -54,40 +49,39 @@ async function editBuild(req, res) {
     const orderId = req.cookies.orderId
     const itemId = req.params.id
     const order = await Order.findById(orderId)
-    let newItems = { ...order.items }
-    let index = -1
-    if (newItems.pizzas.length) {
-        index = newItems.pizzas.findIndex(pizza => pizza.id === itemId)
-        if (index !== -1) {
-            let newPizza = newItems.pizzas[index]
-            res.render('builder/edit', { title: "Edit Deal", order: order, pizza: newPizza })
-        }
-    }
-    // TODO: if(newItems.side.length)
+    const pizza = await Pizza.findById(itemId)
+    res.render('builder/edit', { title: "Edit Deal", order: order, pizza: pizza })
+    // TODO: check if side
 }
 
 async function saveBuild(req, res) {
     const orderId = req.cookies.orderId
     const itemId = req.params.id
-    const order = await Order.findById(orderId)
-    let newItems = { ...order.items }
-    let index = -1
-    if (newItems.pizzas) {
-        index = newItems.pizzas.findIndex(pizza => pizza.id === itemId)
-    }
-    const newPizza = { ...req.body }
-    newPizza.id = newItems.pizzas[index].id
-    newPizza.quantity = newItems.pizzas[index].quantity
-    newPizza.name = Helper.namePizza(newPizza)
-    newPizza.price = Helper.pricePizza(newPizza)
-    newItems.pizzas[index] = newPizza
-    const newTotal = Helper.totalOrder(newItems)
-    await Order.findOneAndUpdate(
-        { _id: orderId },
-        { $set: { items: newItems, total: newTotal } }
-    );
-    const newOrder = await Order.findById(orderId)
-    res.render('cart/index', { title: "Cart", order: newOrder })
+
+    newPizza = {...req.body}
+    newPizza.name = namePizza(newPizza)
+    newPizza.price = pricePizza(newPizza)
+
+    await Pizza.findOneAndUpdate(
+        { _id: itemId },
+        { $set:{
+            size: newPizza.size,
+            crust: newPizza.crust,
+            sauce: newPizza.sauce,
+            cut: newPizza.cut,
+            cheese: newPizza.cheese,
+            meats: newPizza.meats,
+            veggies: newPizza.veggies,
+            name: newPizza.name,
+            price: newPizza.price
+        }}
+    )
+
+    const order = await Order.findById(orderId).populate('items.pizzas') 
+    order.total = calcTotal(order.items)
+    order.save() 
+
+    res.render('cart/index', { title: "Cart", order: order })
 }
 
 async function show(req, res) {
@@ -96,7 +90,7 @@ async function show(req, res) {
         order = await Order.create({})
         res.cookie(`orderId`, `${order._id}`);
     } else {
-        order = await Order.findById(req.cookies.orderId)
+        order = await Order.findById(req.cookies.orderId).populate('items.pizzas')
     }
     res.render('cart/index', { title: "Cart", order: order })
 }
@@ -104,64 +98,25 @@ async function show(req, res) {
 async function deleteItem(req, res) {
     const orderId = req.cookies.orderId
     const itemId = req.params.id
-    const order = await Order.findById(orderId)
-    newItems = { ...order.items }
-    let index = -1
-
-    if (newItems.pizzas.length) {
-        index = newItems.pizzas.findIndex(pizza => pizza.id === itemId)
-        if (index !== -1) {
-            newItems.pizzas.splice(index, 1)
-        }
-    }
-
-    if (newItems.sides.length && index === -1) {
-        index = newItems.sides.findIndex(side => side.id === itemId)
-        newItems.sides.splice(index, 1)
-    }
-
-    let newTotal = Helper.totalOrder(newItems)
-    await Order.findOneAndUpdate(
-        { _id: orderId },
-        { $set: { items: newItems, total: newTotal } }
-    );
+    await Pizza.findByIdAndDelete(itemId)
+    const order = await Order.findById(orderId).populate('items.pizzas')
+    order.total = calcTotal(order.items)
+    order.save()
     res.redirect('/order/cart')
 }
 
 async function editQuantity(req, res) {
     const orderId = req.cookies.orderId
     const itemId = req.params.id
-    let newQty = parseInt(req.body.qty)
-    const order = await Order.findById(orderId)
-    newItems = { ...order.items }
-    let index = -1
-    if (newItems.pizzas.length) {
-        index = newItems.pizzas.findIndex(pizza => pizza.id === itemId)
-        if (index !== -1) {
-            let oldQty = newItems.pizzas[index].quantity
-            if (parseInt(oldQty) <= 0) {
-                newItems.pizzas[index].quantity = 1 + ""
-            } else if (!(parseInt(oldQty) <= 1 && newQty === -1)) {
-                newItems.pizzas[index].quantity = parseInt(oldQty) + newQty + ""
-            }
-        }
+    const newQty = parseInt(req.body.qty)
+    const pizza = await Pizza.findById(itemId)
+    if (!(pizza.quantity === 1 && newQty === -1)){
+        pizza.quantity += newQty
+        pizza.save()
     }
-
-    if (newItems.sides.length && index === -1) {
-        index = newItems.sides.findIndex(side => side.id === itemId)
-        let oldQty = newItems.sides[index].quantity
-        if (parseInt(oldQty) <= 0) {
-            newItems.sides[index].quantity = 1 + ""
-        } else if (!(parseInt(oldQty) <= 1 && newQty === -1)) {
-            newItems.sides[index].quantity = parseInt(oldQty) + newQty + ""
-        }
-    }
-
-    let newTotal = Helper.totalOrder(newItems)
-    await Order.findOneAndUpdate(
-        { _id: orderId },
-        { $set: { items: newItems, total: newTotal } }
-    );
+    const order = await Order.findById(orderId).populate('items.pizzas')
+    order.total = calcTotal(order.items)
+    order.save()
     res.redirect('/order/cart')
 }
 
@@ -180,5 +135,85 @@ async function handlePayment(req, res) {
         { $set: { status: "confirmed" } })
     const order = await Order.findById(orderId)
     res.clearCookie('orderId')
-    res.render('order/status', { title: "Order Status", order: order })
+    res.render('order/status', {title: "Order Status", order: order})
+}
+
+function calcTotal(items){
+    let tot = 0
+    for (pizza of items.pizzas){
+        tot += pizza.price * pizza.quantity
+    }
+    return tot
+}
+
+function namePizza(pizza){
+    let name = `${pizza.size}, ${pizza.crust} Crust, `
+    if(pizza.meats && pizza.meats === "Ham" &&
+        pizza.veggies && pizza.veggies === "Pineapple"){
+        name += `Hawaiian`
+    }else if(pizza.meats && pizza.meats === "Ham" &&
+        pizza.veggies && pizza.veggies.includes("Pineapple")){
+        name += `Hawaiian Specialty`
+    }else if (pizza.meats && pizza.meats === "Pepperoni" && pizza.veggies){
+        name += `Pepperoni Specialty`
+    }else if(pizza.meats && pizza.meats === "Chicken" && pizza.sauce === "BBQ" && !pizza.veggies){
+        name += `BBQ Chicken`
+    }else if(pizza.meats && pizza.meats === "Chicken" && pizza.sauce === "Buffalo" && !pizza.veggies){
+        name += `Buffalo Chicken`
+    }else if(pizza.meats && pizza.meats === "Chicken" && pizza.sauce === "BBQ"){
+        name += `BBQ Chicken Specialty`
+    }else if(pizza.meats && pizza.meats === "Chicken" && pizza.sauce === "Buffalo"){
+        name += `Buffalo Chicken Specialty`
+    }else if (pizza.meats && pizza.meats.constructor !== String && !pizza.veggies ||
+        (pizza.meats && pizza.meats.constructor !== String && pizza.veggies && pizza.veggies.constructor === String)){
+        name += `Meat Lover`    
+    }else if (pizza.meats && pizza.meats.constructor !== String && pizza.meats.length >= 3 &&
+        pizza.veggies && pizza.veggies.constructor !== String && pizza.veggies.length >= 3){
+        name += `The Works`
+    }else if(pizza.meats && pizza.meats.constructor !== String && pizza.meats.length >= 2 &&
+        pizza.veggies && pizza.veggies.constructor !== String && pizza.veggies.length >= 2){
+        name += `The Supreme`
+    }else if (pizza.meats && pizza.meats.constructor === String){
+        name += `${pizza.meats}`
+    }else if (pizza.veggies && pizza.veggies.constructor === String){
+        name += `${pizza.veggies}`
+    }else if (pizza.veggies && pizza.veggies.constructor !== String){
+        name += `Veggie Lover`
+    }else if (pizza.sauce === "Marinara" && pizza.cheese !== "No" && !pizza.meats && !pizza.veggies){
+        name += `${pizza.cheese} Cheese Margherita`
+    }else {
+        name += `${pizza.cheese} Cheese`
+    }
+    name += ` Pizza`
+    return name
+}
+
+function pricePizza(pizza){
+    let price = 10
+    let toppingCost = 1
+    if (pizza.cheese === "Extra"){
+        price += toppingCost
+    }else if (pizza.cheese === "No"){
+        price -= toppingCost
+    }
+    if (pizza.size === "Large"){
+        price += toppingCost
+    }else if (pizza.size === "Small"){
+        price -=  toppingCost
+    }
+    if (pizza.meats){
+        if(pizza.meats.constructor === String){
+        price += toppingCost
+        }else {
+        price += toppingCost * pizza.meats.length
+        }
+    }
+    if (pizza.veggies){
+        if(pizza.veggies.constructor === String){
+        price += toppingCost
+        }else {
+        price += toppingCost * pizza.veggies.length
+        }
+    }
+    return price
 }
