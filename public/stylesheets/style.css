@@ -55,7 +55,8 @@ a {
 }
 
 
-.text-primary {
+.text-primary,
+legend {
   color: red !important;
 }
 
