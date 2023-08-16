@@ -50,7 +50,6 @@ async function editBuild(req, res) {
 async function saveBuild(req, res) {
     const orderId = req.cookies.orderId
     const itemId = req.params.id
-
     newPizza.name = namePizza(newPizza)
     newPizza.price = pricePizza(newPizza)
     await Pizza.findOneAndUpdate(
