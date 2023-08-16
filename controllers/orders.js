@@ -147,19 +147,12 @@ async function checkout(req, res, next) {
 
 async function handlePayment(req, res) {
     const orderId = req.cookies.orderId
-   
-
-    
     const userData = {...req.body}
-    console.log(userData)
-
-
-
+    const customer = await Customer.create(userData)
     const order = await Order.findById(orderId)
+    order.customer = customer
     order.status = "Confirmed"
-
     res.clearCookie('orderId')
-
     res.render('order/status', { title: "Little Italy | Order Status", order })
 }
 

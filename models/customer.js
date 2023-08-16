@@ -12,37 +12,33 @@ const customerSchema = new Schema(
         email: {
             type: String
         },
-        addressInfo: {
-            address:{
-                type: String
-            },
-            city: {
-                type: String
-            },
-            state: {
-                type: String
-            },
-            zip: {
-                type: Number
-            }
+        address:{
+            type: String
         },
-        paymentInfo:{
-            paymentMethod: {
-                type: String,
-                enum: ["cash","card"]
-            },
-            ccName: {
-                type: String,
-            },
-            ccNum: {
-                type: String,
-            },
-            ccExp: {
-                type: String,
-            },
-            ccCvv: {
-                type: String,
-            }
+        city: {
+            type: String
+        },
+        state: {
+            type: String
+        },
+        zip: {
+            type: Number
+        },
+        paymentMethod: {
+            type: String,
+            enum: ["cash","card"]
+        },
+        ccName: {
+            type: String,
+        },
+        ccNum: {
+            type: String,
+        },
+        ccExp: {
+            type: String,
+        },
+        ccCvv: {
+            type: Number,
         }
     },
     {
