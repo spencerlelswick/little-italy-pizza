@@ -29,16 +29,16 @@ const customerSchema = new Schema(
             enum: ["cash","card"]
         },
         ccName: {
-            type: String,
+            type: String
         },
         ccNum: {
-            type: String,
+            type: String
         },
         ccExp: {
-            type: String,
+            type: String
         },
         ccCvv: {
-            type: Number,
+            type: Number
         }
     },
     {
