@@ -21,11 +21,11 @@ async function index(req, res) {
         res.cookie(`orderId`, `${order._id}`);
     } 
     prebuiltPizzas = await Pizza.find({type: "Prebuilt"})
-    res.render('order/index', { title: "Order", prebuiltPizzas })
+    res.render('order/index', { title: "Little Italy | Order", prebuiltPizzas })
 }
 
 async function newBuild(req, res) {
-    res.render('builder/new', { title: "Deal Builder" })
+    res.render('builder/new', { title: "Little Italy | Deal Builder" })
 }
 
 async function createBuild(req, res, next) {
@@ -44,33 +44,35 @@ async function createBuild(req, res, next) {
 async function editBuild(req, res) {
     const itemId = req.params.id
     const pizza = await Pizza.findById(req.params.id)
-    res.render('builder/edit', { title: "Edit Deal", pizza })
+    res.render('builder/edit', { title: "Little Italy | Edit Deal", pizza })
 }
 
 async function saveBuild(req, res) {
     const orderId = req.cookies.orderId
     const itemId = req.params.id
-    newPizza = {...req.body}
+
     newPizza.name = namePizza(newPizza)
     newPizza.price = pricePizza(newPizza)
     await Pizza.findOneAndUpdate(
         { _id: itemId },
-        { $set:{
-            size: newPizza.size,
-            crust: newPizza.crust,
-            sauce: newPizza.sauce,
-            cut: newPizza.cut,
-            cheese: newPizza.cheese,
-            meats: newPizza.meats,
-            veggies: newPizza.veggies,
-            name: newPizza.name,
-            price: newPizza.price
-        }}
+        {
+            $set: {
+                size: newPizza.size,
+                crust: newPizza.crust,
+                sauce: newPizza.sauce,
+                cut: newPizza.cut,
+                cheese: newPizza.cheese,
+                meats: newPizza.meats,
+                veggies: newPizza.veggies,
+                name: newPizza.name,
+                price: newPizza.price
+            }
+        }
     )
     const order = await Order.findById(orderId).populate('items.pizzas') 
     order.total = calcTotal(order.items)
     order.save() 
-    res.redirect('/order/cart')
+    res.redirect('/order/cart', title: "Little Italy | Cart")
 }
 
 async function addToCart(req, res){
@@ -98,8 +100,8 @@ async function show(req, res) {
     } else {
         order = await Order.findById(req.cookies.orderId).populate('items.pizzas')
     }
-    prebuiltPizzas = await Pizza.find({type: "Prebuilt"})
-    res.render('cart/index', { title: "Cart", order, prebuiltPizzas })
+    prebuiltPizzas = await Pizza.find({ type: "Prebuilt" })
+    res.render('cart/index', { title: "Little Italy | Cart", order, prebuiltPizzas })
 }
 
 async function deleteItem(req, res) {
@@ -119,7 +121,7 @@ async function editQuantity(req, res) {
     const itemId = req.params.id
     const newQty = parseInt(req.body.qty)
     const pizza = await Pizza.findById(itemId)
-    if (!(pizza.quantity === 1 && newQty === -1)){
+    if (!(pizza.quantity === 1 && newQty === -1)) {
         pizza.quantity += newQty
         pizza.save()
     }
@@ -132,7 +134,7 @@ async function editQuantity(req, res) {
 async function checkout(req, res, next) {
     let orderId = req.cookies.orderId
     const order = await Order.findById(orderId).populate('items.pizzas')
-    res.render('checkout/index', { title: "checkout", order })
+    res.render('checkout/index', { title: "Little Italy | Checkout", order })
 }
 
 async function handlePayment(req, res) {
@@ -143,10 +145,10 @@ async function handlePayment(req, res) {
         { $set: { status: "confirmed" } })
     const order = await Order.findById(orderId)
     res.clearCookie('orderId')
-    res.render('order/status', {title: "Order Status", order})
+    res.render('order/status', { title: "Little Italy | Order Status", order })
 }
 
-function calcTotal(items){
+function calcTotal(items) {
     let tot = 0
     for (let pizza of items.pizzas){
         tot += pizza.price * pizza.quantity
@@ -154,73 +156,73 @@ function calcTotal(items){
     return tot
 }
 
-function namePizza(pizza){
+function namePizza(pizza) {
     let name = `${pizza.size}, ${pizza.crust} Crust, `
-    if(pizza.meats && pizza.meats === "Ham" &&
-        pizza.veggies && pizza.veggies === "Pineapple"){
+    if (pizza.meats && pizza.meats === "Ham" &&
+        pizza.veggies && pizza.veggies === "Pineapple") {
         name += `Hawaiian`
-    }else if(pizza.meats && pizza.meats === "Ham" &&
-        pizza.veggies && pizza.veggies.includes("Pineapple")){
+    } else if (pizza.meats && pizza.meats === "Ham" &&
+        pizza.veggies && pizza.veggies.includes("Pineapple")) {
         name += `Hawaiian Specialty`
-    }else if (pizza.meats && pizza.meats === "Pepperoni" && pizza.veggies){
+    } else if (pizza.meats && pizza.meats === "Pepperoni" && pizza.veggies) {
         name += `Pepperoni Specialty`
-    }else if(pizza.meats && pizza.meats === "Chicken" && pizza.sauce === "BBQ" && !pizza.veggies){
+    } else if (pizza.meats && pizza.meats === "Chicken" && pizza.sauce === "BBQ" && !pizza.veggies) {
         name += `BBQ Chicken`
-    }else if(pizza.meats && pizza.meats === "Chicken" && pizza.sauce === "Buffalo" && !pizza.veggies){
+    } else if (pizza.meats && pizza.meats === "Chicken" && pizza.sauce === "Buffalo" && !pizza.veggies) {
         name += `Buffalo Chicken`
-    }else if(pizza.meats && pizza.meats === "Chicken" && pizza.sauce === "BBQ"){
+    } else if (pizza.meats && pizza.meats === "Chicken" && pizza.sauce === "BBQ") {
         name += `BBQ Chicken Specialty`
-    }else if(pizza.meats && pizza.meats === "Chicken" && pizza.sauce === "Buffalo"){
+    } else if (pizza.meats && pizza.meats === "Chicken" && pizza.sauce === "Buffalo") {
         name += `Buffalo Chicken Specialty`
-    }else if (pizza.meats && pizza.meats.constructor !== String && !pizza.veggies ||
-        (pizza.meats && pizza.meats.constructor !== String && pizza.veggies && pizza.veggies.constructor === String)){
-        name += `Meat Lover`    
-    }else if (pizza.meats && pizza.meats.constructor !== String && pizza.meats.length >= 3 &&
-        pizza.veggies && pizza.veggies.constructor !== String && pizza.veggies.length >= 3){
+    } else if (pizza.meats && pizza.meats.constructor !== String && !pizza.veggies ||
+        (pizza.meats && pizza.meats.constructor !== String && pizza.veggies && pizza.veggies.constructor === String)) {
+        name += `Meat Lover`
+    } else if (pizza.meats && pizza.meats.constructor !== String && pizza.meats.length >= 3 &&
+        pizza.veggies && pizza.veggies.constructor !== String && pizza.veggies.length >= 3) {
         name += `The Works`
-    }else if(pizza.meats && pizza.meats.constructor !== String && pizza.meats.length >= 2 &&
-        pizza.veggies && pizza.veggies.constructor !== String && pizza.veggies.length >= 2){
+    } else if (pizza.meats && pizza.meats.constructor !== String && pizza.meats.length >= 2 &&
+        pizza.veggies && pizza.veggies.constructor !== String && pizza.veggies.length >= 2) {
         name += `The Supreme`
-    }else if (pizza.meats && pizza.meats.constructor === String){
+    } else if (pizza.meats && pizza.meats.constructor === String) {
         name += `${pizza.meats}`
-    }else if (pizza.veggies && pizza.veggies.constructor === String){
+    } else if (pizza.veggies && pizza.veggies.constructor === String) {
         name += `${pizza.veggies}`
-    }else if (pizza.veggies && pizza.veggies.constructor !== String){
+    } else if (pizza.veggies && pizza.veggies.constructor !== String) {
         name += `Veggie Lover`
-    }else if (pizza.sauce === "Marinara" && pizza.cheese !== "No" && !pizza.meats && !pizza.veggies){
+    } else if (pizza.sauce === "Marinara" && pizza.cheese !== "No" && !pizza.meats && !pizza.veggies) {
         name += `${pizza.cheese} Cheese Margherita`
-    }else {
+    } else {
         name += `${pizza.cheese} Cheese`
     }
     name += ` Pizza`
     return name
 }
 
-function pricePizza(pizza){
+function pricePizza(pizza) {
     let price = 10
     let toppingCost = 1
-    if (pizza.cheese === "Extra"){
+    if (pizza.cheese === "Extra") {
         price += toppingCost
-    }else if (pizza.cheese === "No"){
+    } else if (pizza.cheese === "No") {
         price -= toppingCost
     }
-    if (pizza.size === "Large"){
+    if (pizza.size === "Large") {
         price += toppingCost
-    }else if (pizza.size === "Small"){
-        price -=  toppingCost
+    } else if (pizza.size === "Small") {
+        price -= toppingCost
     }
-    if (pizza.meats){
-        if(pizza.meats.constructor === String){
-        price += toppingCost
-        }else {
-        price += toppingCost * pizza.meats.length
+    if (pizza.meats) {
+        if (pizza.meats.constructor === String) {
+            price += toppingCost
+        } else {
+            price += toppingCost * pizza.meats.length
         }
     }
-    if (pizza.veggies){
-        if(pizza.veggies.constructor === String){
-        price += toppingCost
-        }else {
-        price += toppingCost * pizza.veggies.length
+    if (pizza.veggies) {
+        if (pizza.veggies.constructor === String) {
+            price += toppingCost
+        } else {
+            price += toppingCost * pizza.veggies.length
         }
     }
     return price
