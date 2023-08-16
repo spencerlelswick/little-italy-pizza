@@ -21,7 +21,9 @@ html {
 
 body {
   font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
-  min-height: calc(100vh - 40px);
+  min-height: calc(100vh - 80px);
+  background-color: var(--on-secondary);
+
 }
 
 
@@ -30,6 +32,7 @@ main {
   flex-direction: column;
   justify-content: center;
   align-items: center; */
+  margin-bottom: 5rem;
   background-color: var(--on-secondary);
   /* height: 90vh; */
 }
