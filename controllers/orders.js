@@ -1,5 +1,6 @@
 const Order = require('../models/order');
 const Pizza = require('../models/pizza');
+const Customer = require('../models/customer');
 
 module.exports = {
     index,
@@ -139,18 +140,26 @@ async function editQuantity(req, res) {
 }
 
 async function checkout(req, res, next) {
-    let orderId = req.cookies.orderId
+    const orderId = req.cookies.orderId
     const order = await Order.findById(orderId).populate('items.pizzas')
     res.render('checkout/index', {title: "Little Italy | Checkout", order})
 }
 
 async function handlePayment(req, res) {
-    const orderId = req.params.id
-    await Order.findOneAndUpdate(
-        { _id: orderId },
-        { $set: { status: "confirmed" } })
+    const orderId = req.cookies.orderId
+   
+
+    
+    const userData = {...req.body}
+    console.log(userData)
+
+
+
     const order = await Order.findById(orderId)
+    order.status = "Confirmed"
+
     res.clearCookie('orderId')
+
     res.render('order/status', { title: "Little Italy | Order Status", order })
 }
 

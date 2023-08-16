@@ -19,8 +19,8 @@ const orderSchema = new Schema(
     },
     status: {
       type: String,
-      default: 'received',
-      enum: ["received", "confirmed", "prepare", "bake", "deliver", "complete"]
+      default: 'Received',
+      enum: ["Received", "Confirmed", "Prepare", "Bake", "Deliver", "Complete"]
     },
     customer:{
       type: Schema.Types.ObjectId,
