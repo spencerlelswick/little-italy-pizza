@@ -1,39 +1,64 @@
 <%- include('../partials/header') %>
 
-  <form method="GET" action="/order/builder">
-    <button type="submit" class="btn btn-primary btn-sm">Create Your Own Pizza</button>
-  </form>
 
-  </br>
+  <div id="prebuiltPizzas" class="container my-5">
+    <div class="row g-3">
 
-  <form method="GET" action="/order/cart">
-    <button type="submit" class="btn btn-secondary btn-sm">Cart</button>
-  </form>
 
-  </br>
-  </br>
-  </br>
+      <div class="col-md-4 my-3">
+        <div class="card">
+          <img src="/images/order/CYOP.png" class="card-img-top">
+          <div class="card-body card-order">
+            <h5 class="card-title ">Build Your Own Pizza</h5>
+            <div class="container">
 
-  <div id="prebuiltPizzas">
-    <% prebuiltPizzas.forEach(pizza=>{ %>
-      <div>
-        <h6><%- pizza.name %></h6>
-        <p>Size: <%- pizza.large %></p>
-        <p>Crust: <%- pizza.crust %></p>
-        <p>Sauce: <%- pizza.sauce %></p>
-        <p>Cut: <%- pizza.cut %></p>
-        <p>Cheese: <%- pizza.cheese %></p>
-        <p>Meats: <%- pizza.meats %></p>
-        <p>Veggie: <%- pizza.veggies %></p>
-        <p>Price: $ <%- pizza.price%></p>
 
-        <form method="POST" action="order/cart/<%- pizza._id %>"" >
-          <button type=" submit" class="btn btn-primary btn-sm">Add to Cart</button>
-        </form>
+              <p class="card-text">Some quick example text to build on the card title and make up the bulk of the
+                card's
+                content.</p>
+            </div>
+
+          </div>
+          <form method="GET" action="/order/builder">
+            <button type="submit" class="btn btn-primary">Create Your Own Pizza</button>
+          </form>
+        </div>
       </div>
 
+      <% prebuiltPizzas.forEach(pizza=>{ %>
+        <div class="col-md-4 my-3">
+          <div class="card">
+            <form method="POST" action="order/cart/<%- pizza._id %>">
+              <img src="/images/order/<%- pizza.name %>.jpg" class="card-img-top">
+              <div class="card-body card-order">
+                <h5 class="card-title "><%- pizza.name %> $<%- pizza.price %></h5>
+                <div class="container">
 
-      <%}) %>
+                  <select class="" name="size" id="size" value=<%- pizza.size %>>
+                    <option name="small" id="small">Small</option>
+                    <option name="medium" id="medium">Medium</option>
+                    <option name="large" id="large">Large</option>
+                  </select>
+
+                  <select class="" name="size" id="size" value=<%- pizza.crust %>>
+                    <option name="small" id="small">Thin</option>
+                    <option name="medium" id="medium">Regular</option>
+                    <option name="large" id="large">Deep Dish</option>
+                  </select>
+                  <p class="card-text">Some quick example text to build on the card title and make up the bulk of the
+                    card's
+                    content.</p>
+                </div>
+
+              </div>
+              <button type=" submit" class="btn btn-primary btn-sm">Add to Cart</button>
+            </form>
+          </div>
+        </div>
+        <%}) %>
+    </div>
+
+
   </div>
 
   <%- include('../partials/footer') %>

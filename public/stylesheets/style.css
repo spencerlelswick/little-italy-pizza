@@ -63,9 +63,7 @@ a {
 
 }
 
-#prebuiltPizzas>div {
-  border: 1px solid black;
-}
+#prebuiltPizzas>div {}
 
 
 .navbar {
@@ -90,6 +88,22 @@ a {
 .navbar-toggler {
   /* border-bottom: 5px solid var(--on-primary);
   box-shadow: 0em 0em 0.1em var(--black); */
+}
+
+.card-order {
+  height: 200px;
+  object-fit: cover;
+  object-position: center center;
+  display: flex;
+  flex-direction: column;
+}
+
+.card {
+  overflow: hidden;
+}
+
+.card-order>h5 {
+  text-transform: capitalize;
 }
 
 .ad-grid {
@@ -174,12 +188,12 @@ a {
   border-radius: 25%;
   align-self: start;
   justify-self: center;
-  width:1.5em;
+  width: 1.5em;
   height: 1.5em;
-  padding:0;
+  padding: 0;
   border: none;
   background-color: red;
-  color : white;
+  color: white;
   font-weight: bold;
 }
 
