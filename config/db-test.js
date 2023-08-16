@@ -3,14 +3,18 @@ require('dotenv').config()
 mongoose.connect(process.env.DATABASE_URL);
 
 const db = mongoose.connection;
-db.on('connected', function() {
-  console.log(`Connected to MongoDB ${db.name} at ${db.host}:${db.port}`);
+db.on('connected', function () {
+    console.log(`Connected to MongoDB ${db.name} at ${db.host}:${db.port}`);
 });
 
 const Pizza = require('../models/pizza')
 
 const marg = {
-    name: "Margherita",
+// <<<<<<< feature-order-layout
+    name: "margherita",
+// =======
+//     name: "Margherita",
+// >>>>>>> main
     type: "Prebuilt",
     size: "Large",
     crust: "Regular",
@@ -22,7 +26,11 @@ const marg = {
 }
 
 const mexfiesta = {
-    name: "Fiesta",
+// <<<<<<< feature-order-layout
+    name: "margherita",
+// =======
+//     name: "Fiesta",
+// >>>>>>> main
     type: "Prebuilt",
     size: "Large",
     crust: "Regular",
@@ -30,13 +38,17 @@ const mexfiesta = {
     cut: "Normal",
     cheese: "Normal",
     meats: ["Pepperoni"],
-    veggies: ["Green Peppers", "Banana Peppers","Jalapeno Peppers"],
+    veggies: ["Green Peppers", "Banana Peppers", "Jalapeno Peppers"],
     quantity: 1,
     price: 15
 }
 
 const mountain = {
-    name: "Mountain",
+// <<<<<<< feature-order-layout
+    name: "margherita",
+// =======
+//     name: "Mountain",
+// >>>>>>> main
     type: "Prebuilt",
     size: "Large",
     crust: "Regular",
@@ -50,7 +62,11 @@ const mountain = {
 }
 
 const napoli = {
-    name: "Napoli",
+// <<<<<<< feature-order-layout
+    name: "margherita",
+// =======
+//     name: "Napoli",
+// >>>>>>> main
     type: "Prebuilt",
     size: "Large",
     crust: "Regular",
@@ -63,6 +79,8 @@ const napoli = {
 }
 
 Pizza.create(marg)
-Pizza.create(napoli)
-Pizza.create(mountain)
-Pizza.create(mexfiesta)
+// Pizza.create(napoli)
+// Pizza.create(mountain)
+// Pizza.create(mexfiesta)
+
+
