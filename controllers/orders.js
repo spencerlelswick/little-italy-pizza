@@ -34,9 +34,9 @@ async function createBuild(req, res, next) {
     pizzaData.price = pricePizza(pizzaData)
     const newPizza = await Pizza.create(pizzaData)
     const orderId = req.cookies.orderId
-    const order = await Order.findById(orderId)
+    const order = await Order.findById(orderId).populate('items.pizzas')
     order.items.pizzas.push(newPizza)
-    order.total += newPizza.price * newPizza.quantity
+    order.total = calcTotal(order.items)
     order.save()
     res.redirect('/order')
 }
