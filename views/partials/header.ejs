@@ -6,7 +6,7 @@
     <%= title %>
   </title>
   <link rel="shortcut icon" href="/images/favicon.png" type="image/x-icon">
-  <link rel="stylesheet" href="/css/bootstrap.min.css">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />  <link rel="stylesheet" href="/css/bootstrap.min.css">
   <link rel='stylesheet' href='/stylesheets/style.css' />
   <script src="/js/bootstrap.js" defer></script>
 </head>
@@ -27,8 +27,11 @@
           <li class="nav-item">
             <a class="nav-link" href="/order">Order</a>
           </li>
-          <li class="nav-item">
+          <li id ="cartHead"class="nav-item">
             <a class="nav-link" href="/order/cart">Cart</a>
+            <button id="cartBtn" disabled <% if(!(order.items.pizzas.length + order.items.sides.length)){ %> style="visibility:hidden;" <%}%>>
+            <%- order.items.pizzas.length + order.items.sides.length%>
+            </button>
           </li>
         </ul>
       </div>
