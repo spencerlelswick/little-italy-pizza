@@ -1,4 +1,5 @@
 <%- include('../partials/header') %>
+<script src="/javascripts/checkout.js" defer></script>
 
   <div class="container">
 
@@ -71,7 +72,7 @@
             </div>
 
             <hr class="my-4">
-
+            
             <h4 class="mb-3 text-primary">PAYMENT</h4>
 
             <div class="my-3">
@@ -80,26 +81,24 @@
                 <label class="form-check-label" for="credit">Card</label>
               </div>
               <div class="form-check">
-                <input id="debit" name="paymentMethod" value="cash" type="radio" class="form-check-input" required>
-                <label class="form-check-label" for="debit">Cash</label>
+                <input id="cash" name="paymentMethod" value="cash" type="radio" class="form-check-input" required>
+                <label class="form-check-label" for="cash">Cash</label>
               </div>
             </div>
 
-            <div class="row gy-3">
+            <div class="row gy-3 cardInfo" >
               <div class="col-md-6">
                 <label for="cc-name" class="form-label">Name On Card</label>
-                <input name="ccName" type="text" class="form-control" id="cc-name" placeholder="" value="John" required>
+                <input name="ccName" type="text" class="form-control cardInfo" id="cc-name" placeholder="" value="John" required>
                 <small class="text-muted">Full name as displayed on card</small>
                 <div class="invalid-feedback">
                   Name on card is required
                 </div>
               </div>
 
-
-
               <div class="col-md-6">
                 <label for="cc-number" class="form-label">Card number</label>
-                <input name="ccNum"type="text" class="form-control" id="cc-number" value="1234-1234-1234-1234" placeholder="" required>
+                <input name="ccNum"type="text" class="form-control cardInfo" id="cc-number" value="1234-1234-1234-1234" placeholder="" required>
                 <div class="invalid-feedback">
                   Credit card number is required
                 </div>
@@ -108,7 +107,7 @@
 
               <div class="col-md-3">
                 <label for="cc-expiration" class="form-label">MM/YY</label>
-                <input name="ccExp" type="text" class="form-control" id="cc-expiration" value="12/24" placeholder="" required>
+                <input name="ccExp" type="text" class="form-control cardInfo" id="cc-expiration" value="12/24" placeholder="" required>
                 <div class="invalid-feedback">
                   Expiration date required
                 </div>
@@ -116,7 +115,7 @@
 
               <div class="col-md-3">
                 <label for="cc-cvv" class="form-label">CVV</label>
-                <input name="ccCvv" type="number" class="form-control" id="cc-cvv" value="123" placeholder="" required>
+                <input name="ccCvv" type="number" class="form-control cardInfo" id="cc-cvv" value="123" placeholder="" required>
                 <div class="invalid-feedback">
                   Security code required
                 </div>
