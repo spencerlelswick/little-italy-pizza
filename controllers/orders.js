@@ -1,5 +1,6 @@
 const Order = require('../models/order');
-const Pizza = require('../models/pizza')
+const Pizza = require('../models/pizza');
+const Customer = require('../models/customer');
 
 module.exports = {
     index,
@@ -16,16 +17,20 @@ module.exports = {
 }
 
 async function index(req, res) {
+    let order = {}
     if (req.cookies.orderId === undefined) {
         order = await Order.create({})
         res.cookie(`orderId`, `${order._id}`);
-    } 
+    } else {
+        order = await Order.findById(req.cookies.orderId)
+    }
     prebuiltPizzas = await Pizza.find({type: "Prebuilt"})
-    res.render('order/index', { title: "Little Italy | Order", prebuiltPizzas })
+    res.render('order/index', { title: "Little Italy | Order", order, prebuiltPizzas })
 }
 
 async function newBuild(req, res) {
-    res.render('builder/new', { title: "Little Italy | Deal Builder" })
+    const order = await Order.findById(req.cookies.orderId)
+    res.render('builder/new', { title: "Little Italy | Deal Builder", order})
 }
 
 async function createBuild(req, res, next) {
@@ -43,13 +48,16 @@ async function createBuild(req, res, next) {
 
 async function editBuild(req, res) {
     const itemId = req.params.id
-    const pizza = await Pizza.findById(req.params.id)
-    res.render('builder/edit', { title: "Little Italy | Edit Deal", pizza })
+    const pizza = await Pizza.findById(itemId)
+    console.log(pizza)
+    const order = await Order.findById(req.cookies.orderId)
+    res.render('builder/edit', { title: "Little Italy | Edit Deal", order, pizza })
 }
 
 async function saveBuild(req, res) {
     const orderId = req.cookies.orderId
     const itemId = req.params.id
+    newPizza = {...req.body}
     newPizza.name = namePizza(newPizza)
     newPizza.price = pricePizza(newPizza)
     await Pizza.findOneAndUpdate(
@@ -63,6 +71,7 @@ async function saveBuild(req, res) {
                 cheese: newPizza.cheese,
                 meats: newPizza.meats,
                 veggies: newPizza.veggies,
+                quantity: newPizza.quantity,
                 name: newPizza.name,
                 price: newPizza.price
             }
@@ -131,18 +140,18 @@ async function editQuantity(req, res) {
 }
 
 async function checkout(req, res, next) {
-    let orderId = req.cookies.orderId
+    const orderId = req.cookies.orderId
     const order = await Order.findById(orderId).populate('items.pizzas')
-    res.render('checkout/index', { title: "Little Italy | Checkout", order })
+    res.render('checkout/index', {title: "Little Italy | Checkout", order})
 }
 
 async function handlePayment(req, res) {
-
-    const orderId = req.params.id
-    await Order.findOneAndUpdate(
-        { _id: orderId },
-        { $set: { status: "confirmed" } })
+    const orderId = req.cookies.orderId
+    const userData = {...req.body}
+    const customer = await Customer.create(userData)
     const order = await Order.findById(orderId)
+    order.customer = customer
+    order.status = "Confirmed"
     res.clearCookie('orderId')
     res.render('order/status', { title: "Little Italy | Order Status", order })
 }
