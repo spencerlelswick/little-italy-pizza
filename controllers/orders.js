@@ -88,6 +88,9 @@ async function addToCart(req, res){
     const pizza = await Pizza.findById(itemId)
     const pizzaData = {...pizza._doc}
     pizzaData.type = "Custom"
+    pizzaData.size = req.body.size
+    pizzaData.crust = req.body.crust
+    pizzaData.name = `${pizzaData.size}, ${pizzaData.crust} Crust ${pizzaData.name}` 
     delete pizzaData._id
     delete pizzaData.createdAt
     delete pizzaData.updatedAt 
