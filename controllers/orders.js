@@ -70,6 +70,7 @@ async function saveBuild(req, res) {
                 cheese: newPizza.cheese,
                 meats: newPizza.meats,
                 veggies: newPizza.veggies,
+                quantity: newPizza.quantity,
                 name: newPizza.name,
                 price: newPizza.price
             }
