@@ -34,16 +34,16 @@
                 <h5 class="card-title "><%- pizza.name %> $<%- pizza.price %></h5>
                 <div class="container">
 
-                  <select class="" name="size" id="size" value=<%- pizza.size %>>
-                    <option name="small" id="small">Small</option>
-                    <option name="medium" id="medium">Medium</option>
-                    <option name="large" id="large">Large</option>
+                  <select class="" name="size" id="size" >
+                    <option value="Small">Small</option>
+                    <option value="Medium">Medium</option>
+                    <option value="Large">Large</option>
                   </select>
 
-                  <select class="" name="size" id="size" value=<%- pizza.crust %>>
-                    <option name="small" id="small">Thin</option>
-                    <option name="medium" id="medium">Regular</option>
-                    <option name="large" id="large">Deep Dish</option>
+                  <select class="" name="crust" id="size" >
+                    <option value="Thin">Thin</option>
+                    <option value="Regular">Regular</option>
+                    <option value="Deepdish">Deep Dish</option>
                   </select>
                   <p class="card-text">Some quick example text to build on the card title and make up the bulk of the
                     card's
@@ -51,7 +51,7 @@
                 </div>
 
               </div>
-              <button type=" submit" class="btn btn-primary btn-sm">Add to Cart</button>
+              <button type="submit" class="btn btn-primary btn-sm">Add to Cart</button>
             </form>
           </div>
         </div>
