@@ -10,8 +10,8 @@ router.post('/checkout/:id', orderCtrl.handlePayment)
 router.get('/', orderCtrl.index);
 router.delete('/cart/:id', orderCtrl.deleteItem);
 router.put('/cart/:id', orderCtrl.editQuantity);
-router.post('/cart/:id', orderCtrl.addToCart);
 router.put('/builder/edit/:id', orderCtrl.editBuild);
 router.post('/builder/:id', orderCtrl.saveBuild);
+router.post('/cart/:id', orderCtrl.addToCart);
 
 module.exports = router;
