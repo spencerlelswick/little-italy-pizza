@@ -1,6 +1,7 @@
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 const Pizza = require('../models/pizza')
+const Customer = require('../models/customer')
 
 const orderSchema = new Schema(
   {
@@ -21,6 +22,10 @@ const orderSchema = new Schema(
       default: 'received',
       enum: ["received", "confirmed", "prepare", "bake", "deliver", "complete"]
     },
+    customer:{
+      type: Schema.Types.ObjectId,
+      ref: 'Customer',
+    }
   },
   {
     timestamps: true,
