@@ -8,17 +8,18 @@ base.src = '/crust/regular.png'
 
 document.getElementById('builder').appendChild(base);
 
+const crusts = document.getElementsByName("crust")
+const meats = document.getElementsByName("meats")
+const veggies = document.getElementsByName("veggies")
+
+prepopulatePizza()
+
 builderForm.addEventListener('click', (e => {
-  // console.log(e.target)
   const ingredient = e.target.value
   const addIngredient = e.target.checked
-  console.log(ingredient)
   if (e.target.type === 'radio' && e.target.name === 'crust') {
-    console.log(e.target.type)
-
     changeCrust(ingredient)
   }
-
   if (e.target.type === 'checkbox') {
     changeTopping(ingredient.replace(/\s/g, ''), addIngredient)
   }
@@ -44,5 +45,22 @@ function changeTopping(topping, addTopping) {
     zIndex -= 1
     document.getElementById('builder').removeChild(newTopping);
     console.log(`removing ${topping} from pizza ${addTopping}`)
+  }
+}
+
+function prepopulatePizza(){
+  for (let i = 0; i < crusts.length; i++) {
+    if(crusts[i].checked){
+      changeCrust(crusts[i].value)
+    }
+  }
+  for (let i = 0; i < meats.length; i++) {
+    if(meats[i].checked){
+      changeTopping(meats[i].value.replace(/\s/g, ''),true)
+    }
+  }for (let i = 0; i < veggies.length; i++) {
+    if(veggies[i].checked){
+      changeTopping(veggies[i].value.replace(/\s/g, ''),true)
+    }
   }
 }
