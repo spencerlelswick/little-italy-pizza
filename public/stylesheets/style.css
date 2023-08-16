@@ -23,7 +23,6 @@ body {
   font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
   min-height: calc(100vh - 80px);
   background-color: var(--on-secondary);
-
 }
 
 
@@ -47,6 +46,7 @@ footer {
   width: 100%;
   height: 40px;
   line-height: 30px;
+  color: var(--white);
   background-color: var(--primary);
 }
 
@@ -90,6 +90,54 @@ a {
 .navbar-toggler {
   /* border-bottom: 5px solid var(--on-primary);
   box-shadow: 0em 0em 0.1em var(--black); */
+}
+
+.ad-grid {
+  cursor: pointer;
+  display: grid;
+  height: 100%;
+  align-content: center;
+  justify-content: center;
+  align-items: center;
+  justify-items: center;
+  grid-template-rows: 1fr 1fr;
+  grid-template-columns: 1fr 1fr;
+  font-family: rockwell, sans-serif;
+  font-weight: 800;
+  color: var(--white);
+  text-shadow: 1.5px 1.5px 1.5px var(--black);
+}
+
+.heading {
+  font-size: 2vw;
+  grid-area: header;
+  grid-column: 1 / span 2;
+  grid-row: 2 / 2;
+}
+
+.headline {
+  font-size: 2vw;
+  grid-area: headline;
+  grid-column: 1 / span 1;
+  grid-row: 1 / 1;
+}
+
+.price {
+  position: relative;
+  padding: 0.5rem;
+  background-color: #ff0000;
+  border-radius: 50%;
+  font-size: 3vw;
+  grid-area: price;
+  grid-column: 2 / span 1;
+  grid-row: 1 / 1;
+}
+
+
+.orderNow {
+  grid-area: orderNow;
+  grid-column: 2 / span 1;
+  grid-row: 3 / 3;
 }
 
 #logo {
@@ -150,28 +198,11 @@ legend {
   justify-content: stretch;
 }
 
-.grid {
-  display: grid;
-  grid-template-columns: 1fr;
-  grid-template-rows: 1fr;
-  background-color: lightblue;
-}
 
-.ad-main {
-  background-image: url('/images/landing/temp-ad-image.jpg');
-  background-repeat: no-repeat;
-  background-size: cover;
-  background-position: 25% 50%;
-}
-
-.ad-main>img {
-  width: 100%;
-}
-
-.ad-small {}
-
-.ad-small>img {
-  width: 100%
+.img-resize {
+  height: 400px;
+  object-fit: cover;
+  object-position: center center;
 }
 
 
@@ -188,12 +219,6 @@ div {
   position: relative;
 }
 
-@media only screen and (min-width: 992px) {
-  .grid {
-    grid-template-columns: 1fr 1fr 1fr;
-    grid-template-rows: 1fr 1fr;
-  }
-}
 
 
 .bd-placeholder-img {

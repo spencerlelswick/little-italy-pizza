@@ -1,38 +1,67 @@
 <%- include('partials/header') %>
 
   <main>
-    <div class="ad-container">
-      <div class="jumbotron p-4 p-md-5 text-white text-bold rounded ad-main">
-        <div class="col-md-6 px-0">
-          <h1 class="display-4 font-italic">Pepperoni pizza speical</h1>
-          <p class="lead my-3">$17.99</p>
+
+    <div class="container-lg my-5">
+      <div class="row my-4">
+        <div class="col-md-8">
+          <div class="card bg-dark text-white  ">
+            <video video autoplay loop muted playsinline class=" img-resize">
+              <source src="/images/landing/pizza-landing.mp4" type="video/mp4">
+              Your browser does not support the video tag.
+            </video>
+          </div>
+        </div>
+        <div class="col">
+          <div class="card bg-dark text-white">
+            <img class="card-img img-responsive img-resize" src="/images/landing/temp-ad-image5.jpg" alt="Card image">
+            <div class="card-img-overlay">
+              <div class="ad-grid">
+                <h5 class="card-title headline">Topped with San Marzano Tomatoes</h5>
+                <p class="card-text heading">CLASSIC MARGHERITA PIZZA</p>
+                <p class="card-text price">$11</p>
+                <button class="btn btn-primary orderNow">ORDER NOW</button>
+              </div>
+
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col">
+          <div class="card bg-dark text-white">
+            <img class="card-img img-responsive img-resize" src="/images/landing/temp-ad-image4.jpg" alt="Card image">
+            <div class="card-img-overlay">
+              <h5 class="card-title ad-title">Pepperoni Pizza Deal</h5>
+              <p class="card-text ad-text">Cheese pizza topped with pepperoni</p>
+            </div>
+          </div>
+        </div>
+        <div class="col">
+          <div class="card bg-dark text-white">
+            <img class="card-img img-responsive img-resize" src="/images/landing/temp-ad-image7.jpg" alt="Card image">
+            <div class="card-img-overlay">
+              <h5 class="card-title simple-ad">Always fresh toppings</h5>
+              <p class="card-text simple-ad">Cheese pizza topped with pepperoni</p>
+            </div>
+          </div>
+        </div>
+        <div class="col">
+          <div class="card bg-dark text-white">
+            <img class="card-img img-responsive img-resize" src="/images/landing/temp-ad-image17.jpg" alt="Card image">
+            <div class="card-img-overlay">
+              <div class="ad-grid">
+                <h5 class="card-title headline">pizza prosciutto rucola</h5>
+                <p class="card-text heading">PROSCIUTTO PIZZA</p>
+                <p class="card-text price">$15</p>
+                <button class="btn btn-primary orderNow">ORDER NOW</button>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
     </div>
 
-    <div class="ad-container">
-      <div class="row mb-2">
-        <div class="col-md-6">
-          <div class="card bg-dark text-white">
-            <img class="card-img" src="/images/landing/temp-ad-image.jpg" alt="Card image">
-            <div class="card-img-overlay">
-              <h5 class="card-title">Pepperoni Pizza Deal</h5>
-              <p class="card-text">Cheese pizza topped with pepperoni</p>
-            </div>
-          </div>
-        </div>
-        <div class="col-md-6">
-          <div class="card bg-dark text-white">
-            <img class="card-img" src="/images/landing/temp-ad-image.jpg" alt="Card image">
-            <div class="card-img-overlay">
-              <h5 class="card-title">Pepperoni Pizza Deal</h5>
-              <p class="card-text">Cheese pizza topped with pepperoni</p>
-            </div>
-          </div>
-        </div>
-
-      </div>
-    </div>
   </main>
 
   <%- include('partials/footer') %>
