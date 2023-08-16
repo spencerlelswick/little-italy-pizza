@@ -72,7 +72,7 @@ async function saveBuild(req, res) {
     const order = await Order.findById(orderId).populate('items.pizzas') 
     order.total = calcTotal(order.items)
     order.save() 
-    res.redirect('/order/cart', title: "Little Italy | Cart")
+    res.redirect('/order/cart')
 }
 
 async function addToCart(req, res){
