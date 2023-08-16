@@ -39,6 +39,7 @@ main {
 section {}
 
 footer {
+  z-index: 999;
   box-shadow: -0.1em -0.1em 0.5em var(--black);
   border-top: solid 5px var(--on-primary);
   position: fixed;
@@ -166,7 +167,6 @@ a {
   /* border-bottom: 5px solid var(--on-primary); */
   border-bottom: 3px solid var(--on-primary);
   border-right: 1px solid var(--on-primary);
-
 }
 
 .logo-text {
@@ -278,5 +278,7 @@ div {
   .cart-summary {
     position: fixed;
     width: 15rem;
+    max-height: 70vh;
+    overflow: auto;
   }
 }
