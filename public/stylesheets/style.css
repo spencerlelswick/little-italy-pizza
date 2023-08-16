@@ -4,10 +4,10 @@
 }
 
 :root {
-  --primary: #C1D9C1;
-  --secondary: #F5EFDD;
-  --on-primary: #DE4946;
-  --on-secondary: #EDB491;
+  --primary: #B22448;
+  --secondary: #231F20;
+  --on-primary: #40AC5B;
+  --on-secondary: #DCC7A8;
   --black: #000;
   --white: #fff;
 }
@@ -29,7 +29,7 @@ main {
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  background-color: var(--secondary);
+  background-color: var(--on-secondary);
   height: 90vh;
 }
 
@@ -43,7 +43,7 @@ footer {
   width: 100%;
   height: 40px;
   line-height: 30px;
-  background-color: var(--on-secondary);
+  background-color: var(--primary);
 }
 
 
@@ -72,7 +72,7 @@ a {
 
 .nav-link {
   font-size: 30px;
-  color: var(--on-primary);
+  color: var(--white);
   font-weight: bold;
   text-shadow: 1px 1px 1px var(--black);
 }
