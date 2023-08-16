@@ -102,6 +102,12 @@ a {
   overflow: hidden;
 }
 
+
+.cart-summary {
+  position: unset;
+  width: unset;
+}
+
 .card-order>h5 {
   text-transform: capitalize;
 }
@@ -264,5 +270,13 @@ div {
 @media (min-width: 768px) {
   .bd-placeholder-img-lg {
     font-size: 3.5rem;
+  }
+}
+
+
+@media (min-width: 992px) {
+  .cart-summary {
+    position: fixed;
+    width: 15rem;
   }
 }

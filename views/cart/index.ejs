@@ -1,44 +1,74 @@
 <%- include('../partials/header') %>
     <%if (order){%>
-        <h4>current total: $<%- order.total %></h4>
-        <hr />
-        <% order.items.pizzas.forEach(pizza=>{ %>
-            <h6> ITEM: <%- pizza.name %> </h6>
-            <h6> QUANTITY: <%- pizza.quantity %></h6>
-            <form method="POST" action="/order/cart/<%- pizza.id %>?_method=PUT">
-    
-                <button type="submit" name="qty" value="+1" class="btn btn-secondary btn-sm">+1</button>
-                <br/>
+        <div class="container my-5">
+            <div class="row">
+                <div class="col-md-3 right">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="row">
+                                <div class="card cart-summary">
+                                    <h2>Cart Summary</h2>
+                                    <% for( let i=0; i < order.items.pizzas.length; i++ ) { %>
 
-                <button type="submit" name="qty" value="-1" class="btn btn-secondary btn-sm"
-                <% if(pizza.quantity === 1){ %> disabled <%} %>>-1</button>
-            </form>
+                                        <div class="card-body">
+                                            <li class="list-group-item d-flex justify-content-between lh-sm">
+                                                <div>
+                                                    <span class="text-muted"><%- order.items.pizzas[i].name %> </span>
+                                                    <span class="text-muted"> (x<%-
+                                                            order.items.pizzas[i].quantity%>)</span>
+                                                </div>
+                                                <h6 class="my-0">$<%- order.items.pizzas[i].price *
+                                                        order.items.pizzas[i].quantity %>
+                                                </h6>
+                                            </li>
 
-            <h6> PRICE: $<%- pizza.price*pizza.quantity %></h6>
+                                        </div>
+                                        <% } %>
 
-            <form method="POST" action="/order/builder/edit/<%- pizza.id %>?_method=PUT">
-                <button type="submit" class="btn btn-primary btn-sm">Edit Items</button>
-            </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-9">
+                    <div class="row g-5">
+                        <div class="col-md-12">
+                            <div class="card mb-3">
+                                <img src="/images/order/pizza2.jpg" class="card-img-top" alt="...">
+                                <div class="card-body">
+                                    <h5 class="card-title">Card title</h5>
+                                    <p class="card-text">This is a wider card with supporting text below as a natural
+                                        lead-in to
+                                        additional content. This content is a little bit longer.</p>
+                                    <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>
+                                    <% order.items.pizzas.forEach(pizza=>{ %>
+                                        <h6> ITEM: <%- pizza.name %> </h6>
+                                        <h6> QUANTITY: <%- pizza.quantity %></h6>
+                                        <form method="POST" action="/order/cart/<%- pizza.id %>?_method=PUT">
+                                            <button type="submit" name="qty" value="+1"
+                                                class="btn btn-secondary btn-sm">+1</button>
+                                            <br />
+                                            <button type="submit" name="qty" value="-1" class="btn btn-secondary btn-sm"
+                                                <% if(pizza.quantity===1){ %> disabled <%} %>>-1</button>
+                                        </form>
+                                        <h6> PRICE: $<%- pizza.price*pizza.quantity %></h6>
+                                        <form method="POST" action="/order/builder/edit/<%- pizza.id %>?_method=PUT">
+                                            <button type="submit" class="btn btn-primary btn-sm">Edit Items</button>
+                                        </form>
+                                        <form method="POST" action="/order/cart/<%- pizza.id %>?_method=DELETE">
+                                            <button type="submit" class="btn btn-danger btn-sm">Remove Items</button>
+                                        </form>
+                                        <hr />
 
-            <form method="POST" action="/order/cart/<%- pizza.id %>?_method=DELETE">
-                <button type="submit" class="btn btn-danger btn-sm">Remove Items</button>
-            </form>
-            <hr />
+                                        <%})%>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
 
-            <%})%>
-    <%} %>
+        </div>
+        <%} %>
 
-    <br /> <br />
-
-    <form method="GET" action="/order/checkout/<%- order.id %>">
-        <button type="submit" class="btn btn-primary btn-sm"
-        <% if(!order.items.pizzas.length && !order.items.sides.length){ %> disabled <%} %>>Checkout</button>
-    </form>
-    <br />
-    <form method="GET" action="/order">
-        <button type="submit" class="btn btn-secondary btn-sm" >Hungry For More?</button>
-    </form>
-
-
-
- <%- include('../partials/footer') %>
+            <%- include('../partials/footer') %>
