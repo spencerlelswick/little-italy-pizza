@@ -50,7 +50,6 @@ async function editBuild(req, res) {
 async function saveBuild(req, res) {
     const orderId = req.cookies.orderId
     const itemId = req.params.id
-
     newPizza.name = namePizza(newPizza)
     newPizza.price = pricePizza(newPizza)
     await Pizza.findOneAndUpdate(
@@ -72,7 +71,7 @@ async function saveBuild(req, res) {
     const order = await Order.findById(orderId).populate('items.pizzas') 
     order.total = calcTotal(order.items)
     order.save() 
-    res.redirect('/order/cart', title: "Little Italy | Cart")
+    res.redirect('/order/cart')
 }
 
 async function addToCart(req, res){
