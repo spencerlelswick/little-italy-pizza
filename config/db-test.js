@@ -10,7 +10,7 @@ db.on('connected', function() {
 const Pizza = require('../models/pizza')
 
 const marg = {
-    name: "The Margherita",
+    name: "Margherita",
     type: "Prebuilt",
     size: "Large",
     crust: "Regular",
@@ -22,7 +22,7 @@ const marg = {
 }
 
 const mexfiesta = {
-    name: "The Mexican Fiesta",
+    name: "Fiesta",
     type: "Prebuilt",
     size: "Large",
     crust: "Regular",
@@ -36,7 +36,7 @@ const mexfiesta = {
 }
 
 const mountain = {
-    name: "The Mountain",
+    name: "Mountain",
     type: "Prebuilt",
     size: "Large",
     crust: "Regular",
@@ -50,7 +50,7 @@ const mountain = {
 }
 
 const napoli = {
-    name: "The Napoli",
+    name: "Napoli",
     type: "Prebuilt",
     size: "Large",
     crust: "Regular",
