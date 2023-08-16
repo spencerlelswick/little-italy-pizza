@@ -152,6 +152,7 @@ async function handlePayment(req, res) {
     const order = await Order.findById(orderId)
     order.customer = customer
     order.status = "Confirmed"
+    order.save()
     res.clearCookie('orderId')
     res.render('order/status', { title: "Little Italy | Order Status", order })
 }
