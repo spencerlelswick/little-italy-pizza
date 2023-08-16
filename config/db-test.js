@@ -10,7 +10,11 @@ db.on('connected', function () {
 const Pizza = require('../models/pizza')
 
 const marg = {
+// <<<<<<< feature-order-layout
     name: "margherita",
+// =======
+//     name: "Margherita",
+// >>>>>>> main
     type: "Prebuilt",
     size: "Large",
     crust: "Regular",
@@ -22,7 +26,11 @@ const marg = {
 }
 
 const mexfiesta = {
+// <<<<<<< feature-order-layout
     name: "margherita",
+// =======
+//     name: "Fiesta",
+// >>>>>>> main
     type: "Prebuilt",
     size: "Large",
     crust: "Regular",
@@ -36,7 +44,11 @@ const mexfiesta = {
 }
 
 const mountain = {
+// <<<<<<< feature-order-layout
     name: "margherita",
+// =======
+//     name: "Mountain",
+// >>>>>>> main
     type: "Prebuilt",
     size: "Large",
     crust: "Regular",
@@ -50,7 +62,11 @@ const mountain = {
 }
 
 const napoli = {
+// <<<<<<< feature-order-layout
     name: "margherita",
+// =======
+//     name: "Napoli",
+// >>>>>>> main
     type: "Prebuilt",
     size: "Large",
     crust: "Regular",
