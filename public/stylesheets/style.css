@@ -88,16 +88,18 @@ a {
   box-shadow: 0em 0em 0.1em var(--black);
 }
 
-.logo {
+#logo {
   border-radius: 50%;
-  width: 100%;
-  border-bottom: 5px solid var(--on-primary);
+  width: 5rem;
+  /* border-bottom: 5px solid var(--on-primary); */
+  border: 5px solid var(--on-primary);
 }
 
 .logo-text {
   font-family: rockwell, sans-serif;
   font-weight: 800;
-  color: var(--white)
+  color: var(--white);
+  margin: 0;
 }
 
 .navbar-toggler:enabled {}
