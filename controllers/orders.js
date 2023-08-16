@@ -43,13 +43,15 @@ async function createBuild(req, res, next) {
 
 async function editBuild(req, res) {
     const itemId = req.params.id
-    const pizza = await Pizza.findById(req.params.id)
+    const pizza = await Pizza.findById(itemId)
+    console.log(pizza)
     res.render('builder/edit', { title: "Little Italy | Edit Deal", pizza })
 }
 
 async function saveBuild(req, res) {
     const orderId = req.cookies.orderId
     const itemId = req.params.id
+    newPizza = {...req.body}
     newPizza.name = namePizza(newPizza)
     newPizza.price = pricePizza(newPizza)
     await Pizza.findOneAndUpdate(
