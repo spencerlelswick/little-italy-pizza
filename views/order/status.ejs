@@ -2,11 +2,12 @@
 
   <h2>Grazie mille <%- order.customer.firstName %>!</h2>
 
-  <h4>Your order N. <%- order.id %> </h4>
+  <h4>Your payment is confirmed. </h4>
 
-  <h4>is <%- order.status %></h4>
+  <h4>Your order N. <%- order.id %> is being prepared. </h4>
 
-  <h4>Soon will be delivered at <%- order.customer.address %>, <%- order.customer.city %>.</h4>
-
+  <h4>Soon to be delivered at <%- order.customer.address %>, <%- order.customer.city %>.</h4>
+  <hr/>
+  <img class="d-block mx-auto mb-4" src="/images/checkout/thank-you2.png" alt="" width="400">
 
   <%- include('../partials/footer') %>
