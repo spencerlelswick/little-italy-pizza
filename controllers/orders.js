@@ -170,13 +170,18 @@ async function handlePayment(req, res) {
         customer.card = card._id
     }
     customer.save()
-    const order = await Order.findById(orderId).populate('items.pizzas')
+    const order = await Order.findById(orderId)
     order.paymentMethod = userData.paymentMethod
     order.customer = customer
     order.status = "Confirmed"
     order.save()
     res.clearCookie('orderId')
-    res.render('order/status', { title: "Little Italy | Order Status", order })
+    sendOrder = {
+        _id: order._id,
+        items:{pizzas:[]},
+        customer
+    }
+    res.render('order/status', { title: "Little Italy | Order Status", order:sendOrder })
 }
 
 function calcTotal(items) {
