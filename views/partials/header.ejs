@@ -30,12 +30,7 @@
             <i style="visibility:hidden;">.</i>
             <a class="nav-link" id="menuHead" href="/order">Menu</a>
           </li>
-          <!-- <li id ="cartHead"class="nav-item">
-            <a class="nav-link" href="/order/cart">Cart</a>
-            <button id="cartBtn" disabled <% //if(!(order.items.pizzas.length + order.items.sides.length)){ %> style="visibility:hidden;" <%//}%>>
-            <%- //order.items.pizzas.length + order.items.sides.length%>
-            </button>
-          </li> -->
+
           <% let tot = 0; for (let pizza of order.items.pizzas){tot += pizza.quantity }%>
           
           <li class="nav-item cartHead" >
