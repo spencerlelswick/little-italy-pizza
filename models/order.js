@@ -22,6 +22,10 @@ const orderSchema = new Schema(
       default: 'Received',
       enum: ["Received", "Confirmed", "Prepare", "Bake", "Deliver", "Complete"]
     },
+    paymentMethod:{
+      type: String,
+      enum: ["Card", "Cash"]
+    },
     customer:{
       type: Schema.Types.ObjectId,
       ref: 'Customer',
