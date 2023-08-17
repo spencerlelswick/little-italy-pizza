@@ -93,6 +93,7 @@ a {
   object-position: center center;
   display: flex;
   flex-direction: column;
+  justify-content: space-between;
 }
 
 .card {
@@ -139,6 +140,14 @@ a {
 
 .cart-summary>div:last-child {
   border-top: 2px solid black;
+}
+
+.cart-empty {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 60vh;
 }
 
 .card-order>h5 {
