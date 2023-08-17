@@ -77,9 +77,9 @@ async function saveBuild(req, res) {
             }
         }
     )
-    const order = await Order.findById(orderId).populate('items.pizzas') 
+    const order = await Order.findById(orderId).populate('items.pizzas')
     order.total = calcTotal(order.items)
-    order.save() 
+    order.save()
     res.redirect('/order/cart')
 }
 
@@ -89,11 +89,11 @@ async function addToCart(req, res){
     const pizzaData = {...pizza._doc}
     pizzaData.type = "Custom"
     pizzaData.size = req.body.size
-    pizzaData.crust = req.body.crust
-    pizzaData.name = `${pizzaData.size}, ${pizzaData.crust} Crust ${pizzaData.name}` 
+        pizzaData.crust = req.body.crust
+    pizzaData.name = `${pizzaData.size}, ${pizzaData.crust} Crust ${pizzaData.name}`
     delete pizzaData._id
     delete pizzaData.createdAt
-    delete pizzaData.updatedAt 
+    delete pizzaData.updatedAt
     delete pizzaData.__v
     newPizza = await Pizza.create(pizzaData)
     order = await Order.findById(req.cookies.orderId).populate('items.pizzas')
