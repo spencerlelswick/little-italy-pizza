@@ -65,6 +65,10 @@
                                                             <img style="z-index: 1;" class="topping-area"
                                                                 src="../images/builder/idle-toppings/<%-pizza.meats[i].toLowerCase().replace(/\s/g, '') %>.png">
                                                             <% } %>
+                                                                <% for (let i=0; i < pizza.veggies.length; i++) { %>
+                                                                    <img style="z-index: 1;" class="topping-area"
+                                                                        src="../images/builder/idle-toppings/<%-pizza.veggies[i].toLowerCase().replace(/\s/g, '') %>.png">
+                                                                    <% } %>
                                                     </div>
                                                     <div
                                                         class="card-body d-flex justify-content-center align-items-center">
