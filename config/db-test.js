@@ -1,5 +1,5 @@
-const mongoose = require('mongoose');
 require('dotenv').config()
+require('./database')
 mongoose.connect(process.env.DATABASE_URL);
 
 const db = mongoose.connection;
@@ -9,78 +9,49 @@ db.on('connected', function () {
 
 const Pizza = require('../models/pizza')
 
-const marg = {
-// <<<<<<< feature-order-layout
-    name: "margherita",
-// =======
-//     name: "Margherita",
-// >>>>>>> main
-    type: "Prebuilt",
-    size: "Large",
-    crust: "Regular",
-    sauce: "Marinara",
-    cut: "Normal",
-    cheese: "Normal",
-    quantity: 1,
-    price: 11
-}
+console.log("Baking pizzas")
 
-const mexfiesta = {
-// <<<<<<< feature-order-layout
-    name: "margherita",
-// =======
-//     name: "Fiesta",
-// >>>>>>> main
+await Pizza.create({
+    id: 1111111111,
+    name: "Margherita",
     type: "Prebuilt",
-    size: "Large",
-    crust: "Regular",
-    sauce: "Marinara",
-    cut: "Normal",
-    cheese: "Normal",
+    price: 11
+})
+
+await Pizza.create({
+    id: 2222222222,
+    name: "Mexican Fiesta",
+    type: "Prebuilt",
     meats: ["Pepperoni"],
     veggies: ["Green Peppers", "Banana Peppers", "Jalapeno Peppers"],
-    quantity: 1,
     price: 15
-}
+})
 
-const mountain = {
-// <<<<<<< feature-order-layout
-    name: "margherita",
-// =======
-//     name: "Mountain",
-// >>>>>>> main
+await Pizza.create({
+    id: 3333333333,
+    name: "Mountain",
     type: "Prebuilt",
-    size: "Large",
-    crust: "Regular",
-    sauce: "Marinara",
-    cut: "Normal",
-    cheese: "Normal",
     meats: ["Sausage"],
     veggies: ["Mushrooms"],
-    quantity: 1,
     price: 13
-}
+})
 
-const napoli = {
-// <<<<<<< feature-order-layout
-    name: "margherita",
-// =======
-//     name: "Napoli",
-// >>>>>>> main
+await Pizza.create({
+    id: 4444444444,
+    name: "Napoli",
     type: "Prebuilt",
-    size: "Large",
-    crust: "Regular",
-    sauce: "Marinara",
-    cut: "Normal",
     cheese: "No",
     meats: ["Anchovies"],
-    quantity: 1,
     price: 11
-}
+})
 
-Pizza.create(marg)
-// Pizza.create(napoli)
-// Pizza.create(mountain)
-// Pizza.create(mexfiesta)
+await Pizza.create({
+    id: 4444444444,
+    name: "Hawaiian Fantasy",
+    type: "Prebuilt",
+    meats: ["Sausage"],
+    veggies: ["Pineapple","Black Olives", "Green Peppers"],
+    price: 13
+})
 
 

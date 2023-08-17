@@ -11,8 +11,10 @@
   --black: #000;
   --white: #fff;
 
-  --bs-primary: #B22448 !important;
-  --bs-secondary: #231F20 !important;
+ /* testing */
+  --primary: firebrick;
+  --on-primary: red;
+  --on-secondary: #d2d6d6;
 
 }
 
@@ -207,24 +209,26 @@ a {
   grid-area: header;
   grid-column: 1 / span 2;
   grid-row: 2 / 2;
+  text-shadow: -1px 0px black, 1px 0px black, 0px -1px black, 0px 1px black, 5px 3px red;
 }
 
 .headline {
   font-size: 2vw;
   grid-area: headline;
   grid-column: 1 / span 1;
-  grid-row: 1 / 1;
+  grid-row: 1 / 1;  text-shadow: -1px 0px black, 1px 0px black, 0px -1px black, 0px 1px black, 5px 3px red;
 }
 
 .price {
   position: relative;
   padding: 0.5rem;
-  background-color: #ff0000;
+  background-color: firebrick;
   border-radius: 50%;
   font-size: 3vw;
   grid-area: price;
   grid-column: 2 / span 1;
   grid-row: 1 / 1;
+  text-shadow: -1px 0px black, 1px 0px black, 0px -1px black, 0px 1px black, 5px 3px red;
 }
 
 .orderNow {
