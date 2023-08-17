@@ -61,9 +61,6 @@ a {
   color: #ff0000;
 }
 
-
-
-
 .navbar {
   background-color: var(--primary);
   border-bottom: 5px solid var(--on-primary);
@@ -84,8 +81,11 @@ a {
 }
 
 .navbar-toggler {
-  /* border-bottom: 5px solid var(--on-primary);
-  box-shadow: 0em 0em 0.1em var(--black); */
+  color: red
+}
+
+.navbar-toggler:focus {
+  box-shadow: 10 0 0 red;
 }
 
 .card-order {

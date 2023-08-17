@@ -84,13 +84,15 @@ async function saveBuild(req, res) {
 }
 
 async function addToCart(req, res){
+    console.log(req.body)
     const itemId = req.params.id
     const pizza = await Pizza.findById(itemId)
     const pizzaData = {...pizza._doc}
     pizzaData.type = "Custom"
     pizzaData.size = req.body.size
-        pizzaData.crust = req.body.crust
-    pizzaData.name = `${pizzaData.size}, ${pizzaData.crust} Crust ${pizzaData.name}`
+    pizzaData.quantity = req.body.quantity
+    pizzaData.crust = req.body.crust
+    pizzaData.name = `${pizzaData.size}, ${pizzaData.crust}, ${pizzaData.name} Pizza` 
     delete pizzaData._id
     delete pizzaData.createdAt
     delete pizzaData.updatedAt
@@ -193,44 +195,43 @@ function calcTotal(items) {
 }
 
 function namePizza(pizza) {
-    let name = `${pizza.size}, ${pizza.crust} Crust, `
+    let name = `${pizza.size}, ${pizza.crust}, `
     if (pizza.meats && pizza.meats === "Ham" &&
         pizza.veggies && pizza.veggies === "Pineapple") {
-        name += `Hawaiian`
+        name += `Hawaiian Pizza`
     } else if (pizza.meats && pizza.meats === "Ham" &&
         pizza.veggies && pizza.veggies.includes("Pineapple")) {
-        name += `Hawaiian Specialty`
+        name += `Hawaiian Specialty Pizza`
     } else if (pizza.meats && pizza.meats === "Pepperoni" && pizza.veggies) {
-        name += `Pepperoni Specialty`
+        name += `Pepperoni Specialty Pizza`
     } else if (pizza.meats && pizza.meats === "Chicken" && pizza.sauce === "BBQ" && !pizza.veggies) {
-        name += `BBQ Chicken`
+        name += `BBQ Chicken Pizza`
     } else if (pizza.meats && pizza.meats === "Chicken" && pizza.sauce === "Buffalo" && !pizza.veggies) {
-        name += `Buffalo Chicken`
+        name += `Buffalo Chicken Pizza`
     } else if (pizza.meats && pizza.meats === "Chicken" && pizza.sauce === "BBQ") {
-        name += `BBQ Chicken Specialty`
+        name += `BBQ Chicken Specialty Pizza`
     } else if (pizza.meats && pizza.meats === "Chicken" && pizza.sauce === "Buffalo") {
-        name += `Buffalo Chicken Specialty`
+        name += `Buffalo Chicken Specialty Pizza`
     } else if (pizza.meats && pizza.meats.constructor !== String && !pizza.veggies ||
         (pizza.meats && pizza.meats.constructor !== String && pizza.veggies && pizza.veggies.constructor === String)) {
-        name += `Meat Lover`
+        name += `Meat Lover Pizza`
     } else if (pizza.meats && pizza.meats.constructor !== String && pizza.meats.length >= 3 &&
         pizza.veggies && pizza.veggies.constructor !== String && pizza.veggies.length >= 3) {
         name += `The Works`
     } else if (pizza.meats && pizza.meats.constructor !== String && pizza.meats.length >= 2 &&
         pizza.veggies && pizza.veggies.constructor !== String && pizza.veggies.length >= 2) {
-        name += `The Supreme`
+        name += `Supreme Pizza`
     } else if (pizza.meats && pizza.meats.constructor === String) {
-        name += `${pizza.meats}`
+        name += `${pizza.meats} Pizza`
     } else if (pizza.veggies && pizza.veggies.constructor === String) {
-        name += `${pizza.veggies}`
+        name += `${pizza.veggies} Pizza`
     } else if (pizza.veggies && pizza.veggies.constructor !== String) {
-        name += `Veggie Lover`
+        name += `Veggie Lover Pizza`
     } else if (pizza.sauce === "Marinara" && pizza.cheese !== "No" && !pizza.meats && !pizza.veggies) {
-        name += `${pizza.cheese} Cheese Margherita`
+        name += `${pizza.cheese} Margherita Pizza`
     } else {
-        name += `${pizza.cheese} Cheese`
+        name += `${pizza.cheese} Cheese Pizza`
     }
-    name += ` Pizza`
     return name
 }
 
