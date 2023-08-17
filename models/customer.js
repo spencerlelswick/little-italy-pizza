@@ -13,33 +13,23 @@ const customerSchema = new Schema(
             type: String
         },
         address:{
-            type: String
+            street: {
+                type: String
+            },
+            city: {
+                type: String
+            },
+            state: {
+                type: String
+            },
+            zip: {
+                type: Number
+            }
         },
-        city: {
-            type: String
-        },
-        state: {
-            type: String
-        },
-        zip: {
-            type: Number
-        },
-        paymentMethod: {
-            type: String,
-            enum: ["cash","card"]
-        },
-        ccName: {
-            type: String
-        },
-        ccNum: {
-            type: String
-        },
-        ccExp: {
-            type: String
-        },
-        ccCvv: {
-            type: Number
-        }
+        card:{
+            type: Schema.Types.ObjectId,
+            ref: 'Card',
+          }
     },
     {
         timestamps: true,
