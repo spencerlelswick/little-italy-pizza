@@ -33,7 +33,8 @@
 
           <% let tot = 0; for (let pizza of order.items.pizzas){tot += pizza.quantity }%>
           
-          <li class="nav-item cartHead" >
+          <li class="nav-item cartHead">
+          
             <button id="cartBtn" disabled <% if(!tot){ %> style="visibility:hidden;" <%}%>>
             <%- tot %> </button>
             <a class="nav-link" href="/order/cart">
