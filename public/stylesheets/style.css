@@ -93,6 +93,7 @@ a {
   object-position: center center;
   display: flex;
   flex-direction: column;
+  justify-content: space-between;
 }
 
 .card {
