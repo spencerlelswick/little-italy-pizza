@@ -1,6 +1,7 @@
 const Order = require('../models/order');
 const Pizza = require('../models/pizza');
 const Customer = require('../models/customer');
+const Card = require('../models/card');
 
 module.exports = {
     index,
@@ -151,8 +152,27 @@ async function checkout(req, res, next) {
 async function handlePayment(req, res) {
     const orderId = req.cookies.orderId
     const userData = {...req.body}
-    const customer = await Customer.create(userData)
+    const customer = await Customer.create({})
+    customer.firstName = userData.firstName
+    customer.lastName = userData.lastName
+    customer.email = userData.email
+    customer.address.street = userData.street
+    customer.address.city = userData.city
+    customer.address.state = userData.state
+    customer.address.zip = userData.zip
+    let card
+    if (userData.paymentMethod === "Card"){
+        card = await Card.create({})
+        card.ccName = userData.ccName
+        card.ccNum = userData.ccNum
+        card.ccExp = userData.ccExp
+        card.ccCvv = userData.ccCvv
+        card.save()
+        customer.card = card._id
+    }
+    customer.save()
     const order = await Order.findById(orderId)
+    order.paymentMethod = userData.paymentMethod
     order.customer = customer
     order.status = "Confirmed"
     order.save()
