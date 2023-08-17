@@ -5,10 +5,18 @@
   <title>
     <%= title %>
   </title>
+  <style>
+    a {
+      color: white;
+      transition: color 0.5s;
+      text-decoration: none;
+    }
+  </style>
   <script src="https://kit.fontawesome.com/b82edda17a.js" crossorigin="anonymous"></script>
   <link rel="shortcut icon" href="/images/favicon.png" type="image/x-icon">
-  <link rel="stylesheet" href="/css/bootstrap.min.css"> 
+  <link rel="stylesheet" href="/css/bootstrap.min.css">
   <link rel='stylesheet' href='/stylesheets/style.css' />
+
   <script src="/js/bootstrap.js" defer></script>
 </head>
 
@@ -31,19 +39,19 @@
             <a class="nav-link" id="menuHead" href="/order">Menu</a>
           </li>
 
-          <% let tot = 0; for (let pizza of order.items.pizzas){tot += pizza.quantity }%>
-          
-          <li class="nav-item cartHead" >
-            <button id="cartBtn" disabled <% if(!tot){ %> style="visibility:hidden;" <%}%>>
-            <%- tot %> </button>
-            <a class="nav-link" href="/order/cart">
-              
-              <i id="cartIcon"class="nav-link fa-solid fa-cart-shopping"></i>
-            </a>
-          </li>
+          <% let tot=0; for (let pizza of order.items.pizzas){tot +=pizza.quantity }%>
+
+            <li class="nav-item cartHead">
+              <button id="cartBtn" disabled <% if(!tot){ %> style="visibility:hidden;" <%}%>>
+                  <%- tot %> </button>
+              <a class="nav-link" href="/order/cart">
+
+                <i id="cartIcon" class="nav-link fa-solid fa-cart-shopping"></i>
+              </a>
+            </li>
 
 
-          
+
 
         </ul>
       </div>
