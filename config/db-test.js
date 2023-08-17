@@ -11,47 +11,76 @@ const Pizza = require('../models/pizza')
 
 console.log("Baking pizzas")
 
-await Pizza.create({
+Pizza.create({
     id: 1111111111,
-    name: "Margherita",
+    name: "The Verace",
     type: "Prebuilt",
     price: 11
 })
 
-await Pizza.create({
+Pizza.create({
     id: 2222222222,
-    name: "Mexican Fiesta",
+    name: "The Mexican Fiesta",
     type: "Prebuilt",
     meats: ["Pepperoni"],
-    veggies: ["Green Peppers", "Banana Peppers", "Jalapeno Peppers"],
+    veggies: ["Green Peppers", "Jalapeno Peppers"],
     price: 15
 })
 
-await Pizza.create({
+Pizza.create({
     id: 3333333333,
-    name: "Mountain",
+    name: "The Mountain",
     type: "Prebuilt",
-    meats: ["Sausage"],
+    meats: ["Canadian Bacon"],
     veggies: ["Mushrooms"],
     price: 13
 })
 
-await Pizza.create({
+Pizza.create({
     id: 4444444444,
-    name: "Napoli",
+    name: "El Diablo",
     type: "Prebuilt",
-    cheese: "No",
-    meats: ["Anchovies"],
+    meats: ["Salami"],
+    veggies: ["Green Peppers","Banana Peppers", "Jalapeno Peppers"],
     price: 11
 })
 
-await Pizza.create({
-    id: 4444444444,
-    name: "Hawaiian Fantasy",
+Pizza.create({
+    id: 5555555555,
+    name: "The First Love",
+    type: "Prebuilt",
+    meats: ["Pepperoni", "Bacon"],
+    veggies: ["Onions"],
+    price: 13
+})
+
+Pizza.create({
+    id: 666666666,
+    name: "The Cheesy",
+    type: "Prebuilt",
+    cheese: ["Extra"],
+    meats: ["Sausage"],
+    veggies: ["Green Olives"],
+    price: 13
+})
+
+Pizza.create({
+    id: 777777777,
+    name: "The Smelly",
     type: "Prebuilt",
     meats: ["Sausage"],
-    veggies: ["Pineapple","Black Olives", "Green Peppers"],
+    veggies: ["Onions"],
+    price: 13
+})
+
+Pizza.create({
+    id: 777777777,
+    name: "The Italian Nightmare",
+    type: "Prebuilt",
+    meats: ["Canadian Bacon"],
+    veggies: ["Pineapple"],
     price: 13
 })
 
 
+console.log("Pizzas are ready")
