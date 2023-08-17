@@ -107,10 +107,34 @@ a {
   overflow: hidden;
 }
 
+.card-number {
+  position: relative;
+  top: 1rem;
+  left: 1rem;
+  background-color: var(--on-primary);
+  color: white;
+  width: 18px;
+  height: 18px;
+  text-align: center;
+  border-radius: 50%;
+}
+
 
 .cart-summary {
   position: unset;
   width: unset;
+}
+
+.cart-summary>div>p {
+  padding: 0;
+}
+
+.cart-summary>div>div:nth-child(even) {
+  background-color: rgb(246, 246, 246);
+}
+
+.cart-summary>div>div:last-child {
+  border-top: 2px solid black;
 }
 
 .card-order>h5 {
