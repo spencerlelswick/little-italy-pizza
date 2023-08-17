@@ -39,19 +39,17 @@
             <a class="nav-link" id="menuHead" href="/order">Menu</a>
           </li>
 
-          <% let tot=0; for (let pizza of order.items.pizzas){tot +=pizza.quantity }%>
-
-            <li class="nav-item cartHead">
-              <button id="cartBtn" disabled <% if(!tot){ %> style="visibility:hidden;" <%}%>>
-                  <%- tot %> </button>
-              <a class="nav-link" href="/order/cart">
-
-                <i id="cartIcon" class="nav-link fa-solid fa-cart-shopping"></i>
-              </a>
-            </li>
-
-
-
+          <% let tot = 0; for (let pizza of order.items.pizzas){tot += pizza.quantity }%>
+          
+          <li class="nav-item cartHead">
+          
+            <button id="cartBtn" disabled <% if(!tot){ %> style="visibility:hidden;" <%}%>>
+            <%- tot %> </button>
+            <a class="nav-link" href="/order/cart">
+              
+              <i id="cartIcon"class="nav-link fa-solid fa-cart-shopping"></i>
+            </a>
+          </li>
 
         </ul>
       </div>

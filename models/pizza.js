@@ -3,6 +3,9 @@ const Schema = mongoose.Schema;
 
 const pizzaSchema = new Schema(
     {
+        altId: {
+            type: Number
+        },
         name: {
             type: String,
             default: "Pizza"
