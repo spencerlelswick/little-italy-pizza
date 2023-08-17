@@ -171,7 +171,6 @@ async function handlePayment(req, res) {
         customer.card = card._id
     }
     customer.save()
-
     const order = await Order.findById(orderId)
     order.paymentMethod = userData.paymentMethod
     order.customer = customer

@@ -31,12 +31,11 @@
 
               <div class="col-12">
                 <label for="email" class="form-label">Email</label>
-                <input name="email" type="email" class="form-control" id="email" value="GetWicked@hotmail.com" placeholder="your@email.com">
+                <input name="email" type="email" class="form-control" id="email" value="getwickd@hotmail.com" placeholder="your@email.com" required>
                 <div class="invalid-feedback">
                   Please enter a valid email address for shipping updates.
                 </div>
               </div>
-
 
               <div class="col-12">
                 <label for="address" class="form-label">Address</label>
@@ -89,7 +88,7 @@
             <div class="row gy-3 cardInfo" >
               <div class="col-md-6">
                 <label for="cc-name" class="form-label">Name On Card</label>
-                <input name="ccName" type="text" class="form-control cardInfo" id="cc-name" placeholder="" value="John" required>
+                <input name="ccName" type="text" class="form-control cardInfo" id="cc-name" placeholder="" value="John Wick" required>
                 <small class="text-muted">Full name as displayed on card</small>
                 <div class="invalid-feedback">
                   Name on card is required
@@ -103,7 +102,6 @@
                   Credit card number is required
                 </div>
               </div>
-
 
               <div class="col-md-3">
                 <label for="cc-expiration" class="form-label">MM/YY</label>
@@ -148,18 +146,14 @@
                   </li>
                   <% } %>
 
-
                     <li class="list-group-item d-flex justify-content-between">
                       <h5>Total</h5>
                       <h5><strong>$<%- order.total %></strong></h5>
                     </li>
           </ul>
 
-
-
           <button class="w-100 btn btn-primary btn-lg" type="submit">Continue For Delivery</button>
           <hr class="my-4">
-
 
           <img class="d-block mx-auto mb-4" src="/images/checkout/thank-you.png" alt="" width="300">
 
