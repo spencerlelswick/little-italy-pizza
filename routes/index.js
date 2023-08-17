@@ -9,7 +9,7 @@ router.get('/', async function (req, res, next) {
       order = await Order.create({})
       res.cookie(`orderId`, `${order._id}`);
   } else {
-  order = await Order.findById(req.cookies.orderId)
+  order = await Order.findById(req.cookies.orderId).populate('items.pizzas')
   }
   res.render('index', { title: 'Little Italy | Pizza Delivery', order});
 });

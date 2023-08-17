@@ -22,14 +22,14 @@ async function index(req, res) {
         order = await Order.create({})
         res.cookie(`orderId`, `${order._id}`);
     } else {
-        order = await Order.findById(req.cookies.orderId)
+        order = await Order.findById(req.cookies.orderId).populate('items.pizzas')
     }
     prebuiltPizzas = await Pizza.find({type: "Prebuilt"})
     res.render('order/index', { title: "Little Italy | Order", order, prebuiltPizzas })
 }
 
 async function newBuild(req, res) {
-    const order = await Order.findById(req.cookies.orderId)
+    const order = await Order.findById(req.cookies.orderId).populate('items.pizzas')
     res.render('builder/new', { title: "Little Italy | Deal Builder", order})
 }
 
@@ -50,7 +50,7 @@ async function editBuild(req, res) {
     const itemId = req.params.id
     const pizza = await Pizza.findById(itemId)
     console.log(pizza)
-    const order = await Order.findById(req.cookies.orderId)
+    const order = await Order.findById(req.cookies.orderId).populate('items.pizzas')
     res.render('builder/edit', { title: "Little Italy | Edit Deal", order, pizza })
 }
 
@@ -152,7 +152,7 @@ async function handlePayment(req, res) {
     const orderId = req.cookies.orderId
     const userData = {...req.body}
     const customer = await Customer.create(userData)
-    const order = await Order.findById(orderId)
+    const order = await Order.findById(orderId).populate('items.pizzas')
     order.customer = customer
     order.status = "Confirmed"
     order.save()

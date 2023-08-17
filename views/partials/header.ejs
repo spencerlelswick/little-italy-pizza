@@ -5,6 +5,7 @@
   <title>
     <%= title %>
   </title>
+  <script src="https://kit.fontawesome.com/b82edda17a.js" crossorigin="anonymous"></script>
   <link rel="shortcut icon" href="/images/favicon.png" type="image/x-icon">
   <link rel="stylesheet" href="/css/bootstrap.min.css"> 
   <link rel='stylesheet' href='/stylesheets/style.css' />
@@ -24,15 +25,31 @@
       </button>
       <div class="collapse navbar-collapse justify-content-end" id="navbarNav">
         <ul class="navbar-nav">
-          <li class="nav-item">
-            <a class="nav-link" href="/order">Order</a>
+
+          <li class="nav-item  cartHead">
+            <i style="visibility:hidden;">.</i>
+            <a class="nav-link" id="menuHead" href="/order">Menu</a>
           </li>
-          <li id ="cartHead"class="nav-item">
+          <!-- <li id ="cartHead"class="nav-item">
             <a class="nav-link" href="/order/cart">Cart</a>
-            <button id="cartBtn" disabled <% if(!(order.items.pizzas.length + order.items.sides.length)){ %> style="visibility:hidden;" <%}%>>
-            <%- order.items.pizzas.length + order.items.sides.length%>
+            <button id="cartBtn" disabled <% //if(!(order.items.pizzas.length + order.items.sides.length)){ %> style="visibility:hidden;" <%//}%>>
+            <%- //order.items.pizzas.length + order.items.sides.length%>
             </button>
+          </li> -->
+          <% let tot = 0; for (let pizza of order.items.pizzas){tot += pizza.quantity }%>
+          
+          <li class="nav-item cartHead" >
+            <button id="cartBtn" disabled <% if(!tot){ %> style="visibility:hidden;" <%}%>>
+            <%- tot %> </button>
+            <a class="nav-link" href="/order/cart">
+              
+              <i id="cartIcon"class="nav-link fa-solid fa-cart-shopping"></i>
+            </a>
           </li>
+
+
+          
+
         </ul>
       </div>
     </div>
