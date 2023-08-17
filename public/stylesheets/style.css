@@ -63,15 +63,6 @@ a {
 
 
 
-#prebuiltPizzas {
-  display: flex;
-  flex-direction: row;
-  flex-wrap: wrap;
-  justify-content: space-around;
-
-}
-
-#prebuiltPizzas>div {}
 
 .navbar {
   background-color: var(--primary);
@@ -98,7 +89,6 @@ a {
 }
 
 .card-order {
-  height: 200px;
   object-fit: cover;
   object-position: center center;
   display: flex;
@@ -109,6 +99,15 @@ a {
   overflow: hidden;
 }
 
+
+#prebuiltPizzas {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: space-around;
+}
+
+#prebuiltPizzas>div {}
 
 .card-number {
   position: relative;
