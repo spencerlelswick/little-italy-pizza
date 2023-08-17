@@ -241,7 +241,7 @@ a {
 }
 
 #logo {
-  border-radius: 25%;
+  border-radius: 50%;
   width: 5rem;
   /* border-bottom: 5px solid var(--on-primary); */
   border-bottom: 3px solid var(--on-primary);
