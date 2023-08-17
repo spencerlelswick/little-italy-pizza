@@ -1,67 +1,134 @@
 <%- include('../partials/header') %>
+    <link rel="stylesheet" href="/stylesheets/builder.css">
+
     <%if (order){%>
-        <div class="container my-5">
-            <div class="row">
-                <div class="col-md-3 right">
-                    <div class="row">
-                        <div class="col-md-12">
-                            <div class="row">
-                                <div class="card cart-summary">
-                                    <h2>Cart Summary</h2>
-                                    <% for( let i=0; i < order.items.pizzas.length; i++ ) { %>
+        <div>
 
-                                        <div class="card-body">
-                                            <li class="list-group-item d-flex justify-content-between lh-sm">
-                                                <div>
-                                                    <span class="text-muted"><%- order.items.pizzas[i].name %> </span>
-                                                    <span class="text-muted"> (x<%-
-                                                            order.items.pizzas[i].quantity%>)</span>
+            <div class="container my-5">
+                <div class="row">
+                    <div class="col-md-3 right">
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="row">
+                                    <div class="card cart-summary">
+
+                                        <div class="card-body p-0 pb-3 w-100 h-50 cart-summary-body">
+                                            <% for( let i=0; i < order.items.pizzas.length; i++ ) { %>
+                                                <div class=" d-flex justify-content-between lh-sm p-1">
+                                                    <div class="d-flex justify-content-end">
+                                                        <p class="text-muted fs-5">$<%- order.items.pizzas[i].price *
+                                                                order.items.pizzas[i].quantity %>
+                                                        </p>
+                                                    </div>
+                                                    <div>
+                                                        <p class="text-start">
+                                                            <span class="text-muted">
+                                                                (x<%-order.items.pizzas[i].quantity%>)</span>
+                                                            <%- i+1 %>. <%- order.items.pizzas[i].name%>
+
+                                                        </p>
+
+                                                    </div>
+
                                                 </div>
-                                                <h6 class="my-0">$<%- order.items.pizzas[i].price *
-                                                        order.items.pizzas[i].quantity %>
-                                                </h6>
-                                            </li>
-
+                                                <% } %>
                                         </div>
-                                        <% } %>
+
+                                        <section class=" d-flex justify-content-between lh-sm p-1">
+                                            <div>
+                                                <span class="fs-5">Total</span>
+                                            </div>
+                                            <div>
+                                                <p class="fs-5">$<%- order.total %> </p>
+                                            </div>
+                                        </section>
+
+                                        <form method="GET" action="/order/checkout/<%- order.id %>">
+                                            <button type="submit" class="btn btn-primary btn-lg w-100 cart-btn-submit">
+                                                Checkout
+                                            </button>
+                                        </form>
+                                    </div>
 
                                 </div>
+
                             </div>
                         </div>
                     </div>
-                </div>
-                <div class="col-md-9">
-                    <div class="row g-5">
-                        <div class="col-md-12">
-                            <div class="card mb-3">
-                                <img src="/images/order/pizza2.jpg" class="card-img-top" alt="...">
-                                <div class="card-body">
-                                    <h5 class="card-title">Card title</h5>
-                                    <p class="card-text">This is a wider card with supporting text below as a natural
-                                        lead-in to
-                                        additional content. This content is a little bit longer.</p>
-                                    <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>
-                                    <% order.items.pizzas.forEach(pizza=>{ %>
-                                        <h6> ITEM: <%- pizza.name %> </h6>
-                                        <h6> QUANTITY: <%- pizza.quantity %></h6>
-                                        <form method="POST" action="/order/cart/<%- pizza.id %>?_method=PUT">
-                                            <button type="submit" name="qty" value="+1"
-                                                class="btn btn-secondary btn-sm">+1</button>
-                                            <br />
-                                            <button type="submit" name="qty" value="-1" class="btn btn-secondary btn-sm"
-                                                <% if(pizza.quantity===1){ %> disabled <%} %>>-1</button>
-                                        </form>
-                                        <h6> PRICE: $<%- pizza.price*pizza.quantity %></h6>
-                                        <form method="POST" action="/order/builder/edit/<%- pizza.id %>?_method=PUT">
-                                            <button type="submit" class="btn btn-primary btn-sm">Edit Items</button>
-                                        </form>
-                                        <form method="POST" action="/order/cart/<%- pizza.id %>?_method=DELETE">
-                                            <button type="submit" class="btn btn-danger btn-sm">Remove Items</button>
-                                        </form>
-                                        <hr />
+                    <div class="col-md-9">
+                        <div class="row g-5">
+                            <div class="col-md-12">
+                                <div class="row row-cols-1 row-cols-md-3 g-4">
+                                    <% let pizzaIndex=1 %>
+                                        <% order.items.pizzas.forEach(pizza=>{ %>
+                                            <div class="col">
+                                                <div class="card" width="400px">
+                                                    <div class="card-number">
+                                                        <p><%- pizzaIndex %></p>
+                                                        <% pizzaIndex++ %>
+                                                    </div>
+                                                    <div id="builder">
+                                                        <img style="z-index: 1;" class="crust-area"
+                                                            src="../images/builder/crust/<%- pizza.crust.toLowerCase() %>.png">
+                                                        <% for (let i=0; i < pizza.meats.length; i++) { %>
+                                                            <img style="z-index: 1;" class="topping-area"
+                                                                src="../images/builder/idle-toppings/<%-pizza.meats[i].toLowerCase().replace(/\s/g, '') %>.png">
+                                                            <% } %>
+                                                                <% for (let i=0; i < pizza.veggies.length; i++) { %>
+                                                                    <img style="z-index: 1;" class="topping-area"
+                                                                        src="../images/builder/idle-toppings/<%-pizza.veggies[i].toLowerCase().replace(/\s/g, '') %>.png">
+                                                                    <% } %>
+                                                    </div>
+                                                    <div
+                                                        class="card-body d-flex justify-content-center align-items-center">
 
-                                        <%})%>
+                                                        <div class="col-12">
+                                                            <h5 class="card-title text-center"><%- pizza.name %>
+                                                            </h5>
+
+                                                            <div class="">
+                                                                <form method="POST"
+                                                                    action="/order/cart/<%- pizza.id %>?_method=PUT">
+                                                                    <div class="quantity-btns">
+                                                                        <button type="submit" name="qty" value="-1"
+                                                                            class="btn btn-primary btn-sm quantity-left"
+                                                                            <%if(pizza.quantity===1){%>
+                                                                            disabled <%} %>>-</button>
+                                                                        <button
+                                                                            class="btn disabled btn-sm quantity-display"><%-pizza.quantity%></button>
+                                                                        <button type="submit" name="qty" value="+1"
+                                                                            class="btn btn-primary btn-sm quantity-right">+</button>
+                                                                    </div>
+                                                                </form>
+
+                                                            </div>
+                                                            <div class="checkout-ctrls">
+                                                                <div>
+                                                                    <form method="POST"
+                                                                        action="/order/builder/edit/<%- pizza.id %>?_method=PUT">
+                                                                        <button type="submit"
+                                                                            class="btn btn-primary btn-sm p-1">Edit</button>
+                                                                    </form>
+                                                                </div>
+                                                                <div>
+                                                                    <form method="POST"
+                                                                        action="/order/cart/<%- pizza.id %>?_method=DELETE">
+                                                                        <button type="submit"
+                                                                            class="btn btn-danger btn-sm p-1">Delete</button>
+                                                                    </form>
+                                                                </div>
+
+                                                            </div>
+                                                        </div>
+
+
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <%})%>
+
                                 </div>
+
                             </div>
                         </div>
                     </div>
@@ -70,5 +137,4 @@
 
         </div>
         <%} %>
-
             <%- include('../partials/footer') %>
