@@ -9,7 +9,7 @@
         <div class="card h-100">
           <img src="/images/order/CYOP.png" class="card-img-top">
           <div class="card-body card-order">
-            <h5 class="card-title ">Build Your Own Pizza</h5>
+            <h5 class="card-title ">Build Your Own</h5>
             <p>You be you! Select your favorite toppings, crust and sauce to build the perfect pizza from scratch.</p>
             <div>
               <form method="GET" action="/order/builder">
@@ -27,7 +27,7 @@
             <form method="POST" action="order/cart/<%- pizza._id %>">
               <img src="/images/order/<%- pizza.altId %>.jpg" class="card-img-top">
               <div class="card-body card-order">
-                <h5 class="card-title "><%- pizza.name %> $<%- pizza.price %></h5>
+                <h5 class="card-title "><%- pizza.name %> <span class="float-end">$<%- pizza.price %></span></h5>
                 <div>
                   <div class="d-flex justify-content-between">
 
