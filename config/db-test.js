@@ -14,14 +14,14 @@ console.log("Baking pizzas")
 
 Pizza.create({
     altId: 1111,
-    name: "The Verace",
+    name: "Verace",
     type: "Prebuilt",
     price: 11
 })
 
 Pizza.create({
     altId: 2222,
-    name: "The Mexican Fiesta",
+    name: "Mexican Fiesta",
     type: "Prebuilt",
     meats: ["Pepperoni"],
     veggies: ["Green Peppers", "Jalapeno Peppers"],
@@ -30,7 +30,7 @@ Pizza.create({
 
 Pizza.create({
     altId: 3333,
-    name: "The Mountain",
+    name: "Mountain",
     type: "Prebuilt",
     meats: ["Ham"],
     veggies: ["Mushrooms"],
@@ -48,7 +48,7 @@ Pizza.create({
 
 Pizza.create({
     altId: 5555,
-    name: "The First Love",
+    name: "First Love",
     type: "Prebuilt",
     meats: ["Pepperoni", "Bacon"],
     veggies: ["Onions"],
@@ -57,7 +57,7 @@ Pizza.create({
 
 Pizza.create({
     altId: 6666,
-    name: "The Cheesy",
+    name: "Easy Cheesy",
     type: "Prebuilt",
     cheese: "Extra",
     meats: ["Sausage"],
@@ -67,7 +67,7 @@ Pizza.create({
 
 Pizza.create({
     altId: 7777,
-    name: "The Smelly",
+    name: "Farmer ",
     type: "Prebuilt",
     meats: ["Sausage"],
     veggies: ["Onions"],
@@ -76,7 +76,7 @@ Pizza.create({
 
 Pizza.create({
     altId: 8888,
-    name: "The Italian Nightmare",
+    name: "Italian Nightmare",
     type: "Prebuilt",
     meats: ["Ham"],
     veggies: ["Pineapple"],
