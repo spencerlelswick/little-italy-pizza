@@ -1,5 +1,6 @@
 require('dotenv').config()
 require('./database')
+const mongoose = require('mongoose');
 mongoose.connect(process.env.DATABASE_URL);
 
 const db = mongoose.connection;
@@ -12,60 +13,60 @@ const Pizza = require('../models/pizza')
 console.log("Baking pizzas")
 
 Pizza.create({
-    id: 1111111111,
+    id: 111111111111,
     name: "The Verace",
     type: "Prebuilt",
     price: 11
 })
 
 Pizza.create({
-    id: 2222222222,
+    id: 222222222222,
     name: "The Mexican Fiesta",
     type: "Prebuilt",
     meats: ["Pepperoni"],
     veggies: ["Green Peppers", "Jalapeno Peppers"],
-    price: 15
+    price: 14
 })
 
 Pizza.create({
-    id: 3333333333,
+    id: 333333333333,
     name: "The Mountain",
     type: "Prebuilt",
-    meats: ["Canadian Bacon"],
+    meats: ["Ham"],
     veggies: ["Mushrooms"],
     price: 13
 })
 
 Pizza.create({
-    id: 4444444444,
+    id: 444444444444,
     name: "El Diablo",
     type: "Prebuilt",
     meats: ["Salami"],
     veggies: ["Green Peppers","Banana Peppers", "Jalapeno Peppers"],
-    price: 11
+    price: 15
 })
 
 Pizza.create({
-    id: 5555555555,
+    id: 555555555555,
     name: "The First Love",
     type: "Prebuilt",
     meats: ["Pepperoni", "Bacon"],
     veggies: ["Onions"],
-    price: 13
+    price: 14
 })
 
 Pizza.create({
-    id: 666666666,
+    id: 666666666666,
     name: "The Cheesy",
     type: "Prebuilt",
-    cheese: ["Extra"],
+    cheese: "Extra",
     meats: ["Sausage"],
     veggies: ["Green Olives"],
-    price: 13
+    price: 14
 })
 
 Pizza.create({
-    id: 777777777,
+    id: 777777777777,
     name: "The Smelly",
     type: "Prebuilt",
     meats: ["Sausage"],
@@ -74,10 +75,10 @@ Pizza.create({
 })
 
 Pizza.create({
-    id: 777777777,
+    id: 888888888888,
     name: "The Italian Nightmare",
     type: "Prebuilt",
-    meats: ["Canadian Bacon"],
+    meats: ["Ham"],
     veggies: ["Pineapple"],
     price: 13
 })
