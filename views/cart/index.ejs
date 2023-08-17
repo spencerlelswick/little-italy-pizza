@@ -38,7 +38,11 @@
                                                             <p class="fs-5">$<%- order.total %> </p>
                                                         </div>
                                                     </div>
-
+                                                    <form method="GET" action="/order/checkout/<%- order.id %>">
+                                                        <button type="submit" class="btn btn-primary btn-sm">
+                                                            Checkout
+                                                        </button>
+                                                    </form>
                                         </div>
 
                                     </div>
