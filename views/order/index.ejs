@@ -1,7 +1,7 @@
 <%- include('../partials/header') %>
 
 
-  <div id="prebuiltPizzas" class="container my-5">
+  <div class="container my-5">
     <div class="row g-3">
 
 
@@ -10,18 +10,14 @@
           <img src="/images/order/CYOP.png" class="card-img-top">
           <div class="card-body card-order">
             <h5 class="card-title ">Build Your Own Pizza</h5>
-            <div class="container">
-
-
-              <p class="card-text">Some quick example text to build on the card title and make up the bulk of the
-                card's
-                content.</p>
+            <p>You be you! Select your favorite toppings, crust and sauce to build the perfect pizza from scratch.</p>
+            <div>
+              <form method="GET" action="/order/builder">
+                <button type="submit" class="btn btn-primary">Customize</button>
+              </form>
             </div>
-
           </div>
-          <form method="GET" action="/order/builder">
-            <button type="submit" class="btn btn-primary">Create Your Own Pizza</button>
-          </form>
+
         </div>
       </div>
 
@@ -32,26 +28,34 @@
               <img src="/images/order/<%- pizza.name %>.jpg" class="card-img-top">
               <div class="card-body card-order">
                 <h5 class="card-title "><%- pizza.name %> $<%- pizza.price %></h5>
-                <div class="container">
+                <div>
+                  <div class="d-flex justify-content-between">
 
-                  <select class="" name="size" id="size" >
-                    <option value="Small">Small</option>
-                    <option value="Medium">Medium</option>
-                    <option value="Large">Large</option>
-                  </select>
+                    <select class="form-select w-75" name="size" id="size">
+                      <option value="Small">Small</option>
+                      <option value="Medium">Medium</option>
+                      <option value="Large">Large</option>
+                    </select>
 
-                  <select class="" name="crust" id="size" >
+                    <select class="form-select w-auto right" name="quantity" id="quantity">
+                      <% for( let i=1; i < 10; i++ ) { %>
+                        <option value="quantity"><%- i %></option>
+                        <% } %>
+
+                    </select>
+                  </div>
+
+                  <select class="form-select form-select w-100 d-inline-block my-2" name="crust" id="crust">
                     <option value="Thin">Thin</option>
                     <option value="Regular">Regular</option>
                     <option value="Deepdish">Deep Dish</option>
                   </select>
-                  <p class="card-text">Some quick example text to build on the card title and make up the bulk of the
-                    card's
-                    content.</p>
                 </div>
-
+                <div>
+                  <button type="submit" class="btn btn-primary btn-sm">Add to Cart</button>
+                </div>
               </div>
-              <button type="submit" class="btn btn-primary btn-sm">Add to Cart</button>
+
             </form>
           </div>
         </div>
