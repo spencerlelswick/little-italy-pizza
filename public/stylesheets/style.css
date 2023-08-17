@@ -195,6 +195,8 @@ a {
   border-bottom-right-radius: 100%;
 }
 
+
+
 .heading {
   font-size: 2vw;
   grid-area: header;
@@ -331,6 +333,19 @@ div {
   -webkit-user-select: none;
   -moz-user-select: none;
   user-select: none;
+}
+
+.checkout-ctrls {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  margin: 1rem;
+}
+
+.checkout-ctrls>div>form>button {
+  margin: 0 0.5rem;
+  width: 4rem;
 }
 
 @media (min-width: 768px) {

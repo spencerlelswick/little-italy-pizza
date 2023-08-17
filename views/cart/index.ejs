@@ -68,27 +68,46 @@
                                                     </div>
                                                     <div
                                                         class="card-body d-flex justify-content-center align-items-center">
-                                                        <div class="col-lg-12">
-                                                            <div class="row h-75 w-100 d-inline-block">
-                                                                <div class="col-12">
-                                                                    <h5 class="card-title text-center"><%- pizza.name %>
-                                                                    </h5>
+
+                                                        <div class="col-12">
+                                                            <h5 class="card-title text-center"><%- pizza.name %>
+                                                            </h5>
+
+                                                            <div class="">
+                                                                <form method="POST"
+                                                                    action="/order/cart/<%- pizza.id %>?_method=PUT">
+                                                                    <div class="quantity-btns">
+                                                                        <button type="submit" name="qty" value="-1"
+                                                                            class="btn btn-primary btn-sm quantity-left"
+                                                                            <%if(pizza.quantity===1){%>
+                                                                            disabled <%} %>>-</button>
+                                                                        <button
+                                                                            class="btn disabled btn-sm quantity-display"><%-pizza.quantity%></button>
+                                                                        <button type="submit" name="qty" value="+1"
+                                                                            class="btn btn-primary btn-sm quantity-right">+</button>
+                                                                    </div>
+                                                                </form>
+
+                                                            </div>
+                                                            <div class="checkout-ctrls">
+                                                                <div>
                                                                     <form method="POST"
-                                                                        action="/order/cart/<%- pizza.id %>?_method=PUT">
-                                                                        <div class="quantity-btns">
-                                                                            <button type="submit" name="qty" value="-1"
-                                                                                class="btn btn-primary btn-sm quantity-left"
-                                                                                <%if(pizza.quantity===1){%>
-                                                                                disabled <%} %>>-</button>
-                                                                            <button
-                                                                                class="btn disabled btn-sm quantity-display"><%-pizza.quantity%></button>
-                                                                            <button type="submit" name="qty" value="+1"
-                                                                                class="btn btn-primary btn-sm quantity-right">+</button>
-                                                                        </div>
+                                                                        action="/order/builder/edit/<%- pizza.id %>?_method=PUT">
+                                                                        <button type="submit"
+                                                                            class="btn btn-primary btn-sm p-1">Edit</button>
                                                                     </form>
                                                                 </div>
+                                                                <div>
+                                                                    <form method="POST"
+                                                                        action="/order/cart/<%- pizza.id %>?_method=DELETE">
+                                                                        <button type="submit"
+                                                                            class="btn btn-danger btn-sm p-1">Delete</button>
+                                                                    </form>
+                                                                </div>
+
                                                             </div>
                                                         </div>
+
 
                                                     </div>
                                                 </div>
