@@ -10,7 +10,6 @@ db.on('connected', function () {
 
 const Pizza = require('../models/pizza')
 
-console.log("Baking pizzas")
 
 Pizza.create({
     altId: 1111,
@@ -83,4 +82,3 @@ Pizza.create({
     price: 13
 })
 
-console.log("Pizzas are ready")
