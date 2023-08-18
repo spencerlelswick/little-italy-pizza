@@ -51,7 +51,6 @@ async function editBuild(req, res) {
     const itemId = req.params.id
     const pizza = await Pizza.findById(itemId)
     const order = await Order.findById(req.cookies.orderId).populate('items.pizzas')
-    console.log(order)
     res.render('builder/edit', { title: "Little Italy | Edit Deal", order, pizza })
 }
 

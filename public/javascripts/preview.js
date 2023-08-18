@@ -29,12 +29,10 @@ function changeTopping(topping, addTopping) {
     newTopping.src = `/idle-toppings/${topping.toLowerCase()}.png`
     newTopping.classList.add(`${topping}`, `topping-area`)
     document.getElementById('builder').appendChild(newTopping);
-    console.log(newTopping)
   } else {
     newTopping = document.querySelector(`.${topping}`)
     zIndex -= 1
     document.getElementById('builder').removeChild(newTopping);
-    console.log(`removing ${topping} from pizza ${addTopping}`)
   }
 }
 

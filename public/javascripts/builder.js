@@ -44,7 +44,6 @@ function changeTopping(topping, addTopping) {
     newTopping = document.querySelector(`.${topping}`)
     zIndex -= 1
     document.getElementById('builder').removeChild(newTopping);
-    console.log(`removing ${topping} from pizza ${addTopping}`)
   }
 }
 
