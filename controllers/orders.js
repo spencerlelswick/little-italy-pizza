@@ -79,13 +79,9 @@ async function saveBuild(req, res) {
             }
         }
     )
-    console.log('NEW PIZZA@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@')
-    console.log(newPizza)
-    console.log(req.body)
     const order = await Order.findById(orderId).populate('items.pizzas')
     order.total = calcTotal(order.items)
     await order.save().then(res.redirect('/order/cart'))
-    
 }
 
 async function addToCart(req, res) {
