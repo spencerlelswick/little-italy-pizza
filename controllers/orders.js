@@ -43,14 +43,15 @@ async function createBuild(req, res, next) {
     const order = await Order.findById(orderId).populate('items.pizzas')
     order.items.pizzas.push(newPizza)
     order.total = calcTotal(order.items)
-    order.save()
-    res.redirect('/order')
+    await order.save().then(res.redirect('/order'))
+    
 }
 
 async function editBuild(req, res) {
     const itemId = req.params.id
     const pizza = await Pizza.findById(itemId)
     const order = await Order.findById(req.cookies.orderId).populate('items.pizzas')
+    console.log(order)
     res.render('builder/edit', { title: "Little Italy | Edit Deal", order, pizza })
 }
 
@@ -60,6 +61,7 @@ async function saveBuild(req, res) {
     newPizza = { ...req.body }
     newPizza.name = namePizza(newPizza)
     newPizza.price = pricePizza(newPizza)
+
     await Pizza.findOneAndUpdate(
         { _id: itemId },
         {
@@ -69,18 +71,21 @@ async function saveBuild(req, res) {
                 sauce: newPizza.sauce,
                 cut: newPizza.cut,
                 cheese: newPizza.cheese,
-                meats: newPizza.meats,
-                veggies: newPizza.veggies,
+                meats: newPizza.meats ? newPizza.meats : [],
+                veggies: newPizza.veggies ? newPizza.veggies : [],
                 quantity: newPizza.quantity,
                 name: newPizza.name,
                 price: newPizza.price
             }
         }
     )
+    console.log('NEW PIZZA@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@')
+    console.log(newPizza)
+    console.log(req.body)
     const order = await Order.findById(orderId).populate('items.pizzas')
     order.total = calcTotal(order.items)
-    order.save()
-    res.redirect('/order/cart')
+    await order.save().then(res.redirect('/order/cart'))
+    
 }
 
 async function addToCart(req, res) {
@@ -100,7 +105,7 @@ async function addToCart(req, res) {
     order = await Order.findById(req.cookies.orderId).populate('items.pizzas')
     order.items.pizzas.push(newPizza)
     order.total = calcTotal(order.items)
-    order.save()
+    await order.save()
     res.redirect('/order')
 }
 
@@ -123,7 +128,7 @@ async function deleteItem(req, res) {
     index = order.items.pizzas.findIndex(pizza => JSON.stringify(pizza._id) === JSON.stringify(itemId))
     order.items.pizzas.splice(index, 1)
     order.total = calcTotal(order.items)
-    order.save()
+    await order.save()
     await Pizza.findByIdAndDelete(itemId)
     res.redirect('/order/cart')
 }
@@ -135,11 +140,11 @@ async function editQuantity(req, res) {
     const pizza = await Pizza.findById(itemId)
     if (!(pizza.quantity === 1 && newQty === -1)) {
         pizza.quantity += newQty
-        pizza.save()
+        await pizza.save()
     }
     const order = await Order.findById(orderId).populate('items.pizzas')
     order.total = calcTotal(order.items)
-    order.save()
+    await order.save()
     res.redirect('/order/cart')
 }
 
@@ -167,15 +172,15 @@ async function handlePayment(req, res) {
         card.ccNum = userData.ccNum
         card.ccExp = userData.ccExp
         card.ccCvv = userData.ccCvv
-        card.save()
+        await card.save()
         customer.card = card._id
     }
-    customer.save()
+    await customer.save()
     const order = await Order.findById(orderId)
     order.paymentMethod = userData.paymentMethod
     order.customer = customer
     order.status = "Confirmed"
-    order.save()
+    await order.save()
     res.clearCookie('orderId')
     sendOrder = {
         _id: order._id,

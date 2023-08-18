@@ -36,7 +36,7 @@
                                             <p class="fs-5">$<%- order.total %> </p>
                                         </div>
                                     </section>
-                                    <form method="GET" action="/order/checkout/<%- order.id %>">
+                                    <form method="GET" action="/order/checkout/<%- order._id %>">
                                         <button type="submit" <% if (!order.total) { %>disabled<% } %>
                                                 class="btn btn-primary btn-lg w-100 cart-btn-submit">
                                                 Checkout
@@ -90,7 +90,7 @@
                                                     <h5 class="card-title text-center"><%- pizza.name %></h5>
                                                     <div class="">
                                                         <form method="POST"
-                                                            action="/order/cart/<%- pizza.id %>?_method=PUT">
+                                                            action="/order/cart/<%- pizza._id %>?_method=PUT">
                                                             <div class="quantity-btns">
                                                                 <button type="submit" name="qty"
                                                                     value="-1"
@@ -108,13 +108,13 @@
                                                     <div class="checkout-ctrls">
                                                         <div>
                                                             <form method="POST"
-                                                                action="/order/builder/edit/<%- pizza.id %>?_method=PUT">
+                                                                action="/order/builder/edit/<%- pizza._id %>?_method=PUT">
                                                                 <button type="submit" class="btn btn-primary btn-sm p-1">Edit</button>
                                                             </form>
                                                         </div>
                                                         <div>
                                                             <form method="POST"
-                                                                action="/order/cart/<%- pizza.id %>?_method=DELETE">
+                                                                action="/order/cart/<%- pizza._id %>?_method=DELETE">
                                                                 <button type="submit" class="btn btn-danger btn-sm p-1">Delete</button>
                                                             </form>
                                                         </div>
