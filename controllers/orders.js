@@ -177,7 +177,7 @@ async function editQuantity(req, res) {
     }
 }
 
-async function checkout(req, res, next) {
+async function checkout(req, res) {
     try{
         const orderId = req.cookies.orderId
         const order = await Order.findById(orderId).populate('items.pizzas')
