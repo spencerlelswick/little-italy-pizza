@@ -20,38 +20,73 @@ module.exports = {
 async function index(req, res) {
     let order = {}
     if (req.cookies.orderId === undefined) {
-        order = await Order.create({})
-        res.cookie(`orderId`, `${order._id}`);
+        try{
+            order = await Order.create({})
+            res.cookie(`orderId`, `${order._id}`);
+        } catch (err) {
+            res.render('error', {title: "Error", order:{items:{ pizzas:[],sides:[]}}});
+        }    
     } else {
-        order = await Order.findById(req.cookies.orderId).populate('items.pizzas')
+        try{
+            order = await Order.findById(req.cookies.orderId).populate('items.pizzas')
+        } catch (err) {
+            res.render('error', {title: "Error", order:{items:{ pizzas:[],sides:[]}}});
+        }
     }
-    prebuiltPizzas = await Pizza.find({ type: "Prebuilt" })
-    res.render('order/index', { title: "Little Italy | Order", order, prebuiltPizzas })
+    try{
+        prebuiltPizzas = await Pizza.find({ type: "Prebuilt" })
+        res.render('order/index', { title: "Little Italy | Order", order, prebuiltPizzas })
+    } catch (err) {
+        res.render('error', {title: "Error", order});
+    }    
 }
 
 async function newBuild(req, res) {
-    const order = await Order.findById(req.cookies.orderId).populate('items.pizzas')
-    res.render('builder/new', { title: "Little Italy | Deal Builder", order })
+    try{
+        const order = await Order.findById(req.cookies.orderId).populate('items.pizzas')
+        res.render('builder/new', { title: "Little Italy | Deal Builder", order })
+    } catch (err) {
+        res.render('error', {title: "Error", order:{items:{ pizzas:[],sides:[]}}});
+    }
 }
 
 async function createBuild(req, res, next) {
     const pizzaData = { ...req.body }
     pizzaData.name = namePizza(pizzaData)
     pizzaData.price = pricePizza(pizzaData)
-    const newPizza = await Pizza.create(pizzaData)
-    const orderId = req.cookies.orderId
-    const order = await Order.findById(orderId).populate('items.pizzas')
-    order.items.pizzas.push(newPizza)
-    order.total = calcTotal(order.items)
-    await order.save().then(res.redirect('/order'))
-    
+    try {
+        const newPizza = await Pizza.create(pizzaData)
+        const orderId = req.cookies.orderId
+    try {
+        const order = await Order.findById(orderId).populate('items.pizzas')
+        order.items.pizzas.push(newPizza)
+        order.total = calcTotal(order.items)
+        try {
+            await order.save().then(res.redirect('/order'))
+        } catch (err) {
+            res.render('error', {title: "Error", order:{items:{ pizzas:[],sides:[]}}});
+        }
+    } catch (err) {
+        res.render('error', {title: "Error", order:{items:{ pizzas:[],sides:[]}}});
+    }    
+    } catch (err) {
+        res.render('error', {title: "Error", order:{items:{ pizzas:[],sides:[]}}});
+    }
 }
 
 async function editBuild(req, res) {
     const itemId = req.params.id
-    const pizza = await Pizza.findById(itemId)
-    const order = await Order.findById(req.cookies.orderId).populate('items.pizzas')
-    res.render('builder/edit', { title: "Little Italy | Edit Deal", order, pizza })
+    try {
+        const pizza = await Pizza.findById(itemId)
+        try{
+            const order = await Order.findById(req.cookies.orderId).populate('items.pizzas')
+            res.render('builder/edit', { title: "Little Italy | Edit Deal", order, pizza })
+        } catch (err) {
+            res.render('error', {title: "Error", order:{items:{ pizzas:[],sides:[]}}});
+        }
+    } catch (err) {
+        res.render('error', {title: "Error", order:{items:{ pizzas:[],sides:[]}}});
+    }
 }
 
 async function saveBuild(req, res) {
@@ -60,33 +95,45 @@ async function saveBuild(req, res) {
     newPizza = { ...req.body }
     newPizza.name = namePizza(newPizza)
     newPizza.price = pricePizza(newPizza)
-
-    await Pizza.findOneAndUpdate(
-        { _id: itemId },
-        {
-            $set: {
-                size: newPizza.size,
-                crust: newPizza.crust,
-                sauce: newPizza.sauce,
-                cut: newPizza.cut,
-                cheese: newPizza.cheese,
-                meats: newPizza.meats ? newPizza.meats : [],
-                veggies: newPizza.veggies ? newPizza.veggies : [],
-                quantity: newPizza.quantity,
-                name: newPizza.name,
-                price: newPizza.price
+    try{
+        await Pizza.findOneAndUpdate(
+            { _id: itemId },
+            {
+                $set: {
+                    size: newPizza.size,
+                    crust: newPizza.crust,
+                    sauce: newPizza.sauce,
+                    cut: newPizza.cut,
+                    cheese: newPizza.cheese,
+                    meats: newPizza.meats ? newPizza.meats : [],
+                    veggies: newPizza.veggies ? newPizza.veggies : [],
+                    quantity: newPizza.quantity,
+                    name: newPizza.name,
+                    price: newPizza.price
+                }
             }
+        )
+        try{
+            const order = await Order.findById(orderId).populate('items.pizzas')
+            order.total = calcTotal(order.items)
+            try{    
+                await order.save().then(res.redirect('/order/cart'))
+            } catch (err) {
+                res.render('error', {title: "Error", order:{items:{ pizzas:[],sides:[]}}});
+            }  
+        } catch (err) {
+            res.render('error', {title: "Error", order:{items:{ pizzas:[],sides:[]}}});
         }
-    )
-    const order = await Order.findById(orderId).populate('items.pizzas')
-    order.total = calcTotal(order.items)
-    await order.save().then(res.redirect('/order/cart'))
+    } catch (err) {
+        res.render('error', {title: "Error", order:{items:{ pizzas:[],sides:[]}}});
+    }       
 }
 
 async function addToCart(req, res) {
     const itemId = req.params.id
-    const pizza = await Pizza.findById(itemId)
-    const pizzaData = { ...pizza._doc }
+    try{
+        const pizza = await Pizza.findById(itemId)
+        const pizzaData = { ...pizza._doc }
     pizzaData.type = "Custom"
     pizzaData.size = req.body.size
     pizzaData.quantity = req.body.quantity
@@ -96,93 +143,187 @@ async function addToCart(req, res) {
     delete pizzaData.createdAt
     delete pizzaData.updatedAt
     delete pizzaData.__v
-    newPizza = await Pizza.create(pizzaData)
-    order = await Order.findById(req.cookies.orderId).populate('items.pizzas')
-    order.items.pizzas.push(newPizza)
-    order.total = calcTotal(order.items)
-    await order.save()
-    res.redirect('/order')
+    try{    
+        newPizza = await Pizza.create(pizzaData)
+        try{ 
+            order = await Order.findById(req.cookies.orderId).populate('items.pizzas')
+            order.items.pizzas.push(newPizza)
+            order.total = calcTotal(order.items)
+            try{
+                await order.save()
+                res.redirect('/order')
+            } catch (err) {
+                res.render('error', {title: "Error", order:{items:{ pizzas:[],sides:[]}}});
+            }   
+        } catch (err) {
+            res.render('error', {title: "Error", order:{items:{ pizzas:[],sides:[]}}});
+        }
+    } catch (err) {
+        res.render('error', {title: "Error", order:{items:{ pizzas:[],sides:[]}}});
+    } 
+    } catch (err) {
+        res.render('error', {title: "Error", order:{items:{ pizzas:[],sides:[]}}});
+    }      
 }
 
 async function show(req, res) {
     let order = {}
     if (req.cookies.orderId === undefined) {
-        order = await Order.create({})
-        res.cookie(`orderId`, `${order._id}`);
+        try{
+            order = await Order.create({})
+            res.cookie(`orderId`, `${order._id}`);
+        } catch (err) {
+            res.render('error', {title: "Error", order:{items:{ pizzas:[],sides:[]}}});
+        } 
     } else {
-        order = await Order.findById(req.cookies.orderId).populate('items.pizzas')
+        try{
+            order = await Order.findById(req.cookies.orderId).populate('items.pizzas')
+        } catch (err) {
+            res.render('error', {title: "Error", order:{items:{ pizzas:[],sides:[]}}});
+        }     
     }
-    prebuiltPizzas = await Pizza.find({ type: "Prebuilt" })
-    res.render('cart/index', { title: "Little Italy | Cart", order, prebuiltPizzas })
+    try{
+        prebuiltPizzas = await Pizza.find({ type: "Prebuilt" })
+        res.render('cart/index', { title: "Little Italy | Cart", order, prebuiltPizzas })
+    } catch (err) {
+        res.render('error', {title: "Error", order:{items:{ pizzas:[],sides:[]}}});
+    } 
 }
 
 async function deleteItem(req, res) {
     const orderId = req.cookies.orderId
     const itemId = req.params.id
-    let order = await Order.findById(orderId).populate('items.pizzas')
-    index = order.items.pizzas.findIndex(pizza => JSON.stringify(pizza._id) === JSON.stringify(itemId))
-    order.items.pizzas.splice(index, 1)
-    order.total = calcTotal(order.items)
-    await order.save()
-    await Pizza.findByIdAndDelete(itemId)
-    res.redirect('/order/cart')
+    try{    
+        let order = await Order.findById(orderId).populate('items.pizzas')
+        index = order.items.pizzas.findIndex(pizza => JSON.stringify(pizza._id) === JSON.stringify(itemId))
+        order.items.pizzas.splice(index, 1)
+        order.total = calcTotal(order.items)
+        try{
+            await order.save()
+            try{
+                await Pizza.findByIdAndDelete(itemId)
+                res.redirect('/order/cart')
+            } catch (err) {
+                res.render('error', {title: "Error", order:{items:{ pizzas:[],sides:[]}}});
+            } 
+        } catch (err) {
+            res.render('error', {title: "Error", order:{items:{ pizzas:[],sides:[]}}});
+        }   
+    } catch (err) {
+        res.render('error', {title: "Error", order:{items:{ pizzas:[],sides:[]}}});
+    }
+       
 }
 
 async function editQuantity(req, res) {
     const orderId = req.cookies.orderId
     const itemId = req.params.id
     const newQty = parseInt(req.body.qty)
-    const pizza = await Pizza.findById(itemId)
-    if (!(pizza.quantity === 1 && newQty === -1)) {
-        pizza.quantity += newQty
-        await pizza.save()
-    }
-    const order = await Order.findById(orderId).populate('items.pizzas')
-    order.total = calcTotal(order.items)
-    await order.save()
-    res.redirect('/order/cart')
+    try {
+        const pizza = await Pizza.findById(itemId)
+        if (!(pizza.quantity === 1 && newQty === -1)) {
+            pizza.quantity += newQty
+            try{
+                await pizza.save()
+            } catch (err) {
+                res.render('error', {title: "Error", order:{items:{ pizzas:[],sides:[]}}});
+            }    
+        }
+        try{
+            const order = await Order.findById(orderId).populate('items.pizzas')
+            order.total = calcTotal(order.items)
+            try{  
+                await order.save()
+                res.redirect('/order/cart')
+            } catch (err) {
+                res.render('error', {title: "Error", order:{items:{ pizzas:[],sides:[]}}});
+            }   
+        } catch (err) {
+            res.render('error', {title: "Error", order:{items:{ pizzas:[],sides:[]}}});
+        } 
+    } catch (err) {
+        res.render('error', {title: "Error", order:{items:{ pizzas:[],sides:[]}}});
+    } 
 }
 
 async function checkout(req, res, next) {
     const orderId = req.cookies.orderId
-    const order = await Order.findById(orderId).populate('items.pizzas')
-    res.render('checkout/index', { title: "Little Italy | Checkout", order })
+    try {
+        const order = await Order.findById(orderId).populate('items.pizzas')
+        res.render('checkout/index', { title: "Little Italy | Checkout", order })
+    } catch (err) {
+        console.log(err)
+        res.render('error', {title: "Error", order:{items:{ pizzas:[],sides:[]}}});
+    }
 }
 
 async function handlePayment(req, res) {
     const orderId = req.cookies.orderId
     const userData = { ...req.body }
-    const customer = await Customer.create({})
-    customer.firstName = userData.firstName
-    customer.lastName = userData.lastName
-    customer.email = userData.email
-    customer.address.street = userData.street
-    customer.address.city = userData.city
-    customer.address.state = userData.state
-    customer.address.zip = userData.zip
-    let card
-    if (userData.paymentMethod === "Card") {
-        card = await Card.create({})
-        card.ccName = userData.ccName
-        card.ccNum = userData.ccNum
-        card.ccExp = userData.ccExp
-        card.ccCvv = userData.ccCvv
-        await card.save()
-        customer.card = card._id
-    }
-    await customer.save()
-    const order = await Order.findById(orderId)
-    order.paymentMethod = userData.paymentMethod
-    order.customer = customer
-    order.status = "Confirmed"
-    await order.save()
-    res.clearCookie('orderId')
-    sendOrder = {
-        _id: order._id,
-        items: { pizzas: [] },
-        customer
-    }
-    res.render('order/status', { title: "Little Italy | Order Status", order: sendOrder })
+    try{
+        const customer = await Customer.create({})
+        customer.firstName = userData.firstName
+        customer.lastName = userData.lastName
+        customer.email = userData.email
+        customer.address.street = userData.street
+        customer.address.city = userData.city
+        customer.address.state = userData.state
+        customer.address.zip = userData.zip
+        let card
+        if (userData.paymentMethod === "Card") {
+            try{
+                card = await Card.create({})
+                card.ccName = userData.ccName
+                card.ccNum = userData.ccNum
+                card.ccExp = userData.ccExp
+                card.ccCvv = userData.ccCvv
+                try{    
+                    await card.save()
+                } catch (err) {
+                    console.log(err)
+                    res.render('error', {title: "Error", order:{items:{ pizzas:[],sides:[]}}});
+                }    
+                customer.card = card._id
+            } catch (err) {
+                console.log(err)
+                res.render('error', {title: "Error",order:{items:{ pizzas:[],sides:[]}}});
+            }
+        }
+        try{
+            await customer.save()
+            try{    
+                const order = await Order.findById(orderId)
+                order.paymentMethod = userData.paymentMethod
+                order.customer = customer
+                order.status = "Confirmed"
+                try{    
+                    await order.save()
+                    res.clearCookie('orderId')
+                    sendOrder = {
+                        _id: order._id,
+                        items: { pizzas: [] },
+                        customer
+                    }
+                    res.render('order/status', { title: "Little Italy | Order Status", order: sendOrder })
+                } catch (err) {
+                    console.log(err)
+                    res.render('error', {title: "Error", order:{items:{ pizzas:[],sides:[]}}});
+                }
+            } catch (err) {
+                console.log(err)
+                res.render('error', {title: "Error", order:{items:{ pizzas:[],sides:[]}}});
+            }
+        } catch (err) {
+            console.log(err)
+            res.render('error', {title: "Error", order:{items:{ pizzas:[],sides:[]}}});
+        }
+    } catch (err) {
+        console.log(err)
+        res.render('error', {title: "Error", order:{items:{ pizzas:[],sides:[]}}});
+    }    
+
+ 
+
 }
 
 function calcTotal(items) {
