@@ -1,5 +1,4 @@
   <%- include('../partials/header') %>
-
   <link rel="stylesheet" href="/stylesheets/builder.css">
   <script src="/javascripts/builder.js" defer></script>
 
@@ -22,7 +21,6 @@
                 <input class="form-check-input" type="radio" id="small" name="size" value="Small" <% if (pizza.size === "Small"){%> checked <%}%>>
                 <label class="form-check-label lh-base" for="small">Small</label>
               </fieldset>
-
             </div>
             <div class="col-sm-6">
               <fieldset>
@@ -69,13 +67,11 @@
                 <label class="form-check-label" for="noCheese">No Cheese</label>
               </fieldset>
             </div>
-
           </div>
           <div class="row g-3">
             <div class="col-sm-6">
               <fieldset>
                 <legend>Meats:</legend>
-
                 <div class="form-check">
                   <input class="form-check-input" type="checkbox" value="Anchovies" id="anchovies" name="meats"
                   <% if (pizza.meats.includes("Anchovies")){%> checked <%}%>>
@@ -83,7 +79,6 @@
                     Anchovies
                   </label>
                 </div>
-
                 <div class="form-check">
                   <input class="form-check-input" type="checkbox" value="Sausage" id="sausage" name="sausage"
                   <% if (pizza.meats.includes("Sausage")){%> checked <%}%>>
@@ -91,7 +86,6 @@
                     Sausage
                   </label>
                 </div>
-
                 <div class="form-check">
                   <input class="form-check-input" type="checkbox" value="Italian Sausage" id="italianSausage"
                     name="meats" <% if (pizza.meats.includes("Italian Sausage")){%> checked <%}%>>
@@ -99,16 +93,13 @@
                     Spicy Italian Sausage
                   </label>
                 </div>
-
                 <div class="form-check">
                   <input class="form-check-input" type="checkbox" value="Bacon" id="bacon" name="meats"
                   <% if ( pizza.meats.includes("Bacon")){%> checked <%}%>>
-                  
                   <label class="form-check-label" for="bacon">
                     Bacon
                   </label>
                 </div>
-
                 <div class="form-check">
                   <input class="form-check-input" type="checkbox" value="Pepperoni" id="pepperoni" name="meats"
                   <% if (pizza.meats.includes("Pepperoni")){%> checked <%}%>>
@@ -116,7 +107,6 @@
                     Pepperoni
                   </label>
                 </div>
-
                 <div class="form-check">
                   <input class="form-check-input" type="checkbox" value="Chicken" id="chicken" name="meats"
                   <% if (pizza.meats.includes("Chicken")){%> checked <%}%>>
@@ -124,7 +114,6 @@
                     Grilled Chicken
                   </label>
                 </div>
-
                 <div class="form-check">
                   <input class="form-check-input" type="checkbox" value="Salami" id="salami" name="meats"
                   <% if (pizza.meats.includes("Salami")){%> checked <%}%>>
@@ -132,7 +121,6 @@
                     Salami
                   </label>
                 </div>
-
                 <div class="form-check">
                   <input class="form-check-input" type="checkbox" value="Philly Steak" id="steak" name="meats"
                   <% if (pizza.meats.includes("Philly Steak")){%> checked <%}%>>
@@ -140,7 +128,6 @@
                     Philly Steak
                   </label>
                 </div>
-
                 <div class="form-check">
                   <input class="form-check-input" type="checkbox" value="Ham" id="ham" name="meats"
                   <% if (pizza.meats.includes("Ham")){%> checked <%}%>>
@@ -148,7 +135,6 @@
                     Canadian Bacon
                   </label>
                 </div>
-
                 <div class="form-check">
                   <input class="form-check-input" type="checkbox" value="Beef" id="beef" name="meats"
                   <% if (pizza.meats.includes("Meatballs")){%> checked <%}%>>
@@ -156,7 +142,6 @@
                     Beef
                   </label>
                 </div>
-
                 <div class="form-check">
                   <input class="form-check-input" type="checkbox" value="Meatballs" id="meatball" name="meats"
                   <% if (pizza.meats.includes("Meatballs")){%> checked <%}%>>
@@ -164,13 +149,11 @@
                     Meatball
                   </label>
                 </div>
-
               </fieldset>
             </div>
             <div class="col-sm-6">
               <fieldset>
                 <legend>Veggies:</legend>
-
                 <div class="form-check">
                   <input class="form-check-input" type="checkbox" value="Roma Tomatoes" id="roma" name="veggies"
                   <% if (pizza.veggies.includes("Roma Tomatoes")){%> checked <%}%>>
@@ -178,7 +161,6 @@
                     Roma Tomatoes
                   </label>
                 </div>
-
                 <div class="form-check">
                   <input class="form-check-input" type="checkbox" value="Green Olives" id="greenOlive" name="veggies"
                   <% if (pizza.veggies.includes("Green Olives")){%> checked <%}%>>
@@ -186,7 +168,6 @@
                     Green Olive
                   </label>
                 </div>
-
                 <div class="form-check">
                   <input class="form-check-input" type="checkbox" value="Onions" id="onion" name="veggies"
                   <% if (pizza.veggies.includes("Onions")){%> checked <%}%>>
@@ -194,8 +175,6 @@
                     Onion
                   </label>
                 </div>
-
-
                 <div class="form-check">
                   <input class="form-check-input" type="checkbox" value="Black Olives" id="blackOlive" name="veggies"
                   <% if (pizza.veggies.includes("Black Olives")){%> checked <%}%>>
@@ -203,8 +182,6 @@
                     Black Olive
                   </label>
                 </div>
-
-
                 <div class="form-check">
                   <input class="form-check-input" type="checkbox" value="Green Peppers" id="greenPeppers" name="veggies"
                   <% if (pizza.veggies.includes("Green Peppers")){%> checked <%}%>>
@@ -212,7 +189,6 @@
                     Green Peppers
                   </label>
                 </div>
-
                 <div class="form-check">
                   <input class="form-check-input" type="checkbox" value="Pineapple" id="pineapple" name="veggies"
                   <% if (pizza.veggies.includes("Pineapple")){%> checked <%}%>>
@@ -220,7 +196,6 @@
                     Pineapple
                   </label>
                 </div>
-
                 <div class="form-check">
                   <input class="form-check-input" type="checkbox" value="Banana Peppers" id="bananaPeppers" name="veggies"
                   <% if (pizza.veggies.includes("Banana Peppers")){%> checked <%}%>>
@@ -228,8 +203,6 @@
                     Banana Peppers
                   </label>
                 </div>
-
-
                 <div class="form-check">
                   <input class="form-check-input" type="checkbox" value="Spinach" id="spinach" name="veggies"
                   <% if (pizza.veggies.includes("Spinach")){%> checked <%}%>>
@@ -237,7 +210,6 @@
                     Spinach
                   </label>
                 </div>
-
                 <div class="form-check">
                   <input class="form-check-input" type="checkbox" value="Jalapeno Peppers" id="jalapenoPeppers" name="veggies"
                   <% if (pizza.veggies.includes("Jalapeno Peppers")){%> checked <%}%>>
@@ -245,7 +217,6 @@
                     Jalapeno Peppers
                   </label>
                 </div>
-
                 <div class="form-check">
                   <input class="form-check-input" type="checkbox" value="Mushrooms" id="mushroom" name="veggies"
                   <% if (pizza.veggies.includes("Mushrooms")){%> checked <%}%>>
@@ -254,7 +225,6 @@
                   </label>
                 </div>
               </fieldset>
-
             </div>
           </div>
         </div>

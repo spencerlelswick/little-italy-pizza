@@ -1,7 +1,5 @@
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
-const Pizza = require('../models/pizza')
-const Customer = require('../models/customer')
 
 const orderSchema = new Schema(
   {

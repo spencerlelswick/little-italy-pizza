@@ -2,7 +2,6 @@ const express = require('express');
 const router = express.Router();
 const Order = require('../models/order');
 
-/* GET home page. */
 router.get('/', async function (req, res, next) {
   let order = {}
   if (req.cookies.orderId === undefined) {

@@ -36,5 +36,4 @@ const customerSchema = new Schema(
     }
 )
 
-
 module.exports = mongoose.model('Customer', customerSchema);

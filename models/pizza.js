@@ -66,5 +66,4 @@ const pizzaSchema = new Schema(
     }
 )
 
-
 module.exports = mongoose.model('Pizza', pizzaSchema);
