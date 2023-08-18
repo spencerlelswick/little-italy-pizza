@@ -14,7 +14,6 @@ const veggies =  []
 
 prepopulatePizza()
 
-
 function changeCrust(ingredient) {
   document.getElementById('builder').removeChild(base);
   base.src = `/crust/${ingredient.toLowerCase()}.png`
