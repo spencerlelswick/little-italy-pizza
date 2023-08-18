@@ -36,17 +36,24 @@
         </button>
         <div class="collapse navbar-collapse justify-content-end" id="navbarNav">
           <ul class="navbar-nav">
-            <li class="nav-item  cartHead">
-              <i style="visibility:hidden;">.</i>
-              <a class="nav-link bebas" id="menuHead" href="/order">Menu</a>
-            </li>
+
             <% let tot = 0; for (let pizza of order.items.pizzas){tot += pizza.quantity }%>
-            <li class="nav-item cartHead">
-              <button id="cartBtn" disabled <% if(!tot){ %> style="visibility:hidden;" <%}%> > <%- tot %> </button>
-              <a class="nav-link" href="/order/cart">
-                <i id="cartIcon"class="fa-xl fa-solid fa-cart-shopping"></i>
-              </a>
-            </li>
+
+            <div class="nav-container">
+              <li class="nav-item  ">
+                <a class="nav-link bebas" id="menuHead" href="/order">Menu</a>
+              </li>
+              <li class="nav-item">
+                
+                <a class="nav-link" href="/order/cart">
+                  
+                  <i id="cart-icon" class="nav-link fa-solid fa-cart-shopping">
+                    <span class="cart-indicator " disabled <% if(!tot){ %> style="visibility:hidden;" <%}%> > <%- tot %> </span>
+                  </i>
+                </a>
+              </li>
+            </div>
+
           </ul>
         </div>
       </div>
