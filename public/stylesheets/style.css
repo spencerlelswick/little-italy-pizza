@@ -49,6 +49,9 @@ a {
 }
 
 .nav-link {
+  margin:0;
+  padding: 0;
+  max-height: 80px;
   font-size: 30px;
   color: var(--white);
   font-weight: bold;
@@ -244,7 +247,7 @@ a {
 
 .nav-container {
   display: flex;
-  flex-direction: row;
+  flex-direction: column;
   justify-content: center;
   align-items: center;
 }
@@ -258,6 +261,8 @@ a {
 
 
 #cart-icon {
+  font-size: 50px;
+  text-align: center;
   position: relative;
 }
 
@@ -266,8 +271,8 @@ a {
   display: flex;
   justify-content: center;
   align-items: center;
-  bottom: 2.5rem;
-  left: 1.5rem;
+  bottom: 3rem;
+  left: 3rem;
   border-radius: 50%;
   font-size: 18px;
   width: 1.5em;
@@ -405,6 +410,9 @@ div {
   .cart-summary-body {
     overflow: auto;
     direction: rtl;
+  }
+  .nav-container {
+    flex-direction: row;
   }
 
 }
