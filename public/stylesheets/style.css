@@ -16,6 +16,7 @@ body {
   font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
   min-height: calc(100vh - 80px);
   background-color: var(--on-secondary);
+  font-family: 'Roboto Slab', serif; 
 }
 
 main {
@@ -228,7 +229,9 @@ a {
 
 .logo-text {
   font-family: rockwell, sans-serif;
+  font-family: 'Oleo Script', cursive;
   font-weight: 800;
+  font-size: 80px;
   color: var(--white);
   text-shadow: 1.5px 1.5px 1.5px var(--black);
   margin: 0;
@@ -237,6 +240,7 @@ a {
 .navbar-toggler-icon {
   background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 30 30'%3e%3cpath stroke='rgba%28255, 255, 255, 1.0%29' stroke-linecap='round' stroke-miterlimit='10' stroke-width='2' d='M4 7h22M4 15h22M4 23h22'/%3e%3c/svg%3e")
 }
+
 
 .nav-container {
   display: flex;
@@ -251,6 +255,7 @@ a {
   justify-content: center;
   align-items: center;
 }
+
 
 #cart-icon {
   position: relative;
@@ -350,6 +355,24 @@ div {
   margin: 0 0.5rem;
   width: 4rem;
 }
+
+.bebas{
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 70px;
+}
+.cartHead {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  font-size: 5px;
+}
+
+.fa-cart-shopping {
+  font-size: 70px,
+}
+
+
 
 /* Scrollbar */
 ::-webkit-scrollbar {

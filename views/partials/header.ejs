@@ -11,6 +11,12 @@
         text-decoration: none;
       }
     </style>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Oleo+Script&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Roboto+Slab:wght@500&display=swap" rel="stylesheet">
     <script src="https://kit.fontawesome.com/b82edda17a.js" crossorigin="anonymous"></script>
     <link rel="shortcut icon" href="/images/favicon.png" type="image/x-icon">
     <link rel="stylesheet" href="/css/bootstrap.min.css">
@@ -30,11 +36,12 @@
         </button>
         <div class="collapse navbar-collapse justify-content-end" id="navbarNav">
           <ul class="navbar-nav">
+
             <% let tot = 0; for (let pizza of order.items.pizzas){tot += pizza.quantity }%>
 
             <div class="nav-container">
               <li class="nav-item  ">
-                <a class="nav-link" id="menuHead" href="/order">Menu</a>
+                <a class="nav-link bebas" id="menuHead" href="/order">Menu</a>
               </li>
               <li class="nav-item">
                 
@@ -46,8 +53,7 @@
                 </a>
               </li>
             </div>
-            
-            
+
           </ul>
         </div>
       </div>
