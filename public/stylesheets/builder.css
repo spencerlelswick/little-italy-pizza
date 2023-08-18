@@ -6,7 +6,7 @@
 .topping-area {
   position: absolute;
   width: 100%;
-  animation: fadeIn 1s;
+  animation: fadeIn 2s;
 }
 
 @keyframes fadeIn {
