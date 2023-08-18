@@ -24,13 +24,11 @@ html {
   /* height: 100vh; */
 }
 
-
 body {
   font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
   min-height: calc(100vh - 80px);
   background-color: var(--on-secondary);
 }
-
 
 main {
   /* display: flex;
@@ -100,7 +98,6 @@ a {
   overflow: hidden;
 }
 
-
 #prebuiltPizzas {
   display: flex;
   flex-direction: row;
@@ -122,13 +119,11 @@ a {
   border-radius: 50%;
 }
 
-
 .cart-summary {
   padding: 1rem;
   position: unset;
   width: unset;
 }
-
 
 .cart-summary>p {
   padding: 0;
@@ -211,8 +206,6 @@ a {
   border-top-right-radius: 100%;
   border-bottom-right-radius: 100%;
 }
-
-
 
 .heading {
   font-size: 2vw;
@@ -297,7 +290,6 @@ a {
   box-shadow: 0.1em 0.1em 0.1em var(--black);
 }
 
-
 .text-primary,
 legend {
   color: var(--on-primary) !important;
@@ -309,8 +301,6 @@ legend {
   border-color: var(--black) !important;
 }
 
-
-
 .container {
   margin: auto;
 }
@@ -318,7 +308,6 @@ legend {
 .ad-container {
   padding: 1rem;
 }
-
 
 .flex-column-stretch {
   display: flex;
@@ -333,11 +322,9 @@ legend {
   object-position: center center;
 }
 
-
 div {
   margin: 0;
 }
-
 
 #builder {
   display: flex;
@@ -345,6 +332,13 @@ div {
   align-items: center;
   box-sizing: border-box;
   position: relative;
+}
+
+.builder-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
 }
 
 

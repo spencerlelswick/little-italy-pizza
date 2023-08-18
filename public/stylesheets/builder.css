@@ -6,4 +6,17 @@
 .topping-area {
   position: absolute;
   width: 100%;
+  animation: fadeIn 1s;
+}
+
+@keyframes fadeIn {
+  0% {
+    transform: translate(0px, -50px);
+    opacity: 0;
+  }
+
+  100% {
+    transform: translate(0px, 0px);
+    opacity: 1;
+  }
 }
