@@ -2,7 +2,7 @@
 
 # Little Italy Pizza
 
-Litlle Italy Pizza is a web application for a fictitious pizza shop.
+Little Italy Pizza is a web application for a fictitious pizza shop.
 Created as a week-long pair programming project at GA Software Engineering Immersive Bootcamp.
 
 ## Feature
