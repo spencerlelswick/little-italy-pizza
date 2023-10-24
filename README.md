@@ -3,7 +3,8 @@
 # Little Italy Pizza
 
 Little Italy Pizza is a web application for a fictitious pizza shop.
-Created as a week-long pair programming project at GA Software Engineering Immersive Bootcamp.
+
+[Live app](https://littleitaly-e2a8e59785f8.herokuapp.com/)
 
 ## Feature
 
